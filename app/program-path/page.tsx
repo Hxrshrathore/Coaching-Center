@@ -83,6 +83,7 @@ export default function ProgramPathPage() {
                     icon={<BookCheck className="h-8 w-8 text-blue-600 dark:text-blue-400" />}
                     duration="4 months"
                     color="blue"
+                    href="/program-path/courses"
                   />
                   <CourseCard
                     title="SSC CHSL"
@@ -90,6 +91,7 @@ export default function ProgramPathPage() {
                     icon={<BookCheck className="h-8 w-8 text-blue-600 dark:text-blue-400" />}
                     duration="3 months"
                     color="blue"
+                    href="/program-path/courses"
                   />
                   <CourseCard
                     title="SSC MTS"
@@ -97,6 +99,7 @@ export default function ProgramPathPage() {
                     icon={<BookCheck className="h-8 w-8 text-blue-600 dark:text-blue-400" />}
                     duration="2 months"
                     color="blue"
+                    href="/program-path/courses"
                   />
                   <CourseCard
                     title="SSC GD Constable"
@@ -104,6 +107,7 @@ export default function ProgramPathPage() {
                     icon={<BookCheck className="h-8 w-8 text-blue-600 dark:text-blue-400" />}
                     duration="3 months"
                     color="blue"
+                    href="/program-path/courses"
                   />
                   <CourseCard
                     title="SSC CPO"
@@ -111,6 +115,7 @@ export default function ProgramPathPage() {
                     icon={<BookCheck className="h-8 w-8 text-blue-600 dark:text-blue-400" />}
                     duration="4 months"
                     color="blue"
+                    href="/program-path/courses"
                   />
                   <CourseCard
                     title="SSC JE"
@@ -118,6 +123,7 @@ export default function ProgramPathPage() {
                     icon={<BookCheck className="h-8 w-8 text-blue-600 dark:text-blue-400" />}
                     duration="5 months"
                     color="blue"
+                    href="/program-path/courses"
                   />
                 </div>
 
@@ -169,6 +175,7 @@ export default function ProgramPathPage() {
                     icon={<BookCheck className="h-8 w-8 text-blue-600 dark:text-blue-400" />}
                     duration="4 months"
                     color="blue"
+                    href="/program-path/courses"
                   />
                   <CourseCard
                     title="SBI Clerk"
@@ -176,6 +183,7 @@ export default function ProgramPathPage() {
                     icon={<BookCheck className="h-8 w-8 text-blue-600 dark:text-blue-400" />}
                     duration="3 months"
                     color="blue"
+                    href="/program-path/courses"
                   />
                   <CourseCard
                     title="RBI Assistant"
@@ -183,6 +191,7 @@ export default function ProgramPathPage() {
                     icon={<BookCheck className="h-8 w-8 text-blue-600 dark:text-blue-400" />}
                     duration="4 months"
                     color="blue"
+                    href="/program-path/courses"
                   />
                   <CourseCard
                     title="IBPS Clerk"
@@ -190,6 +199,7 @@ export default function ProgramPathPage() {
                     icon={<BookCheck className="h-8 w-8 text-blue-600 dark:text-blue-400" />}
                     duration="3 months"
                     color="blue"
+                    href="/program-path/courses"
                   />
                   <CourseCard
                     title="SBI PO"
@@ -197,6 +207,7 @@ export default function ProgramPathPage() {
                     icon={<BookCheck className="h-8 w-8 text-blue-600 dark:text-blue-400" />}
                     duration="4 months"
                     color="blue"
+                    href="/program-path/courses"
                   />
                   <CourseCard
                     title="Bank SO"
@@ -204,6 +215,7 @@ export default function ProgramPathPage() {
                     icon={<BookCheck className="h-8 w-8 text-blue-600 dark:text-blue-400" />}
                     duration="5 months"
                     color="blue"
+                    href="/program-path/courses"
                   />
                 </div>
 
@@ -254,6 +266,7 @@ export default function ProgramPathPage() {
                     icon={<GraduationCap className="h-8 w-8 text-blue-600 dark:text-blue-400" />}
                     duration="12 months"
                     color="blue"
+                    href="/program-path/courses"
                   />
                   <CourseCard
                     title="JEE Advanced"
@@ -261,6 +274,7 @@ export default function ProgramPathPage() {
                     icon={<GraduationCap className="h-8 w-8 text-blue-600 dark:text-blue-400" />}
                     duration="12 months"
                     color="blue"
+                    href="/program-path/courses"
                   />
                   <CourseCard
                     title="JEE Crash Course"
@@ -268,6 +282,7 @@ export default function ProgramPathPage() {
                     icon={<GraduationCap className="h-8 w-8 text-blue-600 dark:text-blue-400" />}
                     duration="2 months"
                     color="blue"
+                    href="/program-path/courses"
                   />
                   <CourseCard
                     title="JEE Foundation"
@@ -275,6 +290,7 @@ export default function ProgramPathPage() {
                     icon={<GraduationCap className="h-8 w-8 text-blue-600 dark:text-blue-400" />}
                     duration="24 months"
                     color="blue"
+                    href="/program-path/courses"
                   />
                   <CourseCard
                     title="JEE Physics Focus"
@@ -282,6 +298,7 @@ export default function ProgramPathPage() {
                     icon={<GraduationCap className="h-8 w-8 text-blue-600 dark:text-blue-400" />}
                     duration="6 months"
                     color="blue"
+                    href="/program-path/courses"
                   />
                   <CourseCard
                     title="JEE Mathematics Focus"
@@ -289,6 +306,7 @@ export default function ProgramPathPage() {
                     icon={<GraduationCap className="h-8 w-8 text-blue-600 dark:text-blue-400" />}
                     duration="6 months"
                     color="blue"
+                    href="/program-path/courses"
                   />
                 </div>
 
@@ -342,6 +360,7 @@ export default function ProgramPathPage() {
                     icon={<GraduationCap className="h-8 w-8 text-blue-600 dark:text-blue-400" />}
                     duration="12 months"
                     color="blue"
+                    href="/program-path/courses"
                   />
                   <CourseCard
                     title="NEET Biology Focus"
@@ -349,6 +368,7 @@ export default function ProgramPathPage() {
                     icon={<GraduationCap className="h-8 w-8 text-blue-600 dark:text-blue-400" />}
                     duration="6 months"
                     color="blue"
+                    href="/program-path/courses"
                   />
                   <CourseCard
                     title="NEET Crash Course"
@@ -356,6 +376,7 @@ export default function ProgramPathPage() {
                     icon={<GraduationCap className="h-8 w-8 text-blue-600 dark:text-blue-400" />}
                     duration="2 months"
                     color="blue"
+                    href="/program-path/courses"
                   />
                   <CourseCard
                     title="NEET Foundation"
@@ -363,6 +384,7 @@ export default function ProgramPathPage() {
                     icon={<GraduationCap className="h-8 w-8 text-blue-600 dark:text-blue-400" />}
                     duration="24 months"
                     color="blue"
+                    href="/program-path/courses"
                   />
                   <CourseCard
                     title="NEET Physics & Chemistry"
@@ -370,6 +392,7 @@ export default function ProgramPathPage() {
                     icon={<GraduationCap className="h-8 w-8 text-blue-600 dark:text-blue-400" />}
                     duration="6 months"
                     color="blue"
+                    href="/program-path/courses"
                   />
                   <CourseCard
                     title="NEET Repeaters"
@@ -377,6 +400,7 @@ export default function ProgramPathPage() {
                     icon={<GraduationCap className="h-8 w-8 text-blue-600 dark:text-blue-400" />}
                     duration="8 months"
                     color="blue"
+                    href="/program-path/courses"
                   />
                 </div>
 
@@ -429,6 +453,7 @@ export default function ProgramPathPage() {
                     icon={<Award className="h-8 w-8 text-blue-600 dark:text-blue-400" />}
                     duration="6 months"
                     color="blue"
+                    href="/program-path/courses"
                   />
                   <CourseCard
                     title="Science Olympiad"
@@ -436,6 +461,7 @@ export default function ProgramPathPage() {
                     icon={<Award className="h-8 w-8 text-blue-600 dark:text-blue-400" />}
                     duration="6 months"
                     color="blue"
+                    href="/program-path/courses"
                   />
                   <CourseCard
                     title="Informatics Olympiad"
@@ -443,6 +469,7 @@ export default function ProgramPathPage() {
                     icon={<Award className="h-8 w-8 text-blue-600 dark:text-blue-400" />}
                     duration="6 months"
                     color="blue"
+                    href="/program-path/courses"
                   />
                   <CourseCard
                     title="Physics Olympiad"
@@ -450,6 +477,7 @@ export default function ProgramPathPage() {
                     icon={<Award className="h-8 w-8 text-blue-600 dark:text-blue-400" />}
                     duration="6 months"
                     color="blue"
+                    href="/program-path/courses"
                   />
                   <CourseCard
                     title="Chemistry Olympiad"
@@ -457,6 +485,7 @@ export default function ProgramPathPage() {
                     icon={<Award className="h-8 w-8 text-blue-600 dark:text-blue-400" />}
                     duration="6 months"
                     color="blue"
+                    href="/program-path/courses"
                   />
                   <CourseCard
                     title="Astronomy Olympiad"
@@ -464,6 +493,7 @@ export default function ProgramPathPage() {
                     icon={<Award className="h-8 w-8 text-blue-600 dark:text-blue-400" />}
                     duration="6 months"
                     color="blue"
+                    href="/program-path/courses"
                   />
                 </div>
 

@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from "@/components/ui/badge"
 // import { Navbar } from "@/components/navbar"
 // import { Footer } from "@/components/footer"
+import { NewsletterForm } from "@/components/ui/newsletter-form"
 
 export default function WhatsNewPage() {
   return (
@@ -66,7 +67,7 @@ export default function WhatsNewPage() {
                   </p>
                 </CardContent>
                 <CardFooter>
-                  <Link href="/program-path/jee-advanced-intensive" className="w-full">
+                  <Link href="/program-path" className="w-full">
                     <Button
                       variant="outline"
                       className="w-full border-blue-200 text-blue-700 hover:bg-blue-50 hover:text-blue-800 dark:border-blue-800 dark:text-blue-400 dark:hover:bg-blue-950"
@@ -176,7 +177,9 @@ export default function WhatsNewPage() {
                       </div>
                     </div>
                   </div>
-                  <Button className="bg-blue-600 hover:bg-blue-700">Register</Button>
+                  <Link href="/get-enrolled?event=jee-advanced-workshop">
+                    <Button className="bg-blue-600 hover:bg-blue-700">Register</Button>
+                  </Link>
                 </div>
               </div>
 
@@ -202,7 +205,9 @@ export default function WhatsNewPage() {
                       </div>
                     </div>
                   </div>
-                  <Button className="bg-blue-600 hover:bg-blue-700">Schedule Meeting</Button>
+                  <Link href="/reach-out?meeting=parent-teacher">
+                    <Button className="bg-blue-600 hover:bg-blue-700">Schedule Meeting</Button>
+                  </Link>
                 </div>
               </div>
 
@@ -228,7 +233,9 @@ export default function WhatsNewPage() {
                       </div>
                     </div>
                   </div>
-                  <Button className="bg-blue-600 hover:bg-blue-700">Register</Button>
+                  <Link href="/get-enrolled?event=national-scholarship-test">
+                    <Button className="bg-blue-600 hover:bg-blue-700">Register</Button>
+                  </Link>
                 </div>
               </div>
 
@@ -254,7 +261,9 @@ export default function WhatsNewPage() {
                       </div>
                     </div>
                   </div>
-                  <Button className="bg-blue-600 hover:bg-blue-700">Register</Button>
+                  <Link href="/reach-out?counseling=career-guidance">
+                    <Button className="bg-blue-600 hover:bg-blue-700">Register</Button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -513,18 +522,7 @@ export default function WhatsNewPage() {
                   Subscribe to our newsletter to receive the latest updates, announcements, and educational resources.
                 </p>
               </div>
-              <div className="mx-auto w-full max-w-sm space-y-2">
-                <form className="flex gap-2">
-                  <input
-                    type="email"
-                    placeholder="Enter your email"
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                  />
-                  <Button type="submit" className="bg-white text-blue-600 ">
-                    Subscribe
-                  </Button>
-                </form>
-              </div>
+              <NewsletterForm darkMode={true} buttonText="Subscribe" className="max-w-sm mx-auto" />
             </div>
           </div>
         </section>

@@ -12,6 +12,7 @@ import { SectionHeading } from "@/components/ui/section-heading"
 import { FadeIn } from "@/components/animations/fade-in"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { StaticFormHandler } from "@/components/ui/static-form-handler"
 
 export default function GetEnrolledPage() {
   // Enrollment steps data
@@ -186,24 +187,30 @@ export default function GetEnrolledPage() {
             <Tabs defaultValue="ssc" className="w-full">
               <div className="flex justify-center mb-8 overflow-x-auto pb-2 md:pb-0">
                 <TabsList className="grid min-w-[300px] grid-cols-3 bg-white dark:bg-slate-800">
-                  <TabsTrigger
-                    value="ssc"
-                    className="data-[state=active]:bg-blue-600 data-[state=active]:text-white text-xs sm:text-sm"
-                  >
-                    SSC & Banking
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="jee"
-                    className="data-[state=active]:bg-blue-600 data-[state=active]:text-white text-xs sm:text-sm"
-                  >
-                    JEE
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="neet"
-                    className="data-[state=active]:bg-blue-600 data-[state=active]:text-white text-xs sm:text-sm"
-                  >
-                    NEET
-                  </TabsTrigger>
+                  <Link href="/program-path/ssc-banking">
+                    <TabsTrigger
+                      value="ssc"
+                      className="data-[state=active]:bg-blue-600 data-[state=active]:text-white text-xs sm:text-sm"
+                    >
+                      SSC & Banking
+                    </TabsTrigger>
+                  </Link>
+                  <Link href="/program-path/jee">
+                    <TabsTrigger
+                      value="jee"
+                      className="data-[state=active]:bg-blue-600 data-[state=active]:text-white text-xs sm:text-sm"
+                    >
+                      JEE
+                    </TabsTrigger>
+                  </Link>
+                  <Link href="/program-path/neet">
+                    <TabsTrigger
+                      value="neet"
+                      className="data-[state=active]:bg-blue-600 data-[state=active]:text-white text-xs sm:text-sm"
+                    >
+                      NEET
+                    </TabsTrigger>
+                  </Link>
                 </TabsList>
               </div>
 
@@ -285,28 +292,92 @@ export default function GetEnrolledPage() {
                     <CardDescription>Please provide your personal details</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                      <div className="space-y-2">
-                        <Label htmlFor="first-name">First Name</Label>
-                        <Input id="first-name" placeholder="Enter your first name" required />
+                    <StaticFormHandler
+                      formId="enrollment-form"
+                      formName="enrollment-form"
+                      submitButtonText="Submit Enrollment"
+                      successMessage="Thank you for your enrollment! Our team will contact you shortly."
+                      className="space-y-4"
+                    >
+                      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        <div className="space-y-2">
+                          <Label htmlFor="first-name">First Name</Label>
+                          <Input id="first-name" name="first-name" placeholder="Enter your first name" required />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="last-name">Last Name</Label>
+                          <Input id="last-name" name="last-name" placeholder="Enter your last name" required />
+                        </div>
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="last-name">Last Name</Label>
-                        <Input id="last-name" placeholder="Enter your last name" required />
+                        <Label htmlFor="email">Email Address</Label>
+                        <Input type="email" id="email" name="email" placeholder="Enter your email address" required />
                       </div>
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="email">Email Address</Label>
-                      <Input type="email" id="email" placeholder="Enter your email address" required />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="phone">Phone Number</Label>
-                      <Input type="tel" id="phone" placeholder="Enter your phone number" required />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="address">Address</Label>
-                      <Textarea id="address" placeholder="Enter your address" rows={3} />
-                    </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="phone">Phone Number</Label>
+                        <Input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="address">Address</Label>
+                        <Textarea id="address" name="address" placeholder="Enter your address" rows={3} />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="education">Current Education</Label>
+                        <Select name="education">
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select your current education" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="10th">10th Standard</SelectItem>
+                            <SelectItem value="12th">12th Standard</SelectItem>
+                            <SelectItem value="graduate">Graduate</SelectItem>
+                            <SelectItem value="postgraduate">Post Graduate</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="school">School/College Name</Label>
+                        <Input id="school" name="school" placeholder="Enter your school/college name" />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="course">Select Course</Label>
+                        <Select name="course">
+                          <SelectTrigger>
+                            <SelectValue placeholder="Choose a course" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="ssc-cgl">SSC CGL</SelectItem>
+                            <SelectItem value="bank-po">Bank PO</SelectItem>
+                            <SelectItem value="jee-main">JEE Main</SelectItem>
+                            <SelectItem value="jee-advanced">JEE Advanced</SelectItem>
+                            <SelectItem value="neet">NEET</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="batch">Preferred Batch</Label>
+                        <Select name="batch">
+                          <SelectTrigger>
+                            <SelectValue placeholder="Choose preferred batch" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="morning">Morning Batch (8:00 AM - 11:00 AM)</SelectItem>
+                            <SelectItem value="afternoon">Afternoon Batch (12:00 PM - 3:00 PM)</SelectItem>
+                            <SelectItem value="evening">Evening Batch (4:00 PM - 7:00 PM)</SelectItem>
+                            <SelectItem value="weekend">Weekend Batch</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="message">Additional Information</Label>
+                        <Textarea
+                          id="message"
+                          name="message"
+                          placeholder="Any additional information you'd like to share"
+                          rows={3}
+                        />
+                      </div>
+                    </StaticFormHandler>
                   </CardContent>
                 </Card>
               </FadeIn>
@@ -314,65 +385,57 @@ export default function GetEnrolledPage() {
               <FadeIn delay={0.4} direction="right">
                 <Card className="bg-white dark:bg-slate-800 border-none shadow-md">
                   <CardHeader>
-                    <CardTitle>Academic Information</CardTitle>
-                    <CardDescription>Please provide your academic details</CardDescription>
+                    <CardTitle>What to Expect</CardTitle>
+                    <CardDescription>After submitting your enrollment form</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="education">Current Education</Label>
-                      <Select>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select your current education" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="10th">10th Standard</SelectItem>
-                          <SelectItem value="12th">12th Standard</SelectItem>
-                          <SelectItem value="graduate">Graduate</SelectItem>
-                          <SelectItem value="postgraduate">Post Graduate</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="school">School/College Name</Label>
-                      <Input id="school" placeholder="Enter your school/college name" />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="course">Select Course</Label>
-                      <Select>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Choose a course" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="ssc-cgl">SSC CGL</SelectItem>
-                          <SelectItem value="bank-po">Bank PO</SelectItem>
-                          <SelectItem value="jee-main">JEE Main</SelectItem>
-                          <SelectItem value="jee-advanced">JEE Advanced</SelectItem>
-                          <SelectItem value="neet">NEET</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="batch">Preferred Batch</Label>
-                      <Select>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Choose preferred batch" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="morning">Morning Batch (8:00 AM - 11:00 AM)</SelectItem>
-                          <SelectItem value="afternoon">Afternoon Batch (12:00 PM - 3:00 PM)</SelectItem>
-                          <SelectItem value="evening">Evening Batch (4:00 PM - 7:00 PM)</SelectItem>
-                          <SelectItem value="weekend">Weekend Batch</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="message">Additional Information</Label>
-                      <Textarea id="message" placeholder="Any additional information you'd like to share" rows={3} />
+                    <div className="space-y-4">
+                      <div className="flex items-start gap-3">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900">
+                          <CheckCircle className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+                        </div>
+                        <div>
+                          <h4 className="text-sm font-semibold">Confirmation Email</h4>
+                          <p className="text-sm text-slate-600 dark:text-slate-400">
+                            You'll receive a confirmation email with your enrollment details.
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900">
+                          <Calendar className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+                        </div>
+                        <div>
+                          <h4 className="text-sm font-semibold">Counseling Session</h4>
+                          <p className="text-sm text-slate-600 dark:text-slate-400">
+                            Our team will contact you to schedule a counseling session.
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900">
+                          <BookOpen className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+                        </div>
+                        <div>
+                          <h4 className="text-sm font-semibold">Assessment Test</h4>
+                          <p className="text-sm text-slate-600 dark:text-slate-400">
+                            You'll be invited to take an assessment test to evaluate your current knowledge level.
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900">
+                          <Award className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+                        </div>
+                        <div>
+                          <h4 className="text-sm font-semibold">Final Admission</h4>
+                          <p className="text-sm text-slate-600 dark:text-slate-400">
+                            Complete the admission formalities and join our community of achievers.
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </CardContent>
-                  <CardFooter>
-                    <Button className="w-full bg-blue-600 hover:bg-blue-700">Submit Enrollment</Button>
-                  </CardFooter>
                 </Card>
               </FadeIn>
             </div>
@@ -420,12 +483,14 @@ export default function GetEnrolledPage() {
                     </div>
                   </CardContent>
                   <CardFooter>
-                    <Button
-                      variant="outline"
-                      className="w-full border-blue-200 text-blue-700 hover:bg-blue-50 hover:text-blue-800 dark:border-blue-800 dark:text-blue-400 dark:hover:bg-blue-950"
-                    >
-                      Apply for Scholarship
-                    </Button>
+                    <Link href="/scholarships">
+                      <Button
+                        variant="outline"
+                        className="w-full border-blue-200 text-blue-700 hover:bg-blue-50 hover:text-blue-800 dark:border-blue-800 dark:text-blue-400 dark:hover:bg-blue-950"
+                      >
+                        Apply for Scholarship
+                      </Button>
+                    </Link>
                   </CardFooter>
                 </Card>
               </FadeIn>
@@ -460,12 +525,14 @@ export default function GetEnrolledPage() {
                     </div>
                   </CardContent>
                   <CardFooter>
-                    <Button
-                      variant="outline"
-                      className="w-full border-blue-200 text-blue-700 hover:bg-blue-50 hover:text-blue-800 dark:border-blue-800 dark:text-blue-400 dark:hover:bg-blue-950"
-                    >
-                      Apply for Scholarship
-                    </Button>
+                    <Link href="/scholarships">
+                      <Button
+                        variant="outline"
+                        className="w-full border-blue-200 text-blue-700 hover:bg-blue-50 hover:text-blue-800 dark:border-blue-800 dark:text-blue-400 dark:hover:bg-blue-950"
+                      >
+                        Apply for Scholarship
+                      </Button>
+                    </Link>
                   </CardFooter>
                 </Card>
               </FadeIn>
@@ -500,12 +567,14 @@ export default function GetEnrolledPage() {
                     </div>
                   </CardContent>
                   <CardFooter>
-                    <Button
-                      variant="outline"
-                      className="w-full border-blue-200 text-blue-700 hover:bg-blue-50 hover:text-blue-800 dark:border-blue-800 dark:text-blue-400 dark:hover:bg-blue-950"
-                    >
-                      Apply for Scholarship
-                    </Button>
+                    <Link href="/scholarships">
+                      <Button
+                        variant="outline"
+                        className="w-full border-blue-200 text-blue-700 hover:bg-blue-50 hover:text-blue-800 dark:border-blue-800 dark:text-blue-400 dark:hover:bg-blue-950"
+                      >
+                        Apply for Scholarship
+                      </Button>
+                    </Link>
                   </CardFooter>
                 </Card>
               </FadeIn>
@@ -684,7 +753,7 @@ export default function GetEnrolledPage() {
                 </p>
               </div>
               <div className="flex flex-col gap-2 min-[400px]:flex-row">
-                <Link href="#enrollment-form">
+                <Link href="/get-enrolled">
                   <Button size="lg" className="gap-1 bg-white text-blue-600 hover:bg-blue-50">
                     Enroll Now <ArrowRight className="h-4 w-4" />
                   </Button>

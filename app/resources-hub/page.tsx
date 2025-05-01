@@ -78,7 +78,9 @@ export default function ResourcesHubPage() {
                   </ul>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full bg-blue-600 hover:bg-blue-700">Access Notes</Button>
+                  <Link href="/resources-hub/notes">
+                    <Button className="w-full bg-blue-600 hover:bg-blue-700">Access Notes</Button>
+                  </Link>
                 </CardFooter>
               </Card>
 
@@ -111,7 +113,9 @@ export default function ResourcesHubPage() {
                   </ul>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full bg-blue-600 hover:bg-blue-700">Access Worksheets</Button>
+                  <Link href="/resources-hub/worksheets">
+                    <Button className="w-full bg-blue-600 hover:bg-blue-700">Access Worksheets</Button>
+                  </Link>
                 </CardFooter>
               </Card>
 
@@ -144,7 +148,9 @@ export default function ResourcesHubPage() {
                   </ul>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full bg-blue-600 hover:bg-blue-700">Access Formula Sheets</Button>
+                  <Link href="/resources-hub/formula-sheets">
+                    <Button className="w-full bg-blue-600 hover:bg-blue-700">Access Formula Sheets</Button>
+                  </Link>
                 </CardFooter>
               </Card>
             </div>
@@ -198,7 +204,9 @@ export default function ResourcesHubPage() {
                   </ul>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full bg-blue-600 hover:bg-blue-700">Take Mock Tests</Button>
+                  <Link href="/resources-hub/mock-tests">
+                    <Button className="w-full bg-blue-600 hover:bg-blue-700">Take Mock Tests</Button>
+                  </Link>
                 </CardFooter>
               </Card>
 
@@ -231,7 +239,9 @@ export default function ResourcesHubPage() {
                   </ul>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full bg-blue-600 hover:bg-blue-700">Take Section Tests</Button>
+                  <Link href="/resources-hub/section-tests">
+                    <Button className="w-full bg-blue-600 hover:bg-blue-700">Take Section Tests</Button>
+                  </Link>
                 </CardFooter>
               </Card>
 
@@ -264,7 +274,9 @@ export default function ResourcesHubPage() {
                   </ul>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full bg-blue-600 hover:bg-blue-700">View Analytics</Button>
+                  <Link href="/resources-hub/analytics">
+                    <Button className="w-full bg-blue-600 hover:bg-blue-700">View Analytics</Button>
+                  </Link>
                 </CardFooter>
               </Card>
             </div>
@@ -328,7 +340,9 @@ export default function ResourcesHubPage() {
                   </ul>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full bg-blue-600 hover:bg-blue-700">Watch Lectures</Button>
+                  <Link href="/resources-hub/lectures">
+                    <Button className="w-full bg-blue-600 hover:bg-blue-700">Watch Lectures</Button>
+                  </Link>
                 </CardFooter>
               </Card>
 
@@ -375,7 +389,9 @@ export default function ResourcesHubPage() {
                   </ul>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full bg-blue-600 hover:bg-blue-700">Watch Sessions</Button>
+                  <Link href="/resources-hub/sessions">
+                    <Button className="w-full bg-blue-600 hover:bg-blue-700">Watch Sessions</Button>
+                  </Link>
                 </CardFooter>
               </Card>
 
@@ -422,7 +438,9 @@ export default function ResourcesHubPage() {
                   </ul>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full bg-blue-600 hover:bg-blue-700">Join Sessions</Button>
+                  <Link href="/resources-hub/join-sessions">
+                    <Button className="w-full bg-blue-600 hover:bg-blue-700">Join Sessions</Button>
+                  </Link>
                 </CardFooter>
               </Card>
             </div>
@@ -476,7 +494,9 @@ export default function ResourcesHubPage() {
                   </ul>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full bg-blue-600 hover:bg-blue-700">Access Updates</Button>
+                  <Link href="/resources-hub/updates">
+                    <Button className="w-full bg-blue-600 hover:bg-blue-700">Access Updates</Button>
+                  </Link>
                 </CardFooter>
               </Card>
 
@@ -509,7 +529,9 @@ export default function ResourcesHubPage() {
                   </ul>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full bg-blue-600 hover:bg-blue-700">Access Magazines</Button>
+                  <Link href="/resources-hub/magazines">
+                    <Button className="w-full bg-blue-600 hover:bg-blue-700">Access Magazines</Button>
+                  </Link>
                 </CardFooter>
               </Card>
 
@@ -542,7 +564,9 @@ export default function ResourcesHubPage() {
                   </ul>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full bg-blue-600 hover:bg-blue-700">Take Quizzes</Button>
+                  <Link href="/resources-hub/quizzes">
+                    <Button className="w-full bg-blue-600 hover:bg-blue-700">Take Quizzes</Button>
+                  </Link>
                 </CardFooter>
               </Card>
             </div>

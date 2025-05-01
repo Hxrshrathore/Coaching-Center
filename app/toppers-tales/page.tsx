@@ -227,12 +227,14 @@ export default function ToppersTalesPage() {
                           </div>
                         </CardContent>
                         <CardFooter>
-                          <Button
-                            variant="outline"
-                            className="w-full border-blue-200 text-blue-700 hover:bg-blue-50 hover:text-blue-800 dark:border-blue-800 dark:text-blue-400 dark:hover:bg-blue-950"
-                          >
-                            Read Full Story
-                          </Button>
+                          <Link href={`/toppers-tales/${story.name.toLowerCase().replace(/\s+/g, "-")}`}>
+                            <Button
+                              variant="outline"
+                              className="w-full border-blue-200 text-blue-700 hover:bg-blue-50 hover:text-blue-800 dark:border-blue-800 dark:text-blue-400 dark:hover:bg-blue-950"
+                            >
+                              Read Full Story
+                            </Button>
+                          </Link>
                         </CardFooter>
                       </Card>
                     </FadeIn>
@@ -291,12 +293,14 @@ export default function ToppersTalesPage() {
                             </div>
                           </CardContent>
                           <CardFooter>
-                            <Button
-                              variant="outline"
-                              className="w-full border-blue-200 text-blue-700 hover:bg-blue-50 hover:text-blue-800 dark:border-blue-800 dark:text-blue-400 dark:hover:bg-blue-950"
-                            >
-                              Read Full Story
-                            </Button>
+                            <Link href={`/toppers-tales/${story.name.toLowerCase().replace(/\s+/g, "-")}`}>
+                              <Button
+                                variant="outline"
+                                className="w-full border-blue-200 text-blue-700 hover:bg-blue-50 hover:text-blue-800 dark:border-blue-800 dark:text-blue-400 dark:hover:bg-blue-950"
+                              >
+                                Read Full Story
+                              </Button>
+                            </Link>
                           </CardFooter>
                         </Card>
                       </FadeIn>
@@ -355,12 +359,14 @@ export default function ToppersTalesPage() {
                             </div>
                           </CardContent>
                           <CardFooter>
-                            <Button
-                              variant="outline"
-                              className="w-full border-blue-200 text-blue-700 hover:bg-blue-50 hover:text-blue-800 dark:border-blue-800 dark:text-blue-400 dark:hover:bg-blue-950"
-                            >
-                              Read Full Story
-                            </Button>
+                            <Link href={`/toppers-tales/${story.name.toLowerCase().replace(/\s+/g, "-")}`}>
+                              <Button
+                                variant="outline"
+                                className="w-full border-blue-200 text-blue-700 hover:bg-blue-50 hover:text-blue-800 dark:border-blue-800 dark:text-blue-400 dark:hover:bg-blue-950"
+                              >
+                                Read Full Story
+                              </Button>
+                            </Link>
                           </CardFooter>
                         </Card>
                       </FadeIn>
@@ -419,12 +425,14 @@ export default function ToppersTalesPage() {
                             </div>
                           </CardContent>
                           <CardFooter>
-                            <Button
-                              variant="outline"
-                              className="w-full border-blue-200 text-blue-700 hover:bg-blue-50 hover:text-blue-800 dark:border-blue-800 dark:text-blue-400 dark:hover:bg-blue-950"
-                            >
-                              Read Full Story
-                            </Button>
+                            <Link href={`/toppers-tales/${story.name.toLowerCase().replace(/\s+/g, "-")}`}>
+                              <Button
+                                variant="outline"
+                                className="w-full border-blue-200 text-blue-700 hover:bg-blue-50 hover:text-blue-800 dark:border-blue-800 dark:text-blue-400 dark:hover:bg-blue-950"
+                              >
+                                Read Full Story
+                              </Button>
+                            </Link>
                           </CardFooter>
                         </Card>
                       </FadeIn>
