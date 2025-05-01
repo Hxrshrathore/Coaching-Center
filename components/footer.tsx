@@ -222,7 +222,8 @@ export function Footer() {
         <div className="mt-12 border-t pt-8">
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <p className="text-sm text-slate-600 dark:text-slate-400">
-              © {new Date().getFullYear()} Ascent Coaching Classes. All rights reserved.
+              © {new Date().getFullYear()} Ascent Coaching Classes. All rights reserved. | Developed by{" "}
+              <span className="font-medium text-blue-600 dark:text-blue-400">Hxrshrathore</span>
             </p>
             <div className="flex gap-4 text-sm text-slate-600 dark:text-slate-400">
               <Link href="/privacy-policy" className="hover:text-blue-600 dark:hover:text-blue-400">
