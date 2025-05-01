@@ -45,7 +45,7 @@ export function BackToTop({ className, threshold = 300, smooth = true }: BackToT
       )}
       onClick={scrollToTop}
     >
-      <ArrowUp className="h-5 w-5 text-brand-blue" />
+      <ArrowUp className="h-5 w-5" />
       <span className="sr-only">Back to top</span>
     </Button>
   )

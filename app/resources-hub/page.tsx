@@ -4,13 +4,13 @@ import { ArrowRight, BookOpen, Award, Users, Calendar, BookCheck, FileText, Vide
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
+// import { Navbar } from "@/components/navbar"
+// import { Footer } from "@/components/footer"
 
 export default function ResourcesHubPage() {
   return (
     <div className="flex min-h-screen flex-col">
-      <Navbar />
+      {/* <Navbar /> */}
       <main className="flex-1">
         {/* Hero Section */}
         <section className="w-full py-12 md:py-24 lg:py-32 bg-gradient-to-b from-blue-50 to-white dark:from-slate-900 dark:to-slate-800">
@@ -581,7 +581,7 @@ export default function ResourcesHubPage() {
           </div>
         </section>
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   )
 }

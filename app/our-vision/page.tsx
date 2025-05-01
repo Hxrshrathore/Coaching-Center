@@ -3,13 +3,10 @@ import Image from "next/image"
 import { ArrowRight, BookOpen, Award, Users, GraduationCap, CheckCircle, MapPin } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
 
 export default function OurVisionPage() {
   return (
     <div className="flex min-h-screen flex-col">
-      <Navbar />
       <main className="flex-1">
         {/* Hero Section */}
         <section className="w-full py-12 md:py-24 lg:py-32 bg-gradient-to-b from-blue-50 to-white dark:from-slate-900 dark:to-slate-800">
@@ -241,7 +238,6 @@ export default function OurVisionPage() {
           </div>
         </section>
       </main>
-      <Footer />
     </div>
   )
 }

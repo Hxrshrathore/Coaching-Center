@@ -45,24 +45,6 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Custom brand colors - adjusted for better contrast
-        brand: {
-          blue: "#0077B6", // Darker blue for better contrast
-          teal: "#0A9396", // Darker teal for better contrast
-          light: "#E0F7FA", // Lighter background for contrast with dark text
-          dark: "#003D5B", // Darker blue for white text
-          // Additional accessible colors
-          accent: "#FF9E1B", // Accessible orange accent
-          text: {
-            dark: "#1A202C", // Dark text for light backgrounds
-            light: "#F7FAFC", // Light text for dark backgrounds
-            muted: "#4A5568", // Muted text that still meets contrast requirements
-          },
-          bg: {
-            light: "#F0F9FF", // Light background
-            dark: "#002B3D", // Dark background
-          },
-        },
       },
       borderRadius: {
         lg: "var(--radius)",

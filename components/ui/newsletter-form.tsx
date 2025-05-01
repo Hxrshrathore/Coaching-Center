@@ -3,94 +3,68 @@
 import type React from "react"
 
 import { useState } from "react"
-import { Mail, CheckCircle, AlertCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 
 interface NewsletterFormProps {
-  className?: string
-  buttonText?: string
-  placeholder?: string
   darkMode?: boolean
+  buttonText?: string
+  className?: string
 }
 
-export function NewsletterForm({
-  className,
-  buttonText = "Subscribe",
-  placeholder = "Enter your email",
-  darkMode = false,
-}: NewsletterFormProps) {
+export function NewsletterForm({ darkMode = false, buttonText = "Subscribe", className }: NewsletterFormProps) {
   const [email, setEmail] = useState("")
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
-  const [message, setMessage] = useState("")
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
+  const [error, setError] = useState("")
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-
-    if (!email || !email.includes("@")) {
-      setStatus("error")
-      setMessage("Please enter a valid email address")
-      return
-    }
-
-    setStatus("loading")
+    setIsSubmitting(true)
+    setError("")
 
     // Simulate API call
-    setTimeout(() => {
-      setStatus("success")
-      setMessage("Thank you for subscribing!")
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1000))
+      setIsSuccess(true)
       setEmail("")
-    }, 1000)
+    } catch (err) {
+      setError("Something went wrong. Please try again.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
-    <div className={cn("space-y-4", className)}>
+    <div className={cn("w-full", className)}>
       <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2">
-        <div className="relative flex-1">
-          <Mail
-            className={cn(
-              "absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2",
-              darkMode ? "text-white/70" : "text-brand-text-muted",
-            )}
-          />
-          <Input
-            type="email"
-            placeholder={placeholder}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className={cn(
-              "pl-10",
-              darkMode
-                ? "bg-white/10 border-white/20 text-white placeholder:text-white/60 focus-visible:border-white"
-                : "border-brand-blue/20 focus-visible:border-brand-blue",
-            )}
-            disabled={status === "loading"}
-          />
-        </div>
+        <Input
+          type="email"
+          placeholder="Enter your email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          className={cn(
+            "flex-1 h-10",
+            darkMode ? "bg-white/10 border-white/20 text-white placeholder:text-white/60" : "bg-white border-slate-200",
+          )}
+        />
         <Button
           type="submit"
-          disabled={status === "loading"}
-          variant={darkMode ? "outline" : "brand"}
-          className={darkMode ? "border-white text-white hover:bg-white/10" : ""}
+          disabled={isSubmitting}
+          className={cn(
+            "h-10 px-4 text-sm sm:text-base",
+            darkMode ? "bg-white text-blue-600 hover:bg-blue-50" : "bg-blue-600 text-white hover:bg-blue-700",
+          )}
         >
-          {status === "loading" ? "Subscribing..." : buttonText}
+          {isSubmitting ? "Subscribing..." : buttonText}
         </Button>
       </form>
-
-      {status === "success" && (
-        <div className="flex items-center gap-2 text-green-400">
-          <CheckCircle className="h-4 w-4" />
-          <span className="text-sm">{message}</span>
-        </div>
+      {isSuccess && (
+        <p className={cn("mt-2 text-sm", darkMode ? "text-green-300" : "text-green-600")}>Thank you for subscribing!</p>
       )}
-
-      {status === "error" && (
-        <div className="flex items-center gap-2 text-red-400">
-          <AlertCircle className="h-4 w-4" />
-          <span className="text-sm">{message}</span>
-        </div>
-      )}
+      {error && <p className={cn("mt-2 text-sm", darkMode ? "text-red-300" : "text-red-600")}>{error}</p>}
     </div>
   )
 }

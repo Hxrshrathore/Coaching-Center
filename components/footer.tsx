@@ -9,7 +9,13 @@ export function Footer() {
         <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <Image src="/logo.png" alt="Ascent Classes Logo" width={180} height={50} className="h-12 w-auto" />
+              <Image
+                src="/headlogo.png"
+                alt="Ascent Coaching Classes Logo"
+                width={180}
+                height={40}
+                className="h-12 w-auto"
+              />
             </div>
             <p className="text-sm text-slate-600 dark:text-slate-400">
               Empowering students to achieve academic excellence and realize their dreams through quality education and
@@ -18,28 +24,28 @@ export function Footer() {
             <div className="flex space-x-4">
               <Link
                 href="#"
-                className="text-slate-500 hover:text-brand-blue dark:text-slate-400 dark:hover:text-brand-blue"
+                className="text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400"
               >
                 <Facebook className="h-5 w-5" />
                 <span className="sr-only">Facebook</span>
               </Link>
               <Link
                 href="#"
-                className="text-slate-500 hover:text-brand-blue dark:text-slate-400 dark:hover:text-brand-blue"
+                className="text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400"
               >
                 <Twitter className="h-5 w-5" />
                 <span className="sr-only">Twitter</span>
               </Link>
               <Link
                 href="#"
-                className="text-slate-500 hover:text-brand-blue dark:text-slate-400 dark:hover:text-brand-blue"
+                className="text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400"
               >
                 <Instagram className="h-5 w-5" />
                 <span className="sr-only">Instagram</span>
               </Link>
               <Link
                 href="#"
-                className="text-slate-500 hover:text-brand-blue dark:text-slate-400 dark:hover:text-brand-blue"
+                className="text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400"
               >
                 <Youtube className="h-5 w-5" />
                 <span className="sr-only">YouTube</span>
@@ -47,12 +53,12 @@ export function Footer() {
             </div>
           </div>
           <div className="space-y-4">
-            <h3 className="text-lg font-medium text-brand-text-dark dark:text-brand-text-light">Quick Links</h3>
+            <h3 className="text-lg font-medium text-blue-950 dark:text-white">Quick Links</h3>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
                   href="/our-vision"
-                  className="text-brand-text-muted hover:text-brand-blue dark:text-slate-300 dark:hover:text-brand-blue"
+                  className="text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400"
                 >
                   Our Vision
                 </Link>
@@ -60,7 +66,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/program-path"
-                  className="text-brand-text-muted hover:text-brand-blue dark:text-slate-300 dark:hover:text-brand-blue"
+                  className="text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400"
                 >
                   Program Path
                 </Link>
@@ -68,7 +74,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/resources-hub"
-                  className="text-brand-text-muted hover:text-brand-blue dark:text-slate-300 dark:hover:text-brand-blue"
+                  className="text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400"
                 >
                   Resources Hub
                 </Link>
@@ -76,7 +82,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/whats-new"
-                  className="text-brand-text-muted hover:text-brand-blue dark:text-slate-300 dark:hover:text-brand-blue"
+                  className="text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400"
                 >
                   What's New
                 </Link>
@@ -84,7 +90,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/toppers-tales"
-                  className="text-brand-text-muted hover:text-brand-blue dark:text-slate-300 dark:hover:text-brand-blue"
+                  className="text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400"
                 >
                   Topper's Tales
                 </Link>
@@ -92,7 +98,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/get-enrolled"
-                  className="text-brand-text-muted hover:text-brand-blue dark:text-slate-300 dark:hover:text-brand-blue"
+                  className="text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400"
                 >
                   Get Enrolled
                 </Link>
@@ -100,7 +106,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/reach-out"
-                  className="text-brand-text-muted hover:text-brand-blue dark:text-slate-300 dark:hover:text-brand-blue"
+                  className="text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400"
                 >
                   Reach Out
                 </Link>
@@ -108,12 +114,12 @@ export function Footer() {
             </ul>
           </div>
           <div className="space-y-4">
-            <h3 className="text-lg font-medium text-brand-dark dark:text-white">Courses</h3>
+            <h3 className="text-lg font-medium text-blue-950 dark:text-white">Courses</h3>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
                   href="/program-path?tab=ssc"
-                  className="text-slate-600 hover:text-brand-blue dark:text-slate-400 dark:hover:text-brand-blue"
+                  className="text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400"
                 >
                   SSC Exams
                 </Link>
@@ -121,7 +127,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/program-path?tab=bank"
-                  className="text-slate-600 hover:text-brand-blue dark:text-slate-400 dark:hover:text-brand-blue"
+                  className="text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400"
                 >
                   Bank Exams
                 </Link>
@@ -129,7 +135,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/program-path?tab=jee"
-                  className="text-slate-600 hover:text-brand-blue dark:text-slate-400 dark:hover:text-brand-blue"
+                  className="text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400"
                 >
                   JEE
                 </Link>
@@ -137,7 +143,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/program-path?tab=neet"
-                  className="text-slate-600 hover:text-brand-blue dark:text-slate-400 dark:hover:text-brand-blue"
+                  className="text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400"
                 >
                   NEET
                 </Link>
@@ -145,7 +151,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/program-path?tab=olympiads"
-                  className="text-slate-600 hover:text-brand-blue dark:text-slate-400 dark:hover:text-brand-blue"
+                  className="text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400"
                 >
                   Olympiads
                 </Link>
@@ -153,7 +159,7 @@ export function Footer() {
             </ul>
           </div>
           <div className="space-y-4">
-            <h3 className="text-lg font-medium text-brand-dark dark:text-white">Contact</h3>
+            <h3 className="text-lg font-medium text-blue-950 dark:text-white">Contact</h3>
             <ul className="space-y-2 text-sm">
               <li className="flex items-start gap-2">
                 <svg
@@ -166,7 +172,7 @@ export function Footer() {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="h-4 w-4 text-brand-blue mt-0.5 dark:text-brand-blue"
+                  className="h-4 w-4 text-blue-600 mt-0.5 dark:text-blue-400"
                 >
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                 </svg>
@@ -183,7 +189,7 @@ export function Footer() {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="h-4 w-4 text-brand-blue mt-0.5 dark:text-brand-blue"
+                  className="h-4 w-4 text-blue-600 mt-0.5 dark:text-blue-400"
                 >
                   <rect width="20" height="16" x="2" y="4" rx="2" />
                   <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
@@ -201,7 +207,7 @@ export function Footer() {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="h-4 w-4 text-brand-blue mt-0.5 dark:text-brand-blue"
+                  className="h-4 w-4 text-blue-600 mt-0.5 dark:text-blue-400"
                 >
                   <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
                   <circle cx="12" cy="10" r="3" />
@@ -219,13 +225,13 @@ export function Footer() {
               © {new Date().getFullYear()} Ascent Coaching Classes. All rights reserved.
             </p>
             <div className="flex gap-4 text-sm text-slate-600 dark:text-slate-400">
-              <Link href="/privacy-policy" className="hover:text-brand-blue dark:hover:text-brand-blue">
+              <Link href="/privacy-policy" className="hover:text-blue-600 dark:hover:text-blue-400">
                 Privacy Policy
               </Link>
-              <Link href="/terms-of-service" className="hover:text-brand-blue dark:hover:text-brand-blue">
+              <Link href="/terms-of-service" className="hover:text-blue-600 dark:hover:text-blue-400">
                 Terms of Service
               </Link>
-              <Link href="/sitemap" className="hover:text-brand-blue dark:hover:text-brand-blue">
+              <Link href="/sitemap" className="hover:text-blue-600 dark:hover:text-blue-400">
                 Sitemap
               </Link>
             </div>

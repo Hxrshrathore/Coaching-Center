@@ -1,6 +1,5 @@
-import { cn } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
-import { FadeIn } from "@/components/animations/fade-in"
+import { cn } from "@/lib/utils"
 
 interface SectionHeadingProps {
   badge?: string
@@ -8,23 +7,13 @@ interface SectionHeadingProps {
   description?: string
   className?: string
   align?: "left" | "center" | "right"
-  titleClassName?: string
-  descriptionClassName?: string
 }
 
-export function SectionHeading({
-  badge,
-  title,
-  description,
-  className,
-  align = "center",
-  titleClassName,
-  descriptionClassName,
-}: SectionHeadingProps) {
+export function SectionHeading({ badge, title, description, className, align = "center" }: SectionHeadingProps) {
   return (
     <div
       className={cn(
-        "space-y-4",
+        "space-y-2 mb-8",
         {
           "text-center": align === "center",
           "text-left": align === "left",
@@ -33,41 +22,22 @@ export function SectionHeading({
         className,
       )}
     >
-      <div className="space-y-2">
-        {badge && (
-          <FadeIn delay={0.1}>
-            <Badge className="bg-brand-light text-brand-blue hover:bg-brand-light dark:bg-brand-blue/20 dark:text-brand-blue">
-              {badge}
-            </Badge>
-          </FadeIn>
-        )}
-        <FadeIn delay={0.2}>
-          <h2
-            className={cn(
-              "text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-brand-text-dark dark:text-brand-text-light",
-              titleClassName,
-            )}
-          >
-            {title}
-          </h2>
-        </FadeIn>
-        {description && (
-          <FadeIn delay={0.3}>
-            <p
-              className={cn(
-                "max-w-[900px] text-brand-text-muted md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-slate-300",
-                {
-                  "mx-auto": align === "center",
-                  "ml-auto": align === "right",
-                },
-                descriptionClassName,
-              )}
-            >
-              {description}
-            </p>
-          </FadeIn>
-        )}
-      </div>
+      {badge && (
+        <Badge
+          className="inline-flex bg-blue-100 text-blue-800 hover:bg-blue-100 dark:bg-blue-900 dark:text-blue-300 text-xs sm:text-sm"
+          variant="outline"
+        >
+          {badge}
+        </Badge>
+      )}
+      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-blue-950 dark:text-white">
+        {title}
+      </h2>
+      {description && (
+        <p className="text-sm sm:text-base md:text-lg text-slate-600 dark:text-slate-400 max-w-[85%] mx-auto">
+          {description}
+        </p>
+      )}
     </div>
   )
 }
