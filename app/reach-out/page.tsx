@@ -24,6 +24,26 @@ import { Badge } from "@/components/ui/badge"
 import { SectionHeading } from "@/components/ui/section-heading"
 import { FadeIn } from "@/components/animations/fade-in"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { StaticFormHandler } from "@/components/ui/static-form-handler"
+import { generatePageMetadata } from "@/components/seo/page-seo"
+import { StructuredData } from "@/components/seo/structured-data"
+
+// SEO Metadata
+export const metadata = generatePageMetadata({
+  title: "Contact Ascent Coaching Classes | Reach Out to Our Team",
+  description:
+    "Contact Ascent Coaching Classes in Lucknow for admission inquiries, course information, or general questions. Our team is ready to assist you with your educational journey.",
+  keywords: [
+    "contact coaching classes",
+    "coaching institute contact",
+    "Ascent Coaching Classes contact",
+    "Lucknow coaching contact",
+    "JEE coaching contact",
+    "NEET coaching contact",
+    "SSC coaching contact",
+  ],
+  canonicalUrl: "/reach-out/",
+})
 
 export default function ReachOutPage() {
   // Contact methods data
@@ -140,7 +160,11 @@ export default function ReachOutPage() {
         </section>
 
         {/* Contact Methods Section */}
-        <section className="w-full py-12 md:py-24 lg:py-32">
+        <section
+          className="w-full py-12 md:py-24 lg:py-32"
+          id="contact-methods"
+          aria-labelledby="contact-methods-heading"
+        >
           <div className="container px-4 md:px-6">
             <SectionHeading
               badge="Get in Touch"
@@ -180,8 +204,12 @@ export default function ReachOutPage() {
           </div>
         </section>
 
-        {/* Map and Contact Form Section */}
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-blue-50 dark:bg-slate-900">
+        {/* Map and Contact Form Section - Updated with StaticFormHandler */}
+        <section
+          className="w-full py-12 md:py-24 lg:py-32 bg-blue-50 dark:bg-slate-900"
+          id="contact-form"
+          aria-labelledby="contact-form-heading"
+        >
           <div className="container px-4 md:px-6">
             <SectionHeading
               badge="Find Us"
@@ -201,7 +229,8 @@ export default function ReachOutPage() {
                     allowFullScreen={true}
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
-                    title="Ascent Classes Location"
+                    title="Ascent Classes Location Map"
+                    aria-label="Google Maps showing Ascent Coaching Classes location in Chinhat, Lucknow"
                   ></iframe>
                 </div>
               </FadeIn>
@@ -209,54 +238,56 @@ export default function ReachOutPage() {
               <FadeIn delay={0.4} direction="right">
                 <Card className="bg-white dark:bg-slate-800 border-none shadow-md">
                   <CardHeader>
-                    <CardTitle>Send us a Message</CardTitle>
+                    <CardTitle id="contact-form-heading">Send us a Message</CardTitle>
                     <CardDescription>Fill out the form below and we'll get back to you shortly</CardDescription>
                   </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                      <div className="space-y-2">
-                        <Label htmlFor="first-name">First Name</Label>
-                        <Input id="first-name" placeholder="Enter your first name" required />
+                  <CardContent>
+                    <StaticFormHandler
+                      formId="contact-form"
+                      formName="contact"
+                      submitButtonText="Send Message"
+                      successMessage="Thank you for your message! We'll get back to you within 24 hours."
+                    >
+                      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        <div className="space-y-2">
+                          <Label htmlFor="first-name">First Name</Label>
+                          <Input id="first-name" name="first-name" placeholder="Enter your first name" required />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="last-name">Last Name</Label>
+                          <Input id="last-name" name="last-name" placeholder="Enter your last name" required />
+                        </div>
                       </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="last-name">Last Name</Label>
-                        <Input id="last-name" placeholder="Enter your last name" required />
+                      <div className="space-y-2 mt-4">
+                        <Label htmlFor="email">Email Address</Label>
+                        <Input type="email" id="email" name="email" placeholder="Enter your email address" required />
                       </div>
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="email">Email Address</Label>
-                      <Input type="email" id="email" placeholder="Enter your email address" required />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="phone">Phone Number</Label>
-                      <Input type="tel" id="phone" placeholder="Enter your phone number" required />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="inquiry-type">Inquiry Type</Label>
-                      <Select>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select inquiry type" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="general">General Inquiry</SelectItem>
-                          <SelectItem value="admission">Admission Inquiry</SelectItem>
-                          <SelectItem value="course">Course Information</SelectItem>
-                          <SelectItem value="fee">Fee Structure</SelectItem>
-                          <SelectItem value="scholarship">Scholarship Information</SelectItem>
-                          <SelectItem value="feedback">Feedback/Suggestion</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="message">Message</Label>
-                      <Textarea id="message" placeholder="Enter your message" rows={4} required />
-                    </div>
+                      <div className="space-y-2 mt-4">
+                        <Label htmlFor="phone">Phone Number</Label>
+                        <Input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required />
+                      </div>
+                      <div className="space-y-2 mt-4">
+                        <Label htmlFor="inquiry-type">Inquiry Type</Label>
+                        <Select name="inquiry-type">
+                          <SelectTrigger id="inquiry-type">
+                            <SelectValue placeholder="Select inquiry type" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="general">General Inquiry</SelectItem>
+                            <SelectItem value="admission">Admission Inquiry</SelectItem>
+                            <SelectItem value="course">Course Information</SelectItem>
+                            <SelectItem value="fee">Fee Structure</SelectItem>
+                            <SelectItem value="scholarship">Scholarship Information</SelectItem>
+                            <SelectItem value="feedback">Feedback/Suggestion</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="space-y-2 mt-4">
+                        <Label htmlFor="message">Message</Label>
+                        <Textarea id="message" name="message" placeholder="Enter your message" rows={4} required />
+                      </div>
+                    </StaticFormHandler>
                   </CardContent>
-                  <CardFooter>
-                    <Button className="w-full gap-2 bg-blue-600 hover:bg-blue-700">
-                      Send Message <Send className="h-4 w-4" />
-                    </Button>
-                  </CardFooter>
                 </Card>
               </FadeIn>
             </div>
@@ -264,13 +295,18 @@ export default function ReachOutPage() {
         </section>
 
         {/* Department Contacts Section */}
-        <section className="w-full py-12 md:py-24 lg:py-32">
+        <section
+          className="w-full py-12 md:py-24 lg:py-32"
+          id="department-contacts"
+          aria-labelledby="department-contacts-heading"
+        >
           <div className="container px-4 md:px-6">
             <SectionHeading
               badge="Department Contacts"
               title="Reach the Right Department"
               description="Direct contact information for specific departments"
               className="mb-10"
+              id="department-contacts-heading"
             />
 
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -314,13 +350,18 @@ export default function ReachOutPage() {
         </section>
 
         {/* Office Hours Section */}
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-blue-50 dark:bg-slate-900">
+        <section
+          className="w-full py-12 md:py-24 lg:py-32 bg-blue-50 dark:bg-slate-900"
+          id="office-hours"
+          aria-labelledby="office-hours-heading"
+        >
           <div className="container px-4 md:px-6">
             <SectionHeading
               badge="Availability"
               title="Office Hours"
               description="When you can reach us"
               className="mb-10"
+              id="office-hours-heading"
             />
 
             <div className="grid gap-8 md:grid-cols-2">
@@ -393,13 +434,14 @@ export default function ReachOutPage() {
         </section>
 
         {/* FAQ Section */}
-        <section className="w-full py-12 md:py-24 lg:py-32">
+        <section className="w-full py-12 md:py-24 lg:py-32" id="faqs" aria-labelledby="faqs-heading">
           <div className="container px-4 md:px-6">
             <SectionHeading
               badge="Questions & Answers"
               title="Frequently Asked Questions"
               description="Find answers to common questions about contacting us"
               className="mb-10"
+              id="faqs-heading"
             />
 
             <div className="grid gap-8 md:grid-cols-2">
@@ -433,13 +475,18 @@ export default function ReachOutPage() {
         </section>
 
         {/* Social Media Section */}
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-blue-50 dark:bg-slate-900">
+        <section
+          className="w-full py-12 md:py-24 lg:py-32 bg-blue-50 dark:bg-slate-900"
+          id="social-media"
+          aria-labelledby="social-media-heading"
+        >
           <div className="container px-4 md:px-6">
             <SectionHeading
               badge="Connect With Us"
               title="Follow Us on Social Media"
               description="Stay updated with our latest news, events, and success stories"
               className="mb-10"
+              id="social-media-heading"
             />
 
             <div className="grid gap-6 md:grid-cols-4">
@@ -523,13 +570,14 @@ export default function ReachOutPage() {
         </section>
 
         {/* Feedback Form Section */}
-        <section className="w-full py-12 md:py-24 lg:py-32">
+        <section className="w-full py-12 md:py-24 lg:py-32" id="feedback" aria-labelledby="feedback-heading">
           <div className="container px-4 md:px-6">
             <SectionHeading
               badge="Your Opinion Matters"
               title="Feedback & Suggestions"
               description="Help us improve our services with your valuable feedback"
               className="mb-10"
+              id="feedback-heading"
             />
 
             <div className="grid gap-8 md:grid-cols-2">
@@ -605,7 +653,7 @@ export default function ReachOutPage() {
                     <div className="space-y-2">
                       <Label htmlFor="feedback-type">Feedback Type</Label>
                       <Select>
-                        <SelectTrigger>
+                        <SelectTrigger id="feedback-type">
                           <SelectValue placeholder="Select feedback type" />
                         </SelectTrigger>
                         <SelectContent>
@@ -623,7 +671,7 @@ export default function ReachOutPage() {
                     <div className="space-y-2">
                       <Label htmlFor="rating">Rate Your Experience (1-5)</Label>
                       <Select>
-                        <SelectTrigger>
+                        <SelectTrigger id="rating">
                           <SelectValue placeholder="Select rating" />
                         </SelectTrigger>
                         <SelectContent>
@@ -679,6 +727,31 @@ export default function ReachOutPage() {
             </div>
           </div>
         </section>
+
+        {/* Add structured data */}
+        <StructuredData
+          data={{
+            "@context": "https://schema.org",
+            "@type": "ContactPage",
+            name: "Contact Ascent Coaching Classes",
+            description: "Contact information and form for Ascent Coaching Classes in Lucknow",
+            mainEntity: {
+              "@type": "EducationalOrganization",
+              name: "Ascent Coaching Classes",
+              telephone: "+919565292454",
+              email: "ascentcoachingclasses.lko@gmail.com",
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "Dayal Residency, A-300B, Vasundhara State, Chinhat",
+                addressLocality: "Lucknow",
+                addressRegion: "Uttar Pradesh",
+                postalCode: "226028",
+                addressCountry: "IN",
+              },
+              openingHours: "Mo-Fr 08:00-20:00, Sa-Su 09:00-18:00",
+            },
+          }}
+        />
       </main>
     </div>
   )
