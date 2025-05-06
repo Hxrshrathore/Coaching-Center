@@ -1,20 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: true,
+  images: {
+    unoptimized: true,
+    domains: ['localhost'],
+  },
   output: 'export',
   eslint: {
     ignoreDuringBuilds: true,
   },
   typescript: {
     ignoreBuildErrors: true,
-  },
-  images: {
-    unoptimized: true, // Required for static export
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: '**',
-      },
-    ],
   },
   trailingSlash: true,
   
@@ -72,37 +68,13 @@ const nextConfig = {
   },
   
   // Webpack configuration for production optimizations
-  webpack: (config, { dev, isServer }) => {
-    // Only run in production client-side builds
-    if (!dev && !isServer) {
-      // Enable tree shaking and dead code elimination
-      config.optimization.usedExports = true;
-      
-      // Split chunks for better caching
-      config.optimization.splitChunks = {
-        chunks: 'all',
-        maxInitialRequests: Infinity,
-        minSize: 20000,
-        cacheGroups: {
-          vendor: {
-            test: /[\\/]node_modules[\\/]/,
-            name(module) {
-              // Get the name of the npm package
-              // Fix: Safely handle null matches
-              const match = module.context ? module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/) : null;
-              if (!match) return 'vendor'; // Return a default name if no match
-              
-              // Return a nice package name for better debugging
-              const packageName = match[1];
-              return `npm.${packageName.replace('@', '')}`;
-            },
-          },
-        },
-      };
-    }
+  webpack: (config) => {
+    // Optimize webpack configuration
+    config.optimization.minimize = true;
     
     return config;
   },
+  // Remove any experimental features that might cause issues
 }
 
-export default nextConfig
+export default nextConfig;
