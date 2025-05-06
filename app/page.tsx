@@ -1,25 +1,36 @@
 import type { Metadata } from "next"
 import { generatePageMetadata } from "@/components/seo/page-seo"
 import { StructuredData } from "@/components/seo/structured-data"
-import ClientPage from "./ClientPage"
+import { EnhancedHomepage } from "@/components/home/enhanced-homepage"
 
 // SEO Metadata
 export const metadata: Metadata = generatePageMetadata({
-  title: "Ascent Coaching Classes | Top Coaching Institute in Lucknow",
+  title: "Ascent Classes | Top Coaching Institute in Lucknow for JEE, NEET & Olympiads",
   description:
-    "Ascent Coaching Classes in Lucknow offers expert coaching for JEE, NEET, SSC, Banking exams. Join us to achieve academic excellence with our experienced faculty and proven teaching methodology.",
-  keywords: ["top coaching in Lucknow", "JEE coaching", "NEET preparation", "SSC coaching", "Bank exam coaching"],
+    "Ascent Classes in Lucknow offers expert coaching for JEE, NEET, Olympiads and K-12 Science. Join our proven teaching methodology with experienced faculty to achieve academic excellence and secure top ranks.",
+  keywords: [
+    "top coaching in Lucknow",
+    "JEE coaching",
+    "NEET preparation",
+    "Olympiad training",
+    "K-12 Science coaching",
+    "best coaching institute",
+    "entrance exam preparation",
+    "scholarship test",
+    "academic excellence",
+  ],
   canonicalUrl: "/",
 })
 
+// Enhanced structured data for better SEO
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "EducationalOrganization",
-  name: "Ascent Coaching Classes",
+  name: "Ascent Classes",
   url: "https://ascentclasses.com",
   logo: "https://ascentclasses.com/logo.png",
   description:
-    "Ascent Coaching Classes in Lucknow offers comprehensive coaching for JEE, NEET, SSC, Bank exams and more.",
+    "Ascent Classes in Lucknow offers comprehensive coaching for JEE, NEET, Olympiads, K-12 Science and more.",
   address: {
     "@type": "PostalAddress",
     streetAddress: "Dayal Residency, A-300B, Vasundhara State, Chinhat",
@@ -30,6 +41,16 @@ const structuredData = {
   },
   telephone: "+919565292454",
   email: "ascentcoachingclasses.lko@gmail.com",
+  sameAs: [
+    "https://www.facebook.com/ascentclasses",
+    "https://www.instagram.com/ascentclasses",
+    "https://www.youtube.com/ascentclasses",
+  ],
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "4.8",
+    reviewCount: "235",
+  },
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "Coaching Programs",
@@ -40,7 +61,7 @@ const structuredData = {
         description: "Comprehensive coaching for JEE Main and Advanced",
         provider: {
           "@type": "Organization",
-          name: "Ascent Coaching Classes",
+          name: "Ascent Classes",
         },
       },
       {
@@ -49,16 +70,25 @@ const structuredData = {
         description: "Expert coaching for NEET aspirants",
         provider: {
           "@type": "Organization",
-          name: "Ascent Coaching Classes",
+          name: "Ascent Classes",
         },
       },
       {
         "@type": "Course",
-        name: "SSC Coaching",
-        description: "Specialized coaching for SSC exams",
+        name: "Olympiad Training",
+        description: "Specialized coaching for Science and Math Olympiads",
         provider: {
           "@type": "Organization",
-          name: "Ascent Coaching Classes",
+          name: "Ascent Classes",
+        },
+      },
+      {
+        "@type": "Course",
+        name: "K-12 Science Coaching",
+        description: "Foundation and advanced courses for PCMB subjects",
+        provider: {
+          "@type": "Organization",
+          name: "Ascent Classes",
         },
       },
     ],
@@ -67,10 +97,12 @@ const structuredData = {
 
 export default function Home() {
   return (
-    <div>
-      <ClientPage structuredData={structuredData} />
+    <>
       {/* Add structured data */}
       <StructuredData data={structuredData} />
-    </div>
+
+      {/* Enhanced homepage component with animations and interactive elements */}
+      <EnhancedHomepage structuredData={structuredData} />
+    </>
   )
 }

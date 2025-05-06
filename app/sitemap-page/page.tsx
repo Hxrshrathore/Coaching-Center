@@ -18,58 +18,48 @@ export const metadata: Metadata = {
 
 export default function SitemapPage() {
   // Define site structure
+  const sitemapLinks = {
+    main: [
+      { name: "Home", href: "/" },
+      { name: "Our Vision", href: "/our-vision" },
+      { name: "Program Paths", href: "/program-path" },
+      { name: "Resources Hub", href: "/resources-hub" },
+      { name: "What's New", href: "/whats-new" },
+      { name: "Toppers' Tales", href: "/toppers-tales" },
+      { name: "Get Enrolled", href: "/get-enrolled" },
+      { name: "Reach Out", href: "/reach-out" },
+    ],
+    programs: [
+      { name: "JEE Preparation", href: "/program-path/jee" },
+      { name: "NEET Preparation", href: "/program-path/neet" },
+      { name: "Olympiad Training", href: "/olympiad-programs" },
+      { name: "Class 4-12 Science Coaching", href: "/k12-science-coaching" },
+    ],
+    legal: [
+      { name: "Privacy Policy", href: "/privacy-policy" },
+      { name: "Terms of Service", href: "/terms-of-service" },
+      { name: "Sitemap", href: "/sitemap-page" },
+    ],
+  }
+
   const siteStructure = [
     {
       title: "Main Pages",
-      links: [
-        { name: "Home", url: "/" },
-        { name: "Our Vision", url: "/our-vision" },
-        { name: "Program Path", url: "/program-path" },
-        { name: "Resources Hub", url: "/resources-hub" },
-        { name: "What's New", url: "/whats-new" },
-        { name: "Toppers Tales", url: "/toppers-tales" },
-        { name: "Get Enrolled", url: "/get-enrolled" },
-        { name: "Reach Out", url: "/reach-out" },
-      ],
+      links: sitemapLinks.main.map((link) => ({ title: link.name, url: link.href })) || [],
     },
     {
       title: "Program Pages",
-      links: [
-        { name: "JEE Preparation", url: "/program-path/jee" },
-        { name: "NEET Preparation", url: "/program-path/neet" },
-        { name: "SSC Preparation", url: "/program-path/ssc" },
-        { name: "Banking Exams", url: "/program-path/banking" },
-        { name: "Olympiads", url: "/program-path/olympiads" },
-      ],
+      links: sitemapLinks.programs.map((link) => ({ title: link.name, url: link.href })) || [],
     },
     {
       title: "Resource Pages",
-      links: [
-        { name: "Study Notes", url: "/resources-hub/notes" },
-        { name: "Practice Worksheets", url: "/resources-hub/worksheets" },
-        { name: "Mock Tests", url: "/resources-hub/mock-tests" },
-        { name: "Video Lectures", url: "/resources-hub/video-lectures" },
-        { name: "Study Materials", url: "/resources-hub/study-materials" },
-      ],
-    },
-    {
-      title: "Success Stories",
-      links: [
-        { name: "All Success Stories", url: "/toppers-tales" },
-        { name: "JEE Toppers", url: "/toppers-tales?tab=jee" },
-        { name: "NEET Toppers", url: "/toppers-tales?tab=neet" },
-        { name: "Other Exam Toppers", url: "/toppers-tales?tab=others" },
-      ],
+      links: [],
     },
     {
       title: "Legal & Information",
-      links: [
-        { name: "Privacy Policy", url: "/privacy-policy" },
-        { name: "Terms of Service", url: "/terms-of-service" },
-        { name: "XML Sitemap", url: "/sitemap.xml" },
-      ],
+      links: sitemapLinks.legal.map((link) => ({ title: link.name, url: link.href })) || [],
     },
-  ]
+  ].filter((section) => section.links.length > 0)
 
   return (
     <main className="min-h-screen bg-white">
@@ -106,7 +96,7 @@ export default function SitemapPage() {
                             className="flex items-center text-slate-600 hover:text-blue-600 transition-colors duration-200"
                           >
                             <ChevronRight className="h-4 w-4 mr-2 text-blue-500" />
-                            {link.name}
+                            {link.title}
                           </Link>
                         </li>
                       ))}

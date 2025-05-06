@@ -11,7 +11,7 @@ interface SectionHeadingProps {
 
 export function SectionHeading({ badge, title, description, className, align = "center" }: SectionHeadingProps) {
   return (
-    <div
+    <header
       className={cn(
         "space-y-2 mb-8",
         {
@@ -38,6 +38,6 @@ export function SectionHeading({ badge, title, description, className, align = "
           {description}
         </p>
       )}
-    </div>
+    </header>
   )
 }

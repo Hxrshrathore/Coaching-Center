@@ -1,80 +1,92 @@
 "use client"
 
-import { useEffect, useState, useRef } from "react"
+import { useState, useEffect, useRef } from "react"
+import { useInView } from "react-intersection-observer"
 import { cn } from "@/lib/utils"
 
 interface CountUpProps {
+  start?: number
   end: number
   duration?: number
   delay?: number
-  className?: string
   prefix?: string
   suffix?: string
   decimals?: number
+  separator?: string
+  decimal?: string
+  onComplete?: () => void
+  className?: string
 }
 
 export function CountUp({
+  start = 0,
   end,
-  duration = 2000,
+  duration = 2,
   delay = 0,
-  className,
   prefix = "",
   suffix = "",
   decimals = 0,
+  separator = ",",
+  decimal = ".",
+  onComplete,
+  className,
 }: CountUpProps) {
-  const [count, setCount] = useState(0)
-  const countRef = useRef<HTMLSpanElement>(null)
-  const [isVisible, setIsVisible] = useState(false)
+  const [count, setCount] = useState(start)
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
+  const countingRef = useRef(false)
+  const frameRef = useRef(0)
+  const startTimeRef = useRef(0)
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-          observer.unobserve(entry.target)
-        }
-      },
-      {
-        threshold: 0.1,
-      },
-    )
+    if (!inView || countingRef.current) return
 
-    const currentRef = countRef.current
-    if (currentRef) {
-      observer.observe(currentRef)
-    }
+    // Add delay before starting animation
+    const timer = setTimeout(() => {
+      countingRef.current = true
+      startTimeRef.current = Date.now()
+
+      const animate = () => {
+        const now = Date.now()
+        const elapsed = now - startTimeRef.current
+        const progress = Math.min(elapsed / (duration * 1000), 1)
+
+        if (progress < 1) {
+          // Use easeOutQuad for smoother animation
+          const easeProgress = 1 - (1 - progress) * (1 - progress)
+          setCount(start + (end - start) * easeProgress)
+          frameRef.current = requestAnimationFrame(animate)
+        } else {
+          setCount(end)
+          countingRef.current = false
+          if (onComplete) onComplete()
+        }
+      }
+
+      frameRef.current = requestAnimationFrame(animate)
+    }, delay * 1000)
 
     return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef)
-      }
+      clearTimeout(timer)
+      cancelAnimationFrame(frameRef.current)
     }
-  }, [])
+  }, [inView, start, end, duration, delay, onComplete])
 
-  useEffect(() => {
-    if (!isVisible) return
+  // Format the number with separators and decimals
+  const formatNumber = (num: number) => {
+    const fixedNumber = num.toFixed(decimals)
+    const [intPart, decimalPart] = fixedNumber.split(".")
 
-    let startTimestamp: number | null = null
-    const step = (timestamp: number) => {
-      if (!startTimestamp) startTimestamp = timestamp
-      const progress = Math.min((timestamp - startTimestamp) / duration, 1)
-      setCount(progress * end)
-      if (progress < 1) {
-        window.requestAnimationFrame(step)
-      }
-    }
+    // Add separator to integer part
+    const formattedIntPart = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, separator)
 
-    const timeoutId = setTimeout(() => {
-      window.requestAnimationFrame(step)
-    }, delay)
-
-    return () => clearTimeout(timeoutId)
-  }, [end, duration, delay, isVisible])
+    // Combine with decimal part if it exists
+    return decimalPart ? `${formattedIntPart}${decimal}${decimalPart}` : formattedIntPart
+  }
 
   return (
-    <span ref={countRef} className={cn("font-bold", className)}>
+    <span ref={ref} className={cn("font-bold", className)}>
       {prefix}
-      {count.toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+      {formatNumber(count)}
       {suffix}
     </span>
   )

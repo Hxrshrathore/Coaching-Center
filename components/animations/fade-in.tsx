@@ -2,78 +2,83 @@
 
 import type React from "react"
 
-import { useEffect, useRef, useState } from "react"
-import { cn } from "@/lib/utils"
+import { useRef, useEffect, useState } from "react"
+import { motion, useInView, type Variants } from "framer-motion"
 
 interface FadeInProps {
   children: React.ReactNode
-  className?: string
   delay?: number
-  direction?: "up" | "down" | "left" | "right" | "none"
   duration?: number
+  direction?: "up" | "down" | "left" | "right" | "none"
+  distance?: number
   threshold?: number
+  once?: boolean
+  className?: string
 }
 
 export function FadeIn({
   children,
-  className,
   delay = 0,
-  direction = "up",
   duration = 0.5,
+  direction = "up",
+  distance = 30,
   threshold = 0.1,
+  once = true,
+  className,
 }: FadeInProps) {
-  const [isVisible, setIsVisible] = useState(false)
-  const ref = useRef<HTMLDivElement>(null)
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once, threshold })
+  const [hasAnimated, setHasAnimated] = useState(false)
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-          observer.unobserve(entry.target)
-        }
-      },
-      {
-        threshold,
-      },
-    )
+    if (isInView && !hasAnimated) {
+      setHasAnimated(true)
+    }
+  }, [isInView, hasAnimated])
 
-    const currentRef = ref.current
-    if (currentRef) {
-      observer.observe(currentRef)
+  // Define animation variants based on direction
+  const getVariants = (): Variants => {
+    let initial = { opacity: 0 }
+
+    switch (direction) {
+      case "up":
+        initial = { ...initial, y: distance }
+        break
+      case "down":
+        initial = { ...initial, y: -distance }
+        break
+      case "left":
+        initial = { ...initial, x: distance }
+        break
+      case "right":
+        initial = { ...initial, x: -distance }
+        break
     }
 
-    return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef)
-      }
+    return {
+      hidden: initial,
+      visible: {
+        opacity: 1,
+        y: 0,
+        x: 0,
+        transition: {
+          duration,
+          delay,
+          ease: "easeOut",
+        },
+      },
     }
-  }, [threshold])
-
-  const directionStyles = {
-    up: "translate-y-10",
-    down: "translate-y-[-10px]",
-    left: "translate-x-10",
-    right: "translate-x-[-10px]",
-    none: "",
   }
 
   return (
-    <div
+    <motion.div
       ref={ref}
-      className={cn(
-        "transition-all",
-        isVisible
-          ? "opacity-100 transform-none"
-          : `opacity-0 ${direction !== "none" ? directionStyles[direction] : ""}`,
-        className,
-      )}
-      style={{
-        transitionDuration: `${duration}s`,
-        transitionDelay: `${delay}s`,
-      }}
+      variants={getVariants()}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      className={className}
     >
       {children}
-    </div>
+    </motion.div>
   )
 }
