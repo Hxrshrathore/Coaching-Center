@@ -1,13 +1,16 @@
 import type { Metadata } from "next"
-import { generatePageMetadata } from "@/components/seo/page-seo"
 import { StructuredData } from "@/components/seo/structured-data"
 import { EnhancedHomepage } from "@/components/home/enhanced-homepage"
 
 // SEO Metadata
-export const metadata: Metadata = generatePageMetadata({
+export const metadata: Metadata = {
   title: "Ascent Classes | Top Coaching Institute in Lucknow for JEE, NEET & Olympiads",
   description:
     "Ascent Classes in Lucknow offers expert coaching for JEE, NEET, Olympiads and K-12 Science. Join our proven teaching methodology with experienced faculty to achieve academic excellence and secure top ranks.",
+  metadataBase: new URL("https://ascentclasses.com"),
+  alternates: {
+    canonical: "https://ascentclasses.com/",
+  },
   keywords: [
     "top coaching in Lucknow",
     "JEE coaching",
@@ -19,8 +22,7 @@ export const metadata: Metadata = generatePageMetadata({
     "scholarship test",
     "academic excellence",
   ],
-  canonicalUrl: "/",
-})
+}
 
 // Enhanced structured data for better SEO
 const structuredData = {
@@ -102,7 +104,7 @@ export default function Home() {
       <StructuredData data={structuredData} />
 
       {/* Enhanced homepage component with animations and interactive elements */}
-      <EnhancedHomepage structuredData={structuredData} />
+      <EnhancedHomepage />
     </>
   )
 }

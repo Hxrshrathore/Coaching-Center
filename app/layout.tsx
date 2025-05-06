@@ -11,6 +11,7 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "Premier Coaching for JEE, NEET & Olympiads",
   description: "Specialized coaching for JEE, NEET, Olympiads and K-12 science subjects.",
+  metadataBase: new URL("https://ascentclasses.com"),
     generator: 'v0.dev'
 }
 
