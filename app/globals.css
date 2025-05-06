@@ -80,6 +80,42 @@
   }
 }
 
+/* Add these styles to fix scrollbar and scrolling issues */
+html,
+body {
+  overflow-x: hidden;
+  position: relative;
+  width: 100%;
+  height: auto;
+  min-height: 100%;
+  overscroll-behavior: none;
+}
+
+/* Ensure only one scrollbar is visible */
+body {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Prevent nested scrollable containers */
+.overflow-x-hidden {
+  overflow-x: hidden;
+  overflow-y: visible;
+}
+
+/* Fix for sticky scrolling issues */
+* {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Improve scroll performance */
+@supports (content-visibility: auto) {
+  .scroll-content {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 5000px;
+  }
+}
+
 @layer components {
   .page-padding-for-header {
     padding-top: 6rem;

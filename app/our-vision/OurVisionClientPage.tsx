@@ -1,18 +1,16 @@
 "use client"
 
-import { useEffect } from "react"
-import Image from "next/image"
+import { useEffect, useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { motion } from "framer-motion"
-import { Briefcase, GraduationCap, Heart, type LucideIcon, Target, Users } from "lucide-react"
-import { Breadcrumbs } from "@/components/ui/breadcrumbs"
+import { useTheme } from "next-themes"
+import { ArrowRight, BookOpen, Target, Users, Award, Lightbulb, CheckCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { SectionHeading } from "@/components/ui/section-heading"
-import { ScrollProgress } from "@/components/ui/scroll-progress"
-import { BackToTop } from "@/components/ui/back-to-top"
+import { Breadcrumbs } from "@/components/ui/breadcrumbs"
 import { FadeIn } from "@/components/animations/fade-in"
-import { CountUp } from "@/components/animations/count-up"
 
 // Animation variants
 const containerVariants = {
@@ -20,7 +18,8 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.2,
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
     },
   },
 }
@@ -30,362 +29,404 @@ const itemVariants = {
   visible: {
     y: 0,
     opacity: 1,
-    transition: {
-      duration: 0.5,
-    },
+    transition: { type: "spring", stiffness: 100 },
   },
 }
 
-interface ValueCardProps {
-  icon: LucideIcon
-  title: string
-  description: string
-  color: string
-}
+// Value Card Component
+const ValueCard = ({ icon, title, description, className = "" }) => {
+  const { theme } = useTheme()
+  const isDark = theme === "dark"
 
-const ValueCard = ({ icon: Icon, title, description, color }: ValueCardProps) => {
   return (
-    <motion.div variants={itemVariants}>
-      <Card className="h-full border-none shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group">
-        <CardContent className="p-6 flex flex-col h-full">
-          <div
-            className={`w-14 h-14 rounded-lg flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110 ${color}`}
-          >
-            <Icon className="w-7 h-7 text-white" />
-          </div>
-          <h3 className="text-xl font-bold mb-2 text-blue-800 dark:text-blue-300">{title}</h3>
-          <p className="text-slate-600 dark:text-slate-300 flex-grow">{description}</p>
-        </CardContent>
-      </Card>
-    </motion.div>
+    <Card
+      className={`border-none shadow-md hover:shadow-lg transition-all duration-300 ${
+        isDark ? "bg-slate-800 text-white" : "bg-white"
+      } ${className}`}
+    >
+      <CardContent className="p-6">
+        <div
+          className={`mb-4 flex h-12 w-12 items-center justify-center rounded-full ${
+            isDark ? "bg-blue-900 text-blue-400" : "bg-blue-100 text-blue-600"
+          }`}
+        >
+          {icon}
+        </div>
+        <h3 className={`text-xl font-bold mb-2 ${isDark ? "text-blue-400" : "text-blue-600"}`}>{title}</h3>
+        <p className={isDark ? "text-slate-300" : "text-slate-600"}>{description}</p>
+      </CardContent>
+    </Card>
   )
 }
 
-export default function OurVisionClientPage() {
+export function OurVisionClientPage() {
+  const [mounted, setMounted] = useState(false)
+  const { theme } = useTheme()
+  const isDark = theme === "dark"
+
+  // Set mounted state to true after component mounts
   useEffect(() => {
-    // Scroll to top when component mounts
-    window.scrollTo(0, 0)
+    setMounted(true)
   }, [])
 
-  useEffect(() => {
-    // Force repaint on scroll to prevent decorative elements from disappearing
-    const handleScroll = () => {
-      const decorativeElements = document.querySelectorAll(".will-change-transform")
-      decorativeElements.forEach((el) => {
-        // Force a repaint by accessing offsetHeight
-        // eslint-disable-next-line no-unused-expressions
-        el.offsetHeight
-      })
-    }
+  // Core values data
+  const coreValues = [
+    {
+      icon: <Target className="h-6 w-6" />,
+      title: "Excellence",
+      description:
+        "We strive for excellence in everything we do, from teaching methodologies to student support services.",
+    },
+    {
+      icon: <BookOpen className="h-6 w-6" />,
+      title: "Knowledge",
+      description:
+        "We believe in imparting deep conceptual understanding rather than rote learning for long-term success.",
+    },
+    {
+      icon: <Users className="h-6 w-6" />,
+      title: "Personalization",
+      description: "We recognize each student's unique potential and tailor our approach to their individual needs.",
+    },
+    {
+      icon: <Award className="h-6 w-6" />,
+      title: "Integrity",
+      description:
+        "We uphold the highest standards of ethics and integrity in our interactions with students and parents.",
+    },
+    {
+      icon: <Lightbulb className="h-6 w-6" />,
+      title: "Innovation",
+      description: "We continuously innovate our teaching methods to adapt to changing educational landscapes.",
+    },
+    {
+      icon: <CheckCircle className="h-6 w-6" />,
+      title: "Accountability",
+      description: "We take responsibility for our students' progress and are committed to their success.",
+    },
+  ]
 
-    window.addEventListener("scroll", handleScroll, { passive: true })
-    return () => {
-      window.removeEventListener("scroll", handleScroll)
-    }
-  }, [])
+  // Breadcrumb items
+  const breadcrumbItems = [
+    { label: "Home", href: "/" },
+    { label: "Our Vision", href: "/our-vision" },
+  ]
+
+  if (!mounted) {
+    return null
+  }
 
   return (
-    <main className="min-h-screen pb-16">
-      <ScrollProgress />
-      <BackToTop />
+    <div className="min-h-screen">
+      <div className="container mx-auto px-4 py-12 pt-28">
+        <Breadcrumbs items={breadcrumbItems} />
 
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-800 dark:to-blue-900 py-20 overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full -translate-x-1/2 -translate-y-1/2" />
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full translate-x-1/2 translate-y-1/2" />
-        </div>
-
-        <div className="container mx-auto px-4 relative z-10">
-          <Breadcrumbs
-            items={[
-              { label: "Home", href: "/" },
-              { label: "Our Vision", href: "/our-vision", active: true },
-            ]}
-            className="mb-8 text-white/80"
+        {/* Hero Section */}
+        <section
+          className={`relative py-12 md:py-20 rounded-2xl overflow-hidden mb-16 ${
+            isDark
+              ? "bg-gradient-to-br from-blue-900 to-slate-900 text-white"
+              : "bg-gradient-to-br from-blue-50 via-white to-blue-50"
+          }`}
+        >
+          {/* Decorative elements */}
+          <div
+            className={`absolute -top-24 -right-24 w-64 h-64 rounded-full ${
+              isDark ? "bg-blue-800/30" : "bg-blue-200/50"
+            } blur-3xl`}
+            aria-hidden="true"
+          />
+          <div
+            className={`absolute -bottom-24 -left-24 w-64 h-64 rounded-full ${
+              isDark ? "bg-blue-800/30" : "bg-blue-200/50"
+            } blur-3xl`}
+            aria-hidden="true"
           />
 
-          <div className="max-w-4xl mx-auto text-center">
-            <FadeIn>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">Our Vision & Mission</h1>
-              <p className="text-xl text-white/90 mb-8 max-w-3xl mx-auto">
-                Empowering students to achieve academic excellence and personal growth through innovative education and
-                personalized guidance.
-              </p>
-            </FadeIn>
-          </div>
-        </div>
-
-        {/* Decorative elements */}
-        <div
-          className="absolute -bottom-10 right-10 w-60 h-60 bg-yellow-400 rounded-lg opacity-30 rotate-12 z-0 will-change-transform"
-          style={{ backfaceVisibility: "hidden" }}
-        />
-        <div
-          className="absolute -top-10 left-10 w-60 h-60 bg-blue-400 rounded-lg opacity-30 -rotate-12 z-0 will-change-transform"
-          style={{ backfaceVisibility: "hidden" }}
-        />
-      </section>
-
-      {/* Vision Statement */}
-      <section className="py-16 bg-white dark:bg-slate-900">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="relative" style={{ isolation: "isolate" }}>
-              <FadeIn>
+          <div className="container relative z-10 mx-auto px-4 md:px-6">
+            <div className="grid gap-8 md:grid-cols-2 items-center">
+              <div>
+                <FadeIn>
+                  <h1
+                    className={`text-3xl md:text-4xl lg:text-5xl font-bold mb-4 ${
+                      isDark ? "text-white" : "text-slate-800"
+                    }`}
+                  >
+                    Our Vision & Mission
+                  </h1>
+                  <p className={`text-lg ${isDark ? "text-blue-100" : "text-slate-600"} mb-6 max-w-xl`}>
+                    At Ascent Classes, we envision a future where every student has the opportunity to realize their
+                    full academic potential and achieve their dreams through quality education.
+                  </p>
+                  <div className="flex flex-wrap gap-4">
+                    <Link href="/program-path">
+                      <Button
+                        size="lg"
+                        className={`gap-1 ${
+                          isDark
+                            ? "bg-blue-600 hover:bg-blue-700 text-white"
+                            : "bg-blue-600 hover:bg-blue-700 text-white"
+                        }`}
+                      >
+                        Explore Our Programs <ArrowRight className="h-4 w-4" />
+                      </Button>
+                    </Link>
+                    <Link href="/reach-out">
+                      <Button
+                        size="lg"
+                        variant="outline"
+                        className={
+                          isDark
+                            ? "border-blue-400 text-blue-400 hover:bg-blue-950"
+                            : "border-blue-200 text-blue-600 hover:bg-blue-50"
+                        }
+                      >
+                        Contact Us
+                      </Button>
+                    </Link>
+                  </div>
+                </FadeIn>
+              </div>
+              <div className="relative">
+                <div
+                  className={`absolute inset-0 rounded-lg ${
+                    isDark ? "bg-gradient-to-br from-blue-500/10 to-purple-500/10" : "bg-blue-100/50"
+                  }`}
+                  style={{ transform: "rotate(-3deg)" }}
+                  aria-hidden="true"
+                />
                 <div className="relative rounded-lg overflow-hidden shadow-xl">
                   <Image
                     src="/modern-education-vision.png"
-                    alt="Our Vision for Modern Education"
+                    alt="Ascent Classes Vision"
                     width={600}
                     height={400}
                     className="w-full h-auto object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/60 to-transparent" />
                 </div>
-
-                {/* Decorative shapes */}
-                <div
-                  className="absolute -bottom-12 -left-12 w-80 h-80 bg-blue-600 rounded-lg -z-10 rotate-6 opacity-90 will-change-transform"
-                  style={{ backfaceVisibility: "hidden", transform: "translateZ(0)" }}
-                />
-                <div
-                  className="absolute -top-12 -right-12 w-64 h-64 bg-yellow-400 rounded-lg -z-10 -rotate-6 opacity-90 will-change-transform"
-                  style={{ backfaceVisibility: "hidden", transform: "translateZ(0)" }}
-                />
-              </FadeIn>
-            </div>
-
-            <div>
-              <FadeIn>
-                <SectionHeading
-                  badge="Our Vision"
-                  title="Shaping the Future of Education"
-                  align="left"
-                  className="mb-6"
-                />
-
-                <div className="space-y-4 text-slate-700 dark:text-slate-300">
-                  <p>
-                    At Ascent Classes, we envision a future where education transcends traditional boundaries,
-                    empowering students to become lifelong learners and innovative thinkers. Our vision is to create an
-                    educational ecosystem that nurtures intellectual curiosity, critical thinking, and personal growth.
-                  </p>
-                  <p>
-                    We strive to be at the forefront of educational innovation, combining proven teaching methodologies
-                    with cutting-edge technology to provide an unparalleled learning experience. Our goal is to prepare
-                    students not just for examinations, but for the challenges and opportunities of the rapidly evolving
-                    global landscape.
-                  </p>
-                  <p>
-                    Through personalized guidance, comprehensive resources, and a supportive community, we aim to help
-                    every student discover their potential and chart their path to success.
-                  </p>
-                </div>
-              </FadeIn>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Mission Statement */}
-      <section className="py-16 bg-blue-50 dark:bg-slate-800/50">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="md:order-2 relative" style={{ isolation: "isolate" }}>
-              <FadeIn>
-                <div className="relative rounded-lg overflow-hidden shadow-xl">
-                  <Image
-                    src="/modern-classroom-study.png"
-                    alt="Our Mission in Action"
-                    width={600}
-                    height={400}
-                    className="w-full h-auto object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/60 to-transparent" />
-                </div>
-
-                {/* Decorative shapes */}
-                <div
-                  className="absolute -bottom-12 -right-12 w-80 h-80 bg-blue-600 rounded-lg -z-10 -rotate-6 opacity-90 will-change-transform"
-                  style={{ backfaceVisibility: "hidden", transform: "translateZ(0)" }}
-                />
-                <div
-                  className="absolute -top-12 -left-12 w-64 h-64 bg-yellow-400 rounded-lg -z-10 rotate-6 opacity-90 will-change-transform"
-                  style={{ backfaceVisibility: "hidden", transform: "translateZ(0)" }}
-                />
-              </FadeIn>
-            </div>
-
-            <div className="md:order-1">
-              <FadeIn>
-                <SectionHeading
-                  badge="Our Mission"
-                  title="Empowering Through Education"
-                  align="left"
-                  className="mb-6"
-                />
-
-                <div className="space-y-4 text-slate-700 dark:text-slate-300">
-                  <p>
-                    Our mission at Ascent Classes is to provide high-quality, accessible education that empowers
-                    students to excel academically and grow personally. We are committed to:
-                  </p>
-                  <ul className="list-disc pl-5 space-y-2">
-                    <li>Delivering comprehensive, structured, and engaging learning experiences</li>
-                    <li>Providing personalized guidance that addresses each student's unique needs and aspirations</li>
-                    <li>
-                      Fostering a supportive community where students can collaborate, learn from each other, and build
-                      lasting relationships
-                    </li>
-                    <li>
-                      Continuously innovating our teaching methodologies and learning resources to stay ahead of
-                      educational trends
-                    </li>
-                    <li>Instilling values of integrity, perseverance, and excellence in everything we do</li>
-                  </ul>
-                  <p>
-                    Through our dedicated approach, we aim to transform education from a mere academic pursuit to a
-                    holistic journey of discovery and growth.
-                  </p>
-                </div>
-              </FadeIn>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Core Values */}
-      <section className="py-16 bg-white dark:bg-slate-900">
-        <div className="container mx-auto px-4">
-          <SectionHeading
-            badge="Our Values"
-            title="Principles That Guide Us"
-            description="Our core values form the foundation of everything we do at Ascent Classes, shaping our approach to education and our interactions with students, parents, and the community."
-            className="mb-12"
-          />
-
-          <motion.div
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-          >
-            <ValueCard
-              icon={GraduationCap}
-              title="Academic Excellence"
-              description="We are committed to maintaining the highest standards of academic rigor and excellence in all our programs."
-              color="bg-blue-600"
-            />
-            <ValueCard
-              icon={Users}
-              title="Student-Centered Approach"
-              description="We place students at the center of everything we do, tailoring our teaching methods to meet their unique needs and learning styles."
-              color="bg-indigo-600"
-            />
-            <ValueCard
-              icon={Heart}
-              title="Compassion & Support"
-              description="We believe in creating a nurturing environment where students feel supported, valued, and empowered to overcome challenges."
-              color="bg-purple-600"
-            />
-            <ValueCard
-              icon={Target}
-              title="Innovation & Adaptability"
-              description="We continuously evolve our teaching methodologies and embrace new technologies to enhance the learning experience."
-              color="bg-red-600"
-            />
-            <ValueCard
-              icon={Briefcase}
-              title="Integrity & Ethics"
-              description="We uphold the highest ethical standards in all our interactions and instill these values in our students."
-              color="bg-green-600"
-            />
-            <ValueCard
-              icon={Users}
-              title="Community & Collaboration"
-              description="We foster a sense of community and encourage collaboration among students, teachers, and parents."
-              color="bg-yellow-600"
-            />
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Impact Stats */}
-      <section className="py-16 bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-800 dark:to-blue-900 text-white">
-        <div className="container mx-auto px-4">
-          <SectionHeading
-            title="Our Impact"
-            description="Over the years, we've helped thousands of students achieve their academic goals and realize their potential."
-            className="mb-12 text-white"
-          />
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <FadeIn className="flex flex-col items-center">
-              <div className="text-4xl md:text-5xl font-bold mb-2">
-                <CountUp end={10000} suffix="+" />
-              </div>
-              <p className="text-white/80">Students Taught</p>
-            </FadeIn>
-
-            <FadeIn className="flex flex-col items-center" delay={0.1}>
-              <div className="text-4xl md:text-5xl font-bold mb-2">
-                <CountUp end={95} suffix="%" />
-              </div>
-              <p className="text-white/80">Success Rate</p>
-            </FadeIn>
-
-            <FadeIn className="flex flex-col items-center" delay={0.2}>
-              <div className="text-4xl md:text-5xl font-bold mb-2">
-                <CountUp end={15} suffix="+" />
-              </div>
-              <p className="text-white/80">Years of Excellence</p>
-            </FadeIn>
-
-            <FadeIn className="flex flex-col items-center" delay={0.3}>
-              <div className="text-4xl md:text-5xl font-bold mb-2">
-                <CountUp end={50} suffix="+" />
-              </div>
-              <p className="text-white/80">Expert Educators</p>
-            </FadeIn>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-16 bg-white dark:bg-slate-900">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
+        {/* Mission Statement Section */}
+        <section className="py-12 md:py-16">
+          <div className="container mx-auto px-4 md:px-6">
             <FadeIn>
-              <h2 className="text-3xl md:text-4xl font-bold text-blue-800 dark:text-blue-300 mb-6">
-                Join Us on This Educational Journey
-              </h2>
-              <p className="text-lg text-slate-600 dark:text-slate-300 mb-8">
-                Experience the Ascent Classes difference and take the first step towards academic excellence and
-                personal growth.
+              <SectionHeading
+                title="Our Mission"
+                subtitle="Empowering Students Through Quality Education"
+                description="We are committed to providing comprehensive, high-quality coaching that empowers students to excel in competitive exams and beyond."
+              />
+            </FadeIn>
+
+            <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+              <div className="order-2 md:order-1">
+                <FadeIn>
+                  <div
+                    className={`p-6 rounded-lg ${
+                      isDark ? "bg-slate-800 border border-slate-700" : "bg-white shadow-lg"
+                    }`}
+                  >
+                    <h3 className={`text-xl md:text-2xl font-bold mb-4 ${isDark ? "text-white" : "text-slate-800"}`}>
+                      Our Commitment to Excellence
+                    </h3>
+                    <ul className="space-y-3">
+                      {[
+                        "Provide personalized attention to each student",
+                        "Foster a supportive and competitive learning environment",
+                        "Employ innovative teaching methodologies",
+                        "Continuously update our curriculum to align with changing exam patterns",
+                        "Maintain a team of experienced and dedicated faculty",
+                        "Track and monitor student progress through regular assessments",
+                      ].map((item, index) => (
+                        <li key={index} className="flex items-start gap-2">
+                          <CheckCircle className={`h-5 w-5 mt-0.5 ${isDark ? "text-blue-400" : "text-blue-600"}`} />
+                          <span className={isDark ? "text-slate-300" : "text-slate-700"}>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </FadeIn>
+              </div>
+              <div className="order-1 md:order-2">
+                <FadeIn>
+                  <div className="relative">
+                    <blockquote
+                      className={`text-xl md:text-2xl italic font-medium p-6 rounded-lg ${
+                        isDark
+                          ? "bg-blue-900/30 text-blue-100 border border-blue-800"
+                          : "bg-blue-50 text-blue-800 border-l-4 border-blue-500"
+                      }`}
+                    >
+                      "Our mission at Ascent Classes is not just to prepare students for exams, but to instill in them a
+                      love for learning, critical thinking abilities, and the confidence to face any challenge in life."
+                      <footer className="mt-4 text-base font-normal">
+                        <cite className={isDark ? "text-blue-300" : "text-blue-700"}>
+                          — Dr. Rajesh Kumar, Founder & Director
+                        </cite>
+                      </footer>
+                    </blockquote>
+                  </div>
+                </FadeIn>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Core Values Section */}
+        <section className={`py-12 md:py-16 ${isDark ? "bg-slate-900" : "bg-gray-50"} rounded-2xl my-12`}>
+          <div className="container mx-auto px-4 md:px-6">
+            <FadeIn>
+              <SectionHeading
+                title="Our Core Values"
+                subtitle="Principles That Guide Us"
+                description="These fundamental beliefs shape our approach to education and guide our interactions with students, parents, and the community."
+              />
+            </FadeIn>
+
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+            >
+              {coreValues.map((value, index) => (
+                <motion.div key={index} variants={itemVariants}>
+                  <ValueCard
+                    icon={value.icon}
+                    title={value.title}
+                    description={value.description}
+                    className={isDark ? "bg-slate-800" : ""}
+                  />
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Approach Section */}
+        <section className="py-12 md:py-16">
+          <div className="container mx-auto px-4 md:px-6">
+            <FadeIn>
+              <SectionHeading
+                title="Our Approach"
+                subtitle="How We Deliver Excellence"
+                description="Our teaching methodology is designed to bring out the best in every student through a balanced approach."
+              />
+            </FadeIn>
+
+            <div className="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-8">
+              <FadeIn delay={0.1}>
+                <div
+                  className={`p-6 rounded-lg ${
+                    isDark
+                      ? "bg-gradient-to-br from-blue-900 to-slate-800 border border-blue-800"
+                      : "bg-gradient-to-br from-blue-50 to-white border border-blue-100"
+                  }`}
+                >
+                  <div
+                    className={`mb-4 flex h-12 w-12 items-center justify-center rounded-full ${
+                      isDark ? "bg-blue-800 text-blue-300" : "bg-blue-100 text-blue-600"
+                    }`}
+                  >
+                    <BookOpen className="h-6 w-6" />
+                  </div>
+                  <h3 className={`text-xl font-bold mb-2 ${isDark ? "text-white" : "text-slate-800"}`}>
+                    Conceptual Understanding
+                  </h3>
+                  <p className={isDark ? "text-slate-300" : "text-slate-600"}>
+                    We focus on building strong conceptual foundations rather than rote memorization. Our teaching
+                    methods encourage students to understand the 'why' behind every concept.
+                  </p>
+                </div>
+              </FadeIn>
+
+              <FadeIn delay={0.2}>
+                <div
+                  className={`p-6 rounded-lg ${
+                    isDark
+                      ? "bg-gradient-to-br from-blue-900 to-slate-800 border border-blue-800"
+                      : "bg-gradient-to-br from-blue-50 to-white border border-blue-100"
+                  }`}
+                >
+                  <div
+                    className={`mb-4 flex h-12 w-12 items-center justify-center rounded-full ${
+                      isDark ? "bg-blue-800 text-blue-300" : "bg-blue-100 text-blue-600"
+                    }`}
+                  >
+                    <Users className="h-6 w-6" />
+                  </div>
+                  <h3 className={`text-xl font-bold mb-2 ${isDark ? "text-white" : "text-slate-800"}`}>
+                    Personalized Attention
+                  </h3>
+                  <p className={isDark ? "text-slate-300" : "text-slate-600"}>
+                    We maintain small batch sizes to ensure that each student receives individual attention. Our faculty
+                    regularly monitors progress and provides personalized guidance.
+                  </p>
+                </div>
+              </FadeIn>
+
+              <FadeIn delay={0.3}>
+                <div
+                  className={`p-6 rounded-lg ${
+                    isDark
+                      ? "bg-gradient-to-br from-blue-900 to-slate-800 border border-blue-800"
+                      : "bg-gradient-to-br from-blue-50 to-white border border-blue-100"
+                  }`}
+                >
+                  <div
+                    className={`mb-4 flex h-12 w-12 items-center justify-center rounded-full ${
+                      isDark ? "bg-blue-800 text-blue-300" : "bg-blue-100 text-blue-600"
+                    }`}
+                  >
+                    <Award className="h-6 w-6" />
+                  </div>
+                  <h3 className={`text-xl font-bold mb-2 ${isDark ? "text-white" : "text-slate-800"}`}>
+                    Comprehensive Assessment
+                  </h3>
+                  <p className={isDark ? "text-slate-300" : "text-slate-600"}>
+                    Regular tests and assessments help students gauge their preparation level. Detailed performance
+                    analysis identifies strengths and areas for improvement.
+                  </p>
+                </div>
+              </FadeIn>
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section
+          className={`py-12 md:py-16 rounded-2xl ${isDark ? "bg-blue-900" : "bg-blue-600"} text-white mt-12 mb-8`}
+        >
+          <div className="container mx-auto px-4 md:px-6 text-center">
+            <FadeIn>
+              <h2 className="text-2xl md:text-3xl font-bold mb-4">Ready to Join Ascent Classes?</h2>
+              <p className="text-lg text-blue-100 mb-8 max-w-2xl mx-auto">
+                Take the first step towards academic excellence and a successful future. Explore our programs or contact
+                us to learn more about how we can help you achieve your goals.
               </p>
-              <div className="flex flex-col sm:flex-row gap-6 justify-center mt-10">
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-lg px-8 py-6 h-auto shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 font-medium"
-                >
-                  <Link href="/get-enrolled">Get Enrolled Today</Link>
-                </Button>
-                <Button
-                  asChild
-                  variant="outline"
-                  size="lg"
-                  className="border-2 border-blue-600 dark:border-blue-400 text-blue-700 dark:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/30 text-lg px-8 py-6 h-auto shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 font-medium"
-                >
-                  <Link href="/reach-out">Contact Us</Link>
-                </Button>
+              <div className="flex flex-wrap justify-center gap-4">
+                <Link href="/program-path">
+                  <Button
+                    size="lg"
+                    className={`gap-1 ${
+                      isDark ? "bg-white text-blue-900 hover:bg-blue-50" : "bg-white text-blue-600 hover:bg-blue-50"
+                    }`}
+                  >
+                    Explore Programs <ArrowRight className="h-4 w-4" />
+                  </Button>
+                </Link>
+                <Link href="/reach-out">
+                  <Button size="lg" variant="outline" className="border-blue-200 text-white hover:bg-blue-800">
+                    Contact Us
+                  </Button>
+                </Link>
               </div>
             </FadeIn>
           </div>
-        </div>
-      </section>
-    </main>
+        </section>
+      </div>
+    </div>
   )
 }

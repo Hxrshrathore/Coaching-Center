@@ -5,7 +5,8 @@ import { ChevronRight, Home } from "lucide-react"
 import { usePathname } from "next/navigation"
 
 interface BreadcrumbItem {
-  label: string
+  label?: string
+  name?: string
   href?: string
 }
 
@@ -38,10 +39,10 @@ export function Breadcrumbs({ items = [], className = "" }: BreadcrumbsProps) {
                 href={item.href}
                 className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
               >
-                {item.label}
+                {item.label || item.name}
               </Link>
             ) : (
-              <span className="text-gray-700 dark:text-gray-300 font-medium">{item.label}</span>
+              <span className="text-gray-700 dark:text-gray-300 font-medium">{item.label || item.name}</span>
             )}
           </li>
         ))}

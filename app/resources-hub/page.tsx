@@ -1,47 +1,38 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import Image from "next/image"
 import { ArrowRight, BookOpen, Award, Users, Calendar, BookCheck, FileText, Video, PenTool } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-// import { Navbar } from "@/components/navbar"
-// import { Footer } from "@/components/footer"
 import { SectionHeading } from "@/components/ui/section-heading"
 import { Breadcrumbs } from "@/components/ui/breadcrumbs"
-import { FadeIn } from "@/components/animations/fade-in"
 
 export const metadata: Metadata = {
-  title: "Resources Hub | Ascent Classes",
+  title: "Resources Hub | Toppers Maker",
   description:
     "Access a wealth of educational resources, study materials, practice tests, and more to support your academic journey.",
 }
 
 export default function ResourcesHubPage() {
   const breadcrumbItems = [
-    { name: "Home", href: "/" },
-    { name: "Resources Hub", href: "/resources-hub" },
+    { label: "Home", href: "/" },
+    { label: "Resources Hub", href: "/resources-hub" },
   ]
 
   return (
     <div className="flex min-h-screen flex-col">
-      {/* <Navbar /> */}
       <main className="flex-1">
         {/* Hero Section */}
         <div className="container mx-auto px-4 py-12 pt-28">
-          {" "}
-          {/* Added pt-28 for top padding */}
           <Breadcrumbs items={breadcrumbItems} />
-          <FadeIn>
-            <div className="text-center mb-16">
-              <SectionHeading
-                title="Resources Hub"
-                subtitle="Tools for Academic Success"
-                description="Access a wealth of educational resources, study materials, practice tests, and more to support your academic journey."
-              />
-            </div>
-          </FadeIn>
-          {/* Rest of the content */}
+          <div className="text-center mb-16">
+            <SectionHeading
+              title="Resources Hub"
+              subtitle="Tools for Academic Success"
+              description="Access a wealth of educational resources, study materials, practice tests, and more to support your academic journey."
+            />
+          </div>
+
           {/* Study Materials Section */}
           <section className="w-full py-12 md:py-24 lg:py-32">
             <div className="container px-4 md:px-6">
@@ -167,6 +158,7 @@ export default function ResourcesHubPage() {
               </div>
             </div>
           </section>
+
           {/* Mock Tests Section */}
           <section className="w-full py-12 md:py-24 lg:py-32 bg-blue-50 dark:bg-slate-900">
             <div className="container px-4 md:px-6">
@@ -292,6 +284,7 @@ export default function ResourcesHubPage() {
               </div>
             </div>
           </section>
+
           {/* Video Lectures Section */}
           <section className="w-full py-12 md:py-24 lg:py-32">
             <div className="container px-4 md:px-6">
@@ -319,19 +312,8 @@ export default function ResourcesHubPage() {
                     <CardDescription>Clear explanations of fundamental concepts</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="aspect-video overflow-hidden rounded-lg bg-slate-100 dark:bg-slate-700">
-                      <Image
-                        src="/video-lecture-preview.png"
-                        alt="Video Lecture Preview"
-                        width={600}
-                        height={338}
-                        className="object-cover w-full h-full"
-                      />
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="rounded-full bg-white/90 p-3 shadow-lg">
-                          <Video className="h-6 w-6 text-blue-600" />
-                        </div>
-                      </div>
+                    <div className="aspect-video rounded-lg bg-slate-100 dark:bg-slate-700 flex items-center justify-center">
+                      <Video className="h-12 w-12 text-blue-600" />
                     </div>
                     <ul className="mt-4 space-y-2 text-sm text-slate-600 dark:text-slate-400">
                       <li className="flex items-center gap-2">
@@ -364,19 +346,8 @@ export default function ResourcesHubPage() {
                     <CardDescription>Learn effective problem-solving techniques</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="aspect-video overflow-hidden rounded-lg bg-slate-100 dark:bg-slate-700">
-                      <Image
-                        src="/problem-solving-preview.png"
-                        alt="Problem Solving Session Preview"
-                        width={600}
-                        height={338}
-                        className="object-cover w-full h-full"
-                      />
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="rounded-full bg-white/90 p-3 shadow-lg">
-                          <Video className="h-6 w-6 text-blue-600" />
-                        </div>
-                      </div>
+                    <div className="aspect-video rounded-lg bg-slate-100 dark:bg-slate-700 flex items-center justify-center">
+                      <Video className="h-12 w-12 text-blue-600" />
                     </div>
                     <ul className="mt-4 space-y-2 text-sm text-slate-600 dark:text-slate-400">
                       <li className="flex items-center gap-2">
@@ -413,19 +384,8 @@ export default function ResourcesHubPage() {
                     <CardDescription>Get your doubts resolved by experts</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="aspect-video overflow-hidden rounded-lg bg-slate-100 dark:bg-slate-700">
-                      <Image
-                        src="/doubt-clearing-preview.png"
-                        alt="Doubt Clearing Session Preview"
-                        width={600}
-                        height={338}
-                        className="object-cover w-full h-full"
-                      />
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="rounded-full bg-white/90 p-3 shadow-lg">
-                          <Video className="h-6 w-6 text-blue-600" />
-                        </div>
-                      </div>
+                    <div className="aspect-video rounded-lg bg-slate-100 dark:bg-slate-700 flex items-center justify-center">
+                      <Video className="h-12 w-12 text-blue-600" />
                     </div>
                     <ul className="mt-4 space-y-2 text-sm text-slate-600 dark:text-slate-400">
                       <li className="flex items-center gap-2">
@@ -455,131 +415,7 @@ export default function ResourcesHubPage() {
               </div>
             </div>
           </section>
-          {/* Current Affairs Section */}
-          <section className="w-full py-12 md:py-24 lg:py-32 bg-blue-50 dark:bg-slate-900">
-            <div className="container px-4 md:px-6">
-              <div className="flex flex-col items-center justify-center space-y-4 text-center mb-10">
-                <div className="space-y-2">
-                  <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100 dark:bg-blue-900 dark:text-blue-300">
-                    Stay Updated
-                  </Badge>
-                  <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-blue-950 dark:text-white">
-                    Current Affairs
-                  </h2>
-                  <p className="max-w-[900px] text-slate-600 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-slate-400">
-                    Stay updated with the latest news and events relevant to your exams
-                  </p>
-                </div>
-              </div>
 
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                <Card className="bg-white dark:bg-slate-800 border-none shadow-md">
-                  <CardHeader>
-                    <div className="flex items-center gap-2">
-                      <Calendar className="h-6 w-6 text-blue-600 dark:text-blue-400" />
-                      <CardTitle>Daily Updates</CardTitle>
-                    </div>
-                    <CardDescription>Daily current affairs summaries</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
-                      <li className="flex items-center gap-2">
-                        <ArrowRight className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-                        <span>Concise daily news summaries</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <ArrowRight className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-                        <span>Exam-relevant news filtering</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <ArrowRight className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-                        <span>Important facts and figures</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <ArrowRight className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-                        <span>Available in PDF and audio formats</span>
-                      </li>
-                    </ul>
-                  </CardContent>
-                  <CardFooter>
-                    <Link href="/resources-hub/updates">
-                      <Button className="w-full bg-blue-600 hover:bg-blue-700">Access Updates</Button>
-                    </Link>
-                  </CardFooter>
-                </Card>
-
-                <Card className="bg-white dark:bg-slate-800 border-none shadow-md">
-                  <CardHeader>
-                    <div className="flex items-center gap-2">
-                      <BookOpen className="h-6 w-6 text-blue-600 dark:text-blue-400" />
-                      <CardTitle>Monthly Magazines</CardTitle>
-                    </div>
-                    <CardDescription>Comprehensive monthly compilations</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
-                      <li className="flex items-center gap-2">
-                        <ArrowRight className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-                        <span>Monthly current affairs compilations</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <ArrowRight className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-                        <span>Categorized by subjects and topics</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <ArrowRight className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-                        <span>Practice questions based on current affairs</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <ArrowRight className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-                        <span>Downloadable in multiple formats</span>
-                      </li>
-                    </ul>
-                  </CardContent>
-                  <CardFooter>
-                    <Link href="/resources-hub/magazines">
-                      <Button className="w-full bg-blue-600 hover:bg-blue-700">Access Magazines</Button>
-                    </Link>
-                  </CardFooter>
-                </Card>
-
-                <Card className="bg-white dark:bg-slate-800 border-none shadow-md">
-                  <CardHeader>
-                    <div className="flex items-center gap-2">
-                      <Video className="h-6 w-6 text-blue-600 dark:text-blue-400" />
-                      <CardTitle>Current Affairs Quizzes</CardTitle>
-                    </div>
-                    <CardDescription>Test your knowledge of recent events</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
-                      <li className="flex items-center gap-2">
-                        <ArrowRight className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-                        <span>Weekly and monthly quizzes</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <ArrowRight className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-                        <span>Exam-pattern questions</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <ArrowRight className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-                        <span>Detailed explanations for answers</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <ArrowRight className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-                        <span>Performance tracking and analytics</span>
-                      </li>
-                    </ul>
-                  </CardContent>
-                  <CardFooter>
-                    <Link href="/resources-hub/quizzes">
-                      <Button className="w-full bg-blue-600 hover:bg-blue-700">Take Quizzes</Button>
-                    </Link>
-                  </CardFooter>
-                </Card>
-              </div>
-            </div>
-          </section>
           {/* CTA Section */}
           <section className="w-full py-12 md:py-24 lg:py-32 bg-blue-600 text-white">
             <div className="container px-4 md:px-6">
@@ -613,7 +449,6 @@ export default function ResourcesHubPage() {
           </section>
         </div>
       </main>
-      {/* <Footer /> */}
     </div>
   )
 }

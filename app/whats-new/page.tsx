@@ -8,9 +8,7 @@ import { Badge } from "@/components/ui/badge"
 // import { Navbar } from "@/components/navbar"
 // import { Footer } from "@/components/footer"
 import { NewsletterForm } from "@/components/ui/newsletter-form"
-import { SectionHeading } from "@/components/ui/section-heading"
 import { Breadcrumbs } from "@/components/ui/breadcrumbs"
-import { FadeIn } from "@/components/animations/fade-in"
 
 export const metadata: Metadata = {
   title: "What's New | Ascent Classes",
@@ -31,15 +29,6 @@ export default function WhatsNewPage() {
           {" "}
           {/* Added pt-28 for top padding */}
           <Breadcrumbs items={breadcrumbItems} />
-          <FadeIn>
-            <div className="text-center mb-16">
-              <SectionHeading
-                title="What's New"
-                subtitle="Latest Updates and Announcements"
-                description="Stay updated with the latest news, events, and announcements from Ascent Classes."
-              />
-            </div>
-          </FadeIn>
           {/* Rest of the content */}
           {/* Hero Section */}
           <section className="w-full py-12 md:py-24 lg:py-32 bg-gradient-to-b from-blue-50 to-white dark:from-slate-900 dark:to-slate-800">

@@ -1,15 +1,18 @@
 import type { Metadata } from "next"
-import OurVisionClientPage from "./OurVisionClientPage"
+import { OurVisionClientPage } from "./OurVisionClientPage"
 
 export const metadata: Metadata = {
-  title: "Our Vision & Mission | Ascent Classes",
+  title: "Our Vision | Ascent Classes",
   description:
-    "Discover our vision, mission, and core values at Ascent Classes. We are committed to providing quality education and helping students achieve academic excellence through innovative teaching methods and personalized guidance.",
+    "Discover the vision and mission of Ascent Classes. Learn about our commitment to academic excellence and holistic development of students.",
   openGraph: {
-    title: "Our Vision & Mission | Ascent Classes",
+    title: "Our Vision | Ascent Classes",
     description:
-      "Discover our vision, mission, and core values at Ascent Classes. We are committed to providing quality education and helping students achieve academic excellence.",
-    images: [{ url: "/og-image.png" }],
+      "Discover the vision and mission of Ascent Classes. Learn about our commitment to academic excellence and holistic development of students.",
+    url: "/our-vision",
+    siteName: "Ascent Classes",
+    locale: "en_US",
+    type: "website",
   },
 }
 

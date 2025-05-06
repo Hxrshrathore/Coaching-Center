@@ -42,8 +42,8 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={inter.className}>
-        <div className="min-h-screen flex flex-col bg-background text-foreground">
+      <body className={`${inter.className} overflow-x-hidden`}>
+        <div className="flex flex-col bg-background text-foreground">
           <Navbar />
           <main className="flex-grow">{children}</main>
           <Footer />
