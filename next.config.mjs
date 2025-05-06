@@ -8,7 +8,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: true,
+    unoptimized: true, // Required for static export
     remotePatterns: [
       {
         protocol: 'https',
@@ -17,13 +17,10 @@ const nextConfig = {
     ],
   },
   trailingSlash: true,
-  // This ensures that links to /about will be exported as /about/index.html
-  // which is necessary for static hosting platforms
   
   // Disable server components features that don't work with static export
   experimental: {
-    serverActions: false,
-    // Removed optimizeCss: true as it requires critters which is missing
+    // Remove serverActions completely for static export
     optimizePackageImports: ['lucide-react', 'framer-motion'], // Optimize large package imports
   },
   
@@ -47,7 +44,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=3600, s-maxage=86400',
+            value: 'public, max-age=31536000, immutable', // 1 year for static assets
           },
           {
             key: 'X-Content-Type-Options',

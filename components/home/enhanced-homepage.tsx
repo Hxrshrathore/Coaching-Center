@@ -1,9 +1,9 @@
 "use client"
 
 import { useRef, useState, useEffect } from "react"
-import Image from "next/image"
 import Link from "next/link"
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
+import Image from "next/image"
+import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 import {
   Stethoscope,
@@ -27,6 +27,19 @@ import { FadeIn } from "@/components/animations/fade-in"
 import { BackToTop } from "@/components/ui/back-to-top"
 import { ScrollProgress } from "@/components/ui/scroll-progress"
 import { useMobile } from "@/hooks/use-mobile"
+
+// Performance optimization: Lazy load components that are not needed immediately
+// const FeaturedCarousel = dynamic(() => import("@/components/featured-carousel"), {
+//   loading: () => <div className="h-[300px] w-full bg-gray-100 animate-pulse rounded-lg"></div>,
+//   ssr: false,
+// })
+
+// const TestimonialCard = dynamic(() => import("@/components/testimonial-card"), {
+//   loading: () => <div className="h-[200px] w-full bg-gray-100 animate-pulse rounded-lg"></div>,
+//   ssr: false,
+// })
+
+// import dynamic from "next/dynamic"
 
 // Animation variants for staggered animations
 const containerVariants = {
@@ -63,9 +76,6 @@ export function EnhancedHomepage({ structuredData }: { structuredData: any }) {
   const [activeTestimonial, setActiveTestimonial] = useState(0)
   const [isClient, setIsClient] = useState(false)
   const heroRef = useRef(null)
-  const { scrollY } = useScroll()
-  const heroOpacity = useTransform(scrollY, [0, 300], [1, 0])
-  const heroScale = useTransform(scrollY, [0, 300], [1, 0.95])
   const [windowWidth, setWindowWidth] = useState(0)
 
   // Set client-side rendering flag and track window width
@@ -228,25 +238,14 @@ export function EnhancedHomepage({ structuredData }: { structuredData: any }) {
     }
   }, [])
 
-  // Determine grid columns based on screen size
-  const getGridCols = (base: number, md: number, lg: number, xl: number) => {
-    if (!isClient) return `grid-cols-1 md:grid-cols-${md} lg:grid-cols-${lg} xl:grid-cols-${xl}`
-
-    if (windowWidth >= 1280) return `grid-cols-${xl}`
-    if (windowWidth >= 1024) return `grid-cols-${lg}`
-    if (windowWidth >= 768) return `grid-cols-${md}`
-    return `grid-cols-${base}`
-  }
-
   return (
     <div className="overflow-x-hidden">
       {/* Scroll Progress Bar */}
       {isClient && <ScrollProgress />}
 
       {/* Hero Section with Parallax and Animation Effects */}
-      <motion.section
+      <section
         ref={heroRef}
-        style={{ opacity: heroOpacity, scale: heroScale }}
         className="relative min-h-[90vh] md:min-h-[85vh] lg:min-h-[90vh] flex items-center justify-center overflow-hidden bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-900 dark:to-blue-950"
       >
         {/* Animated background elements */}
@@ -330,7 +329,7 @@ export function EnhancedHomepage({ structuredData }: { structuredData: any }) {
             </motion.div>
           </motion.div>
         </div>
-      </motion.section>
+      </section>
 
       {/* Featured Carousel with Animation */}
       <section className="py-12 sm:py-16 bg-gray-50 dark:bg-slate-900">
@@ -359,7 +358,7 @@ export function EnhancedHomepage({ structuredData }: { structuredData: any }) {
             variants={containerVariants}
             initial="hidden"
             animate={statsInView ? "visible" : "hidden"}
-            className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8`}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8"
           >
             <motion.div
               variants={itemVariants}
@@ -419,7 +418,7 @@ export function EnhancedHomepage({ structuredData }: { structuredData: any }) {
             variants={containerVariants}
             initial="hidden"
             animate={featuresInView ? "visible" : "hidden"}
-            className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mt-6 sm:mt-8`}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mt-6 sm:mt-8"
           >
             {featuredPrograms.map((program) => (
               <motion.div key={program.id} variants={itemVariants}>
@@ -541,53 +540,44 @@ export function EnhancedHomepage({ structuredData }: { structuredData: any }) {
 
           <div className="mt-8 sm:mt-12 max-w-4xl mx-auto">
             <div className="relative h-[450px] sm:h-[350px] md:h-[300px]">
-              <AnimatePresence mode="wait">
-                {testimonials.map(
-                  (testimonial, index) =>
-                    index === activeTestimonial && (
-                      <motion.div
-                        key={testimonial.id}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -20 }}
-                        transition={{ duration: 0.5 }}
-                        className="absolute inset-0"
-                      >
-                        <div className="bg-gray-50 dark:bg-slate-800 p-4 sm:p-6 md:p-8 rounded-2xl shadow-lg flex flex-col md:flex-row gap-4 sm:gap-6 h-full">
-                          <div className="flex-shrink-0 flex justify-center md:justify-start">
-                            <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-blue-500">
-                              <Image
-                                src={testimonial.image || "/placeholder.svg"}
-                                alt={testimonial.name}
-                                width={128}
-                                height={128}
-                                className="w-full h-full object-cover"
-                              />
-                            </div>
-                          </div>
-                          <div className="flex-1 flex flex-col justify-center text-center md:text-left">
-                            <div className="flex justify-center md:justify-start mb-2 sm:mb-4">
-                              {[...Array(5)].map((_, i) => (
-                                <Star key={i} className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-500 fill-yellow-500" />
-                              ))}
-                            </div>
-                            <p className="text-sm sm:text-base text-slate-700 dark:text-slate-200 italic mb-2 sm:mb-4">
-                              "{testimonial.quote}"
-                            </p>
-                            <div>
-                              <h4 className="text-base sm:text-lg font-bold text-blue-700 dark:text-blue-400">
-                                {testimonial.name}
-                              </h4>
-                              <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
-                                {testimonial.role}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </motion.div>
-                    ),
-                )}
-              </AnimatePresence>
+              {testimonials.map((testimonial, index) => (
+                <div
+                  key={testimonial.id}
+                  className={`absolute inset-0 transition-opacity duration-500 ${
+                    index === activeTestimonial ? "opacity-100" : "opacity-0 pointer-events-none"
+                  }`}
+                >
+                  <div className="bg-gray-50 dark:bg-slate-800 p-4 sm:p-6 md:p-8 rounded-2xl shadow-lg flex flex-col md:flex-row gap-4 sm:gap-6 h-full">
+                    <div className="flex-shrink-0 flex justify-center md:justify-start">
+                      <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-blue-500">
+                        <Image
+                          src={testimonial.image || "/placeholder.svg"}
+                          alt={testimonial.name}
+                          width={128}
+                          height={128}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex-1 flex flex-col justify-center text-center md:text-left">
+                      <div className="flex justify-center md:justify-start mb-2 sm:mb-4">
+                        {[...Array(5)].map((_, i) => (
+                          <Star key={i} className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-500 fill-yellow-500" />
+                        ))}
+                      </div>
+                      <p className="text-sm sm:text-base text-slate-700 dark:text-slate-200 italic mb-2 sm:mb-4">
+                        "{testimonial.quote}"
+                      </p>
+                      <div>
+                        <h4 className="text-base sm:text-lg font-bold text-blue-700 dark:text-blue-400">
+                          {testimonial.name}
+                        </h4>
+                        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">{testimonial.role}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
 
             <div className="flex justify-center mt-4 sm:mt-6 gap-2">
