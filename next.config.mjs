@@ -91,8 +91,12 @@ const nextConfig = {
             test: /[\\/]node_modules[\\/]/,
             name(module) {
               // Get the name of the npm package
-              const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+              // Fix: Safely handle null matches
+              const match = module.context ? module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/) : null;
+              if (!match) return 'vendor'; // Return a default name if no match
+              
               // Return a nice package name for better debugging
+              const packageName = match[1];
               return `npm.${packageName.replace('@', '')}`;
             },
           },
