@@ -23,7 +23,7 @@ const nextConfig = {
   // Disable server components features that don't work with static export
   experimental: {
     serverActions: false,
-    optimizeCss: true, // Enable CSS optimization
+    // Removed optimizeCss: true as it requires critters which is missing
     optimizePackageImports: ['lucide-react', 'framer-motion'], // Optimize large package imports
   },
   
