@@ -28,33 +28,33 @@ import { BackToTop } from "@/components/ui/back-to-top"
 import { ScrollProgress } from "@/components/ui/scroll-progress"
 import { useMobile } from "@/hooks/use-mobile"
 
-// Animation variants for staggered animations
+// Simplified animation variants to reduce JS execution
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
+      staggerChildren: 0.05,
+      delayChildren: 0.1,
     },
   },
 }
 
 const itemVariants = {
-  hidden: { y: 20, opacity: 0 },
+  hidden: { y: 10, opacity: 0 },
   visible: {
     y: 0,
     opacity: 1,
-    transition: { type: "spring", stiffness: 100 },
+    transition: { type: "spring", stiffness: 70, damping: 20 },
   },
 }
 
 const fadeInUpVariants = {
-  hidden: { y: 40, opacity: 0 },
+  hidden: { y: 20, opacity: 0 },
   visible: {
     y: 0,
     opacity: 1,
-    transition: { duration: 0.6, ease: "easeOut" },
+    transition: { duration: 0.4, ease: "easeOut" },
   },
 }
 
@@ -63,24 +63,10 @@ export function EnhancedHomepage() {
   const [activeTestimonial, setActiveTestimonial] = useState(0)
   const [isClient, setIsClient] = useState(false)
   const heroRef = useRef(null)
-  const [windowWidth, setWindowWidth] = useState(0)
 
-  // Set client-side rendering flag and track window width
+  // Set client-side rendering flag
   useEffect(() => {
     setIsClient(true)
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth)
-    }
-
-    // Set initial width
-    setWindowWidth(window.innerWidth)
-
-    // Add resize listener
-    window.addEventListener("resize", handleResize)
-
-    return () => {
-      window.removeEventListener("resize", handleResize)
-    }
   }, [])
 
   // Intersection observers for scroll-triggered animations
@@ -201,52 +187,19 @@ export function EnhancedHomepage() {
     return () => clearInterval(interval)
   }, [testimonials.length])
 
-  // Add this useEffect after the other useEffect hooks
-  useEffect(() => {
-    // More efficient scroll handler that won't cause performance issues
-    let scrollTimeout
-
-    const handleScroll = () => {
-      // Clear previous timeout to prevent multiple executions
-      if (scrollTimeout) {
-        window.cancelAnimationFrame(scrollTimeout)
-      }
-
-      // Schedule the repaint at the next animation frame for better performance
-      scrollTimeout = window.requestAnimationFrame(() => {
-        const decorativeElements = document.querySelectorAll('[aria-hidden="true"]')
-        decorativeElements.forEach((el) => {
-          // Force a repaint by accessing offsetHeight
-          void el.offsetHeight
-        })
-      })
-    }
-
-    // Add passive scroll listener for better performance
-    window.addEventListener("scroll", handleScroll, { passive: true })
-
-    // Cleanup
-    return () => {
-      if (scrollTimeout) {
-        window.cancelAnimationFrame(scrollTimeout)
-      }
-      window.removeEventListener("scroll", handleScroll)
-    }
-  }, [])
-
   return (
     <div className="relative w-full scroll-content">
       {/* Scroll Progress Bar */}
       {isClient && <ScrollProgress />}
 
-      {/* Hero Section with Parallax and Animation Effects */}
+      {/* Hero Section with optimized animations */}
       <section
         ref={heroRef}
         className="relative min-h-[90dvh] md:min-h-[85dvh] lg:min-h-[90dvh] flex items-center justify-center bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-900 dark:to-blue-950"
       >
-        {/* Animated background elements */}
+        {/* Reduced number of animated background elements */}
         <div className="absolute inset-0 overflow-hidden">
-          {Array.from({ length: 20 }).map((_, i) => (
+          {Array.from({ length: 8 }).map((_, i) => (
             <motion.div
               key={i}
               className="absolute rounded-full bg-white/10 dark:bg-white/5"
@@ -257,11 +210,11 @@ export function EnhancedHomepage() {
                 top: `${Math.random() * 100}%`,
               }}
               animate={{
-                y: [0, Math.random() * 100 - 50],
-                opacity: [0.1, 0.3, 0.1],
+                y: [0, Math.random() * 50 - 25],
+                opacity: [0.1, 0.2, 0.1],
               }}
               transition={{
-                duration: Math.random() * 10 + 10,
+                duration: Math.random() * 5 + 10,
                 repeat: Number.POSITIVE_INFINITY,
                 repeatType: "reverse",
               }}
@@ -270,8 +223,13 @@ export function EnhancedHomepage() {
         </div>
 
         <div className="container relative z-10 px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 lg:py-24 mx-auto text-center">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-4 sm:mb-6 leading-tight max-w-5xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="mb-4 sm:mb-6"
+          >
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight max-w-5xl mx-auto">
               Unlock Your Academic Potential with <span className="text-yellow-300 inline-block">Ascent Classes</span>
             </h1>
           </motion.div>
@@ -279,7 +237,7 @@ export function EnhancedHomepage() {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.4, delay: 0.1 }}
             className="text-base sm:text-lg md:text-xl lg:text-2xl text-blue-100 mb-6 sm:mb-8 max-w-3xl mx-auto"
           >
             Expert coaching for JEE, NEET, Olympiads, and K-12 Science with proven results and personalized attention.
@@ -288,7 +246,7 @@ export function EnhancedHomepage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            transition={{ duration: 0.4, delay: 0.2 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
             <Link href="/get-enrolled">
@@ -313,7 +271,7 @@ export function EnhancedHomepage() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.8 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
             className="absolute bottom-6 sm:bottom-10 left-1/2 transform -translate-x-1/2"
           >
             <motion.div
@@ -330,7 +288,7 @@ export function EnhancedHomepage() {
       {/* Featured Carousel with Animation */}
       <section className="py-12 sm:py-16 bg-gray-50 dark:bg-slate-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeIn>
+          <FadeIn delay={0.1} duration={0.4}>
             <SectionHeading
               badge="Featured Programs"
               title="Discover Our Specialized Coaching Programs"
@@ -361,7 +319,7 @@ export function EnhancedHomepage() {
               className="text-center bg-blue-700 dark:bg-blue-900 rounded-lg p-4 sm:p-6 shadow-lg transform hover:scale-105 transition-transform duration-300"
             >
               <div className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-1 sm:mb-2 text-white">
-                <CountUp end={10000} suffix="+" duration={2.5} />
+                <CountUp end={10000} suffix="+" duration={1.5} />
               </div>
               <p className="text-base sm:text-lg text-blue-100">JEE & NEET Selections</p>
             </motion.div>
@@ -371,7 +329,7 @@ export function EnhancedHomepage() {
               className="text-center bg-blue-700 dark:bg-blue-900 rounded-lg p-4 sm:p-6 shadow-lg transform hover:scale-105 transition-transform duration-300"
             >
               <div className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-1 sm:mb-2 text-white">
-                <CountUp end={500} suffix="+" duration={2} />
+                <CountUp end={500} suffix="+" duration={1.5} />
               </div>
               <p className="text-base sm:text-lg text-blue-100">Olympiad Medalists</p>
             </motion.div>
@@ -381,7 +339,7 @@ export function EnhancedHomepage() {
               className="text-center bg-blue-700 dark:bg-blue-900 rounded-lg p-4 sm:p-6 shadow-lg transform hover:scale-105 transition-transform duration-300"
             >
               <div className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-1 sm:mb-2 text-white">
-                <CountUp end={95} suffix="%" duration={2} />
+                <CountUp end={95} suffix="%" duration={1.5} />
               </div>
               <p className="text-base sm:text-lg text-blue-100">Success Rate</p>
             </motion.div>
@@ -402,7 +360,7 @@ export function EnhancedHomepage() {
       {/* Featured Programs Section with Interactive Cards */}
       <section className="py-12 sm:py-16 bg-white dark:bg-slate-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeIn>
+          <FadeIn delay={0.1} duration={0.4}>
             <SectionHeading
               title="Our Featured Programs"
               subtitle="Comprehensive coaching for competitive exams and academic excellence"
@@ -445,9 +403,9 @@ export function EnhancedHomepage() {
 
       {/* Why Choose Us Section */}
       <section className="py-12 sm:py-16 bg-gray-50 dark:bg-slate-800 relative">
-        {/* Persistent decorative shapes that won't disappear during scroll */}
+        {/* Simplified decorative shapes with fixed dimensions to prevent layout shift */}
         <div
-          className="absolute -bottom-8 -left-8 w-48 sm:w-64 h-48 sm:h-64 bg-blue-600/90 rounded-lg transform rotate-6 pointer-events-none prevent-scroll-hide"
+          className="absolute -bottom-8 -left-8 w-48 h-48 bg-blue-600/90 rounded-lg transform rotate-6 pointer-events-none prevent-scroll-hide"
           style={{
             zIndex: 0,
             willChange: "transform",
@@ -457,7 +415,7 @@ export function EnhancedHomepage() {
           aria-hidden="true"
         />
         <div
-          className="absolute -top-8 -right-8 w-32 sm:w-48 h-32 sm:h-48 bg-yellow-400/90 rounded-lg transform -rotate-6 pointer-events-none prevent-scroll-hide"
+          className="absolute -top-8 -right-8 w-32 h-32 bg-yellow-400/90 rounded-lg transform -rotate-6 pointer-events-none prevent-scroll-hide"
           style={{
             zIndex: 0,
             willChange: "transform",
@@ -470,7 +428,7 @@ export function EnhancedHomepage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center">
             <div>
-              <FadeIn>
+              <FadeIn delay={0.1} duration={0.4}>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-blue-950 dark:text-white mb-4 sm:mb-6">
                   Why Students & Parents Choose Ascent Classes
                 </h2>
@@ -503,14 +461,16 @@ export function EnhancedHomepage() {
             </div>
 
             <div className="relative" style={{ isolation: "isolate" }}>
-              <div className="relative rounded-lg overflow-hidden shadow-2xl z-10">
+              {/* Pre-sized container to prevent layout shift */}
+              <div className="relative rounded-lg overflow-hidden shadow-2xl z-10 aspect-w-3 aspect-h-2 w-full h-auto">
                 <Image
                   src="/modern-classroom-study.png"
                   alt="Modern classroom at Ascent Classes"
                   width={600}
                   height={400}
-                  className="w-full h-auto object-cover rounded-lg"
+                  className="w-full h-full object-cover rounded-lg"
                   priority={true}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent flex flex-col justify-end p-4 sm:p-6">
                   <p className="text-base sm:text-lg font-medium text-white">
@@ -526,7 +486,7 @@ export function EnhancedHomepage() {
       {/* Testimonials Section with Animation */}
       <section ref={testimonialsRef} className="py-12 sm:py-16 bg-white dark:bg-slate-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeIn>
+          <FadeIn delay={0.1} duration={0.4}>
             <SectionHeading
               badge="Success Stories"
               title="What Our Students Say"
@@ -535,6 +495,7 @@ export function EnhancedHomepage() {
           </FadeIn>
 
           <div className="mt-8 sm:mt-12 max-w-4xl mx-auto">
+            {/* Fixed height container to prevent layout shift */}
             <div className="relative h-[450px] sm:h-[350px] md:h-[300px]">
               {testimonials.map((testimonial, index) => (
                 <div
@@ -545,6 +506,7 @@ export function EnhancedHomepage() {
                 >
                   <div className="bg-gray-50 dark:bg-slate-800 p-4 sm:p-6 md:p-8 rounded-2xl shadow-lg flex flex-col md:flex-row gap-4 sm:gap-6 h-full">
                     <div className="flex-shrink-0 flex justify-center md:justify-start">
+                      {/* Fixed size container for image */}
                       <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-blue-500">
                         <Image
                           src={testimonial.image || "/placeholder.svg"}

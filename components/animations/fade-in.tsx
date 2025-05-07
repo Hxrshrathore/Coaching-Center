@@ -40,18 +40,21 @@ export function FadeIn({
   const getVariants = (): Variants => {
     let initial = { opacity: 0 }
 
+    // Use smaller distance values for better performance
+    const animDistance = distance * 0.6
+
     switch (direction) {
       case "up":
-        initial = { ...initial, y: distance }
+        initial = { ...initial, y: animDistance }
         break
       case "down":
-        initial = { ...initial, y: -distance }
+        initial = { ...initial, y: -animDistance }
         break
       case "left":
-        initial = { ...initial, x: distance }
+        initial = { ...initial, x: animDistance }
         break
       case "right":
-        initial = { ...initial, x: -distance }
+        initial = { ...initial, x: -animDistance }
         break
     }
 

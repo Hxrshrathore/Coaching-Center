@@ -51,9 +51,8 @@ export function CountUp({
         const progress = Math.min(elapsed / (duration * 1000), 1)
 
         if (progress < 1) {
-          // Use easeOutQuad for smoother animation
-          const easeProgress = 1 - (1 - progress) * (1 - progress)
-          setCount(start + (end - start) * easeProgress)
+          // Use linear animation for better performance
+          setCount(start + (end - start) * progress)
           frameRef.current = requestAnimationFrame(animate)
         } else {
           setCount(end)
@@ -72,7 +71,7 @@ export function CountUp({
   }, [inView, start, end, duration, delay, onComplete])
 
   // Format the number with separators and decimals
-  const formatNumber = (num: number) => {
+  const formatNumber = (num: number): string => {
     const fixedNumber = num.toFixed(decimals)
     const [intPart, decimalPart] = fixedNumber.split(".")
 

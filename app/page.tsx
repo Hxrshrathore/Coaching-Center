@@ -103,7 +103,7 @@ export default function Home() {
       {/* Add structured data */}
       <StructuredData data={structuredData} />
 
-      {/* Enhanced homepage component with animations and interactive elements */}
+      {/* Enhanced homepage component with optimized animations and interactive elements */}
       <EnhancedHomepage />
     </>
   )
