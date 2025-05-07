@@ -5,12 +5,17 @@ import type React from "react"
 import { useState, useEffect, useRef } from "react"
 import Image, { type ImageProps } from "next/image"
 import { cn } from "@/lib/utils"
+import { useMobile } from "@/hooks/use-mobile"
 
 interface OptimizedImageProps extends Omit<ImageProps, "onLoad" | "onError"> {
   fallbackSrc?: string
   aspectRatio?: number
   previewSrc?: string
   containerClassName?: string
+  mobileSizes?: string
+  desktopSizes?: string
+  mobileQuality?: number
+  desktopQuality?: number
 }
 
 export function OptimizedImage({
@@ -24,12 +29,20 @@ export function OptimizedImage({
   className,
   containerClassName,
   priority = false,
-  sizes = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw",
+  mobileSizes = "(max-width: 640px) 100vw",
+  desktopSizes = "(max-width: 1024px) 50vw, 33vw",
+  mobileQuality = 75, // Lower quality for mobile to reduce file size
+  desktopQuality = 85,
   ...props
 }: OptimizedImageProps) {
   const [isLoaded, setIsLoaded] = useState(false)
   const [error, setError] = useState(false)
   const imageRef = useRef<HTMLImageElement>(null)
+  const isMobile = useMobile()
+
+  // Use appropriate sizes and quality based on device
+  const sizes = isMobile ? mobileSizes : desktopSizes
+  const quality = isMobile ? mobileQuality : desktopQuality
 
   // Calculate aspect ratio for container
   const containerStyle: React.CSSProperties = {}
@@ -66,7 +79,10 @@ export function OptimizedImage({
           }
         })
       },
-      { rootMargin: "200px" }, // Load images 200px before they come into view
+      {
+        rootMargin: isMobile ? "100px" : "200px", // Load closer to viewport on mobile
+        threshold: 0.01,
+      },
     )
 
     observer.observe(imageRef.current)
@@ -76,7 +92,7 @@ export function OptimizedImage({
         observer.unobserve(imageRef.current)
       }
     }
-  }, [priority])
+  }, [priority, isMobile])
 
   return (
     <div
@@ -97,6 +113,7 @@ export function OptimizedImage({
           height={height}
           className="absolute inset-0 w-full h-full object-cover blur-sm scale-110 transform"
           aria-hidden="true"
+          unoptimized={true} // Use unoptimized for tiny placeholder
         />
       )}
 
@@ -113,6 +130,7 @@ export function OptimizedImage({
         priority={priority}
         onLoad={handleLoad}
         onError={handleError}
+        quality={quality}
         {...props}
       />
 
