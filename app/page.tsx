@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import { StructuredData } from "@/components/seo/structured-data"
-import { HomeClient } from "./home-client"
+import { EnhancedHomepage } from "@/components/home/enhanced-homepage"
 
 // SEO Metadata
 export const metadata: Metadata = {
@@ -103,8 +103,8 @@ export default function Home() {
       {/* Add structured data */}
       <StructuredData data={structuredData} />
 
-      {/* Use the client component that handles the dynamic imports */}
-      <HomeClient />
+      {/* Enhanced homepage component with optimized animations and interactive elements */}
+      <EnhancedHomepage />
     </>
   )
 }
