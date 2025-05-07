@@ -1,20 +1,16 @@
 "use client"
 
-import Image from "next/image"
-import { cn } from "@/lib/utils"
-import { useState, useEffect } from "react"
+import type React from "react"
 
-interface OptimizedImageProps {
-  src: string
-  alt: string
-  width: number
-  height: number
-  className?: string
-  priority?: boolean
-  sizes?: string
-  loading?: "eager" | "lazy"
-  quality?: number
-  useModernFormat?: boolean
+import { useState, useEffect, useRef } from "react"
+import Image, { type ImageProps } from "next/image"
+import { cn } from "@/lib/utils"
+
+interface OptimizedImageProps extends Omit<ImageProps, "onLoad" | "onError"> {
+  fallbackSrc?: string
+  aspectRatio?: number
+  previewSrc?: string
+  containerClassName?: string
 }
 
 export function OptimizedImage({
@@ -22,63 +18,106 @@ export function OptimizedImage({
   alt,
   width,
   height,
+  fallbackSrc = "/placeholder.svg",
+  aspectRatio,
+  previewSrc,
   className,
+  containerClassName,
   priority = false,
   sizes = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw",
-  loading = "lazy",
-  quality = 80,
-  useModernFormat = true,
   ...props
 }: OptimizedImageProps) {
-  const [imgSrc, setImgSrc] = useState(src)
   const [isLoaded, setIsLoaded] = useState(false)
+  const [error, setError] = useState(false)
+  const imageRef = useRef<HTMLImageElement>(null)
 
-  // For static export, we need to handle both local and remote images
-  const isRemoteImage = src.startsWith("http")
+  // Calculate aspect ratio for container
+  const containerStyle: React.CSSProperties = {}
+  if (aspectRatio) {
+    containerStyle.paddingBottom = `${(1 / aspectRatio) * 100}%`
+  } else if (width && height) {
+    containerStyle.paddingBottom = `${(height / width) * 100}%`
+  }
 
-  // Use modern image formats if available and requested
+  // Handle image load
+  const handleLoad = () => {
+    setIsLoaded(true)
+  }
+
+  // Handle image error
+  const handleError = () => {
+    setError(true)
+  }
+
+  // Use IntersectionObserver to detect when image is in viewport
   useEffect(() => {
-    if (!isRemoteImage && useModernFormat && !src.includes("placeholder")) {
-      // Check if we have an optimized version available
-      const fileExt = src.split(".").pop()?.toLowerCase()
-      const baseName = src.substring(0, src.lastIndexOf("."))
+    if (!imageRef.current || priority) return
 
-      // Try to use WebP format first
-      const webpSrc = `/optimized${baseName.substring(baseName.lastIndexOf("/"))}.webp`
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Set the src attribute when the image is in viewport
+            const img = entry.target as HTMLImageElement
+            if (img.dataset.src) {
+              img.src = img.dataset.src
+            }
+            observer.unobserve(img)
+          }
+        })
+      },
+      { rootMargin: "200px" }, // Load images 200px before they come into view
+    )
 
-      // Create a new Image to check if the WebP version exists
-      const img = new Image()
-      img.onload = () => {
-        setImgSrc(webpSrc)
+    observer.observe(imageRef.current)
+
+    return () => {
+      if (imageRef.current) {
+        observer.unobserve(imageRef.current)
       }
-      img.onerror = () => {
-        // Fallback to original image
-        setImgSrc(src)
-      }
-      img.src = webpSrc
     }
-  }, [src, isRemoteImage, useModernFormat])
+  }, [priority])
 
   return (
-    <div className={cn("overflow-hidden relative", !isLoaded && "bg-gray-200 animate-pulse", className)}>
+    <div
+      className={cn(
+        "relative overflow-hidden bg-gray-200 dark:bg-gray-800",
+        containerClassName,
+        aspectRatio || (width && height) ? "w-full" : "",
+      )}
+      style={aspectRatio || (width && height) ? containerStyle : undefined}
+    >
+      {/* Low quality placeholder */}
+      {previewSrc && !isLoaded && (
+        <Image
+          src={previewSrc || "/placeholder.svg"}
+          alt=""
+          fill={!width || !height}
+          width={width}
+          height={height}
+          className="absolute inset-0 w-full h-full object-cover blur-sm scale-110 transform"
+          aria-hidden="true"
+        />
+      )}
+
+      {/* Main image */}
       <Image
-        src={imgSrc || "/placeholder.svg"}
+        ref={imageRef as any}
+        src={error ? fallbackSrc : src}
         alt={alt}
         width={width}
         height={height}
-        priority={priority}
+        fill={!width || !height}
+        className={cn("transition-opacity duration-300", isLoaded ? "opacity-100" : "opacity-0", className)}
         sizes={sizes}
-        loading={loading}
-        quality={quality}
-        className={cn(
-          "object-cover w-full h-full transition-opacity duration-300",
-          isLoaded ? "opacity-100" : "opacity-0",
-          className,
-        )}
-        onLoad={() => setIsLoaded(true)}
-        unoptimized={isRemoteImage} // Unoptimized for remote images in static export
+        priority={priority}
+        onLoad={handleLoad}
+        onError={handleError}
         {...props}
       />
+
+      {/* Loading skeleton */}
+      {!isLoaded && <div className="absolute inset-0 bg-gray-200 dark:bg-gray-800 animate-pulse" aria-hidden="true" />}
     </div>
   )
 }

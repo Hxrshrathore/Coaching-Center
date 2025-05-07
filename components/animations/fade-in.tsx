@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useRef, useEffect, useState } from "react"
 import { motion, useInView, type Variants } from "framer-motion"
 
@@ -19,9 +18,9 @@ interface FadeInProps {
 export function FadeIn({
   children,
   delay = 0,
-  duration = 0.5,
+  duration = 0.3, // Reduced duration
   direction = "up",
-  distance = 30,
+  distance = 10, // Reduced distance to minimize layout shift
   threshold = 0.1,
   once = true,
   className,
@@ -40,21 +39,18 @@ export function FadeIn({
   const getVariants = (): Variants => {
     let initial = { opacity: 0 }
 
-    // Use smaller distance values for better performance
-    const animDistance = distance * 0.6
-
     switch (direction) {
       case "up":
-        initial = { ...initial, y: animDistance }
+        initial = { ...initial, y: distance }
         break
       case "down":
-        initial = { ...initial, y: -animDistance }
+        initial = { ...initial, y: -distance }
         break
       case "left":
-        initial = { ...initial, x: animDistance }
+        initial = { ...initial, x: distance }
         break
       case "right":
-        initial = { ...initial, x: -animDistance }
+        initial = { ...initial, x: -distance }
         break
     }
 
@@ -73,6 +69,8 @@ export function FadeIn({
     }
   }
 
+  // If not in view yet, reserve the space with the same dimensions
+  // This prevents layout shifts when the element animates in
   return (
     <motion.div
       ref={ref}
@@ -80,6 +78,10 @@ export function FadeIn({
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
       className={className}
+      style={{
+        minHeight: hasAnimated ? undefined : "0px",
+        willChange: "opacity, transform",
+      }}
     >
       {children}
     </motion.div>

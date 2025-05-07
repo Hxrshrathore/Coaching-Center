@@ -21,7 +21,7 @@ interface CountUpProps {
 export function CountUp({
   start = 0,
   end,
-  duration = 2,
+  duration = 1, // Reduced duration
   delay = 0,
   prefix = "",
   suffix = "",
@@ -36,6 +36,22 @@ export function CountUp({
   const countingRef = useRef(false)
   const frameRef = useRef(0)
   const startTimeRef = useRef(0)
+
+  // Pre-calculate the formatted end value to prevent layout shifts
+  const formattedEndValue = formatNumber(end)
+  const endValueLength = `${prefix}${formattedEndValue}${suffix}`.length
+
+  // Format the number with separators and decimals
+  function formatNumber(num: number): string {
+    const fixedNumber = num.toFixed(decimals)
+    const [intPart, decimalPart] = fixedNumber.split(".")
+
+    // Add separator to integer part
+    const formattedIntPart = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, separator)
+
+    // Combine with decimal part if it exists
+    return decimalPart ? `${formattedIntPart}${decimal}${decimalPart}` : formattedIntPart
+  }
 
   useEffect(() => {
     if (!inView || countingRef.current) return
@@ -70,20 +86,16 @@ export function CountUp({
     }
   }, [inView, start, end, duration, delay, onComplete])
 
-  // Format the number with separators and decimals
-  const formatNumber = (num: number): string => {
-    const fixedNumber = num.toFixed(decimals)
-    const [intPart, decimalPart] = fixedNumber.split(".")
-
-    // Add separator to integer part
-    const formattedIntPart = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, separator)
-
-    // Combine with decimal part if it exists
-    return decimalPart ? `${formattedIntPart}${decimal}${decimalPart}` : formattedIntPart
-  }
-
   return (
-    <span ref={ref} className={cn("font-bold", className)}>
+    <span
+      ref={ref}
+      className={cn("font-bold", className)}
+      style={{
+        minWidth: `${endValueLength}ch`,
+        display: "inline-block",
+        textAlign: "center",
+      }}
+    >
       {prefix}
       {formatNumber(count)}
       {suffix}

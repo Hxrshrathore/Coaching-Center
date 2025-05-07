@@ -3,7 +3,6 @@
 import { useRef, useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 import {
   Stethoscope,
@@ -23,7 +22,6 @@ import { Card, CardContent } from "@/components/ui/card"
 import { SectionHeading } from "@/components/ui/section-heading"
 import { FeaturedCarousel } from "@/components/featured-carousel"
 import { CountUp } from "@/components/animations/count-up"
-import { FadeIn } from "@/components/animations/fade-in"
 import { BackToTop } from "@/components/ui/back-to-top"
 import { ScrollProgress } from "@/components/ui/scroll-progress"
 import { useMobile } from "@/hooks/use-mobile"
@@ -34,28 +32,177 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.05,
-      delayChildren: 0.1,
+      staggerChildren: 0.03,
+      delayChildren: 0.05,
     },
   },
 }
 
 const itemVariants = {
-  hidden: { y: 10, opacity: 0 },
+  hidden: { y: 5, opacity: 0 },
   visible: {
     y: 0,
     opacity: 1,
-    transition: { type: "spring", stiffness: 70, damping: 20 },
+    transition: { type: "tween", duration: 0.3 },
   },
 }
 
 const fadeInUpVariants = {
-  hidden: { y: 20, opacity: 0 },
+  hidden: { y: 10, opacity: 0 },
   visible: {
     y: 0,
     opacity: 1,
-    transition: { duration: 0.4, ease: "easeOut" },
+    transition: { duration: 0.3, ease: "easeOut" },
   },
+}
+
+// Testimonials data - moved outside component to prevent re-creation
+const testimonials = [
+  {
+    id: 1,
+    name: "Priya Sharma",
+    role: "JEE Advanced AIR 245",
+    image: "/student-testimonial-1.png",
+    quote:
+      "The structured approach and personal attention from faculty at Ascent Classes helped me secure a top rank in JEE Advanced. Their problem-solving techniques and test series were invaluable.",
+  },
+  {
+    id: 2,
+    name: "Rahul Verma",
+    role: "NEET AIR 189",
+    image: "/student-testimonial-2.png",
+    quote:
+      "The biology and chemistry faculty at Ascent Classes are exceptional. Their in-depth teaching and regular assessments prepared me thoroughly for NEET, helping me secure admission to a top medical college.",
+  },
+  {
+    id: 3,
+    name: "Ananya Gupta",
+    role: "International Physics Olympiad Silver Medalist",
+    image: "/student-testimonial-3.png",
+    quote:
+      "The advanced problem-solving techniques and specialized Olympiad training at Ascent Classes gave me the edge to excel at international competitions. The mentors go above and beyond to nurture talent.",
+  },
+]
+
+// Featured programs data - moved outside component
+const featuredPrograms = [
+  {
+    id: 1,
+    title: "JEE Preparation",
+    description: "Comprehensive coaching for JEE Main & Advanced with expert faculty and proven results.",
+    href: "/program-path/jee",
+    icon: <BookOpen className="h-6 w-6" />,
+    stats: "95% selection rate",
+  },
+  {
+    id: 2,
+    title: "NEET Preparation",
+    description: "Specialized medical entrance exam preparation with focus on Biology, Physics, and Chemistry.",
+    href: "/program-path/neet",
+    icon: <Stethoscope className="h-6 w-6" />,
+    stats: "Top 500 ranks every year",
+  },
+  {
+    id: 3,
+    title: "Olympiad Training",
+    description:
+      "Expert coaching for Science, Math and other Olympiads to excel in national and international competitions.",
+    href: "/olympiad-programs",
+    icon: <Trophy className="h-6 w-6" />,
+    stats: "500+ medalists",
+  },
+  {
+    id: 4,
+    title: "Class 4-12 Science Coaching",
+    description: "Foundation and advanced courses for PCMB subjects for students from Class 4 to 12.",
+    href: "/k12-science-coaching",
+    icon: <GraduationCap className="h-6 w-6" />,
+    stats: "15+ years of excellence",
+  },
+]
+
+// Features data - moved outside component
+const features = [
+  {
+    icon: <Users className="h-8 w-8 text-blue-500" />,
+    title: "Expert Faculty",
+    description: "Learn from experienced educators with proven track records of producing top rankers.",
+  },
+  {
+    icon: <Lightbulb className="h-8 w-8 text-blue-500" />,
+    title: "Personalized Attention",
+    description: "Small batch sizes ensure individual attention and personalized learning paths.",
+  },
+  {
+    icon: <CheckCircle className="h-8 w-8 text-blue-500" />,
+    title: "Comprehensive Study Material",
+    description: "Meticulously crafted study materials aligned with the latest exam patterns.",
+  },
+  {
+    icon: <Award className="h-8 w-8 text-blue-500" />,
+    title: "Regular Assessments",
+    description: "Frequent tests and detailed performance analysis to track progress and improve.",
+  },
+]
+
+// Hero section component - extracted for better code splitting
+function HeroSection() {
+  return (
+    <section className="relative min-h-[90dvh] md:min-h-[85dvh] lg:min-h-[90dvh] flex items-center justify-center bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-900 dark:to-blue-950">
+      {/* Reduced number of animated background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <div
+            key={i}
+            className="absolute rounded-full bg-white/10 dark:bg-white/5"
+            style={{
+              width: Math.random() * 100 + 50,
+              height: Math.random() * 100 + 50,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              opacity: 0.1 + Math.random() * 0.1,
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="container relative z-10 px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 lg:py-24 mx-auto text-center">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-4 sm:mb-6 leading-tight max-w-5xl mx-auto">
+          Unlock Your Academic Potential with <span className="text-yellow-300 inline-block">Ascent Classes</span>
+        </h1>
+
+        <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-blue-100 mb-6 sm:mb-8 max-w-3xl mx-auto">
+          Expert coaching for JEE, NEET, Olympiads, and K-12 Science with proven results and personalized attention.
+        </p>
+
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Link href="/get-enrolled">
+            <Button
+              size="lg"
+              className="w-full sm:w-auto bg-yellow-500 hover:bg-yellow-600 text-blue-900 font-bold text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+            >
+              Enroll Now <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+            </Button>
+          </Link>
+          <Link href="/scholarship-test">
+            <Button
+              size="lg"
+              variant="outline"
+              className="w-full sm:w-auto bg-transparent border-2 border-white text-white hover:bg-white/10 font-bold text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+            >
+              Take Scholarship Test
+            </Button>
+          </Link>
+        </div>
+
+        <div className="absolute bottom-6 sm:bottom-10 left-1/2 transform -translate-x-1/2">
+          <div className="text-white/70 animate-bounce">
+            <ChevronRight size={24} className="rotate-90 sm:h-7 sm:w-7 md:h-8 md:w-8" />
+          </div>
+        </div>
+      </div>
+    </section>
+  )
 }
 
 export function EnhancedHomepage() {
@@ -90,211 +237,30 @@ export function EnhancedHomepage() {
     threshold: 0.1,
   })
 
-  // Testimonials data
-  const testimonials = [
-    {
-      id: 1,
-      name: "Priya Sharma",
-      role: "JEE Advanced AIR 245",
-      image: "/student-testimonial-1.png",
-      quote:
-        "The structured approach and personal attention from faculty at Ascent Classes helped me secure a top rank in JEE Advanced. Their problem-solving techniques and test series were invaluable.",
-    },
-    {
-      id: 2,
-      name: "Rahul Verma",
-      role: "NEET AIR 189",
-      image: "/student-testimonial-2.png",
-      quote:
-        "The biology and chemistry faculty at Ascent Classes are exceptional. Their in-depth teaching and regular assessments prepared me thoroughly for NEET, helping me secure admission to a top medical college.",
-    },
-    {
-      id: 3,
-      name: "Ananya Gupta",
-      role: "International Physics Olympiad Silver Medalist",
-      image: "/student-testimonial-3.png",
-      quote:
-        "The advanced problem-solving techniques and specialized Olympiad training at Ascent Classes gave me the edge to excel at international competitions. The mentors go above and beyond to nurture talent.",
-    },
-  ]
-
-  // Featured programs data
-  const featuredPrograms = [
-    {
-      id: 1,
-      title: "JEE Preparation",
-      description: "Comprehensive coaching for JEE Main & Advanced with expert faculty and proven results.",
-      href: "/program-path/jee",
-      icon: <BookOpen className="h-6 w-6" />,
-      stats: "95% selection rate",
-    },
-    {
-      id: 2,
-      title: "NEET Preparation",
-      description: "Specialized medical entrance exam preparation with focus on Biology, Physics, and Chemistry.",
-      href: "/program-path/neet",
-      icon: <Stethoscope className="h-6 w-6" />,
-      stats: "Top 500 ranks every year",
-    },
-    {
-      id: 3,
-      title: "Olympiad Training",
-      description:
-        "Expert coaching for Science, Math and other Olympiads to excel in national and international competitions.",
-      href: "/olympiad-programs",
-      icon: <Trophy className="h-6 w-6" />,
-      stats: "500+ medalists",
-    },
-    {
-      id: 4,
-      title: "Class 4-12 Science Coaching",
-      description: "Foundation and advanced courses for PCMB subjects for students from Class 4 to 12.",
-      href: "/k12-science-coaching",
-      icon: <GraduationCap className="h-6 w-6" />,
-      stats: "15+ years of excellence",
-    },
-  ]
-
-  // Why choose us features
-  const features = [
-    {
-      icon: <Users className="h-8 w-8 text-blue-500" />,
-      title: "Expert Faculty",
-      description: "Learn from experienced educators with proven track records of producing top rankers.",
-    },
-    {
-      icon: <Lightbulb className="h-8 w-8 text-blue-500" />,
-      title: "Personalized Attention",
-      description: "Small batch sizes ensure individual attention and personalized learning paths.",
-    },
-    {
-      icon: <CheckCircle className="h-8 w-8 text-blue-500" />,
-      title: "Comprehensive Study Material",
-      description: "Meticulously crafted study materials aligned with the latest exam patterns.",
-    },
-    {
-      icon: <Award className="h-8 w-8 text-blue-500" />,
-      title: "Regular Assessments",
-      description: "Frequent tests and detailed performance analysis to track progress and improve.",
-    },
-  ]
-
   // Auto-rotate testimonials
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveTestimonial((prev) => (prev + 1) % testimonials.length)
     }, 5000)
     return () => clearInterval(interval)
-  }, [testimonials.length])
+  }, [])
 
   return (
     <div className="relative w-full scroll-content">
-      {/* Scroll Progress Bar */}
+      {/* Scroll Progress Bar - only render on client */}
       {isClient && <ScrollProgress />}
 
-      {/* Hero Section with optimized animations */}
-      <section
-        ref={heroRef}
-        className="relative min-h-[90dvh] md:min-h-[85dvh] lg:min-h-[90dvh] flex items-center justify-center bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-900 dark:to-blue-950"
-      >
-        {/* Reduced number of animated background elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          {Array.from({ length: 8 }).map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute rounded-full bg-white/10 dark:bg-white/5"
-              style={{
-                width: Math.random() * 100 + 50,
-                height: Math.random() * 100 + 50,
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-              }}
-              animate={{
-                y: [0, Math.random() * 50 - 25],
-                opacity: [0.1, 0.2, 0.1],
-              }}
-              transition={{
-                duration: Math.random() * 5 + 10,
-                repeat: Number.POSITIVE_INFINITY,
-                repeatType: "reverse",
-              }}
-            />
-          ))}
-        </div>
-
-        <div className="container relative z-10 px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 lg:py-24 mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="mb-4 sm:mb-6"
-          >
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight max-w-5xl mx-auto">
-              Unlock Your Academic Potential with <span className="text-yellow-300 inline-block">Ascent Classes</span>
-            </h1>
-          </motion.div>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.1 }}
-            className="text-base sm:text-lg md:text-xl lg:text-2xl text-blue-100 mb-6 sm:mb-8 max-w-3xl mx-auto"
-          >
-            Expert coaching for JEE, NEET, Olympiads, and K-12 Science with proven results and personalized attention.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.2 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-          >
-            <Link href="/get-enrolled">
-              <Button
-                size="lg"
-                className="w-full sm:w-auto bg-yellow-500 hover:bg-yellow-600 text-blue-900 font-bold text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
-              >
-                Enroll Now <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-              </Button>
-            </Link>
-            <Link href="/scholarship-test">
-              <Button
-                size="lg"
-                variant="outline"
-                className="w-full sm:w-auto bg-transparent border-2 border-white text-white hover:bg-white/10 font-bold text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
-              >
-                Take Scholarship Test
-              </Button>
-            </Link>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="absolute bottom-6 sm:bottom-10 left-1/2 transform -translate-x-1/2"
-          >
-            <motion.div
-              animate={{ y: [0, 10, 0] }}
-              transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
-              className="text-white/70"
-            >
-              <ChevronRight size={24} className="rotate-90 sm:h-7 sm:w-7 md:h-8 md:w-8" />
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
+      {/* Hero Section - highest priority for LCP */}
+      <HeroSection />
 
       {/* Featured Carousel with Animation */}
       <section className="py-12 sm:py-16 bg-gray-50 dark:bg-slate-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeIn delay={0.1} duration={0.4}>
-            <SectionHeading
-              badge="Featured Programs"
-              title="Discover Our Specialized Coaching Programs"
-              description="Comprehensive coaching solutions tailored to help students excel in competitive exams and academic pursuits"
-            />
-          </FadeIn>
+          <SectionHeading
+            badge="Featured Programs"
+            title="Discover Our Specialized Coaching Programs"
+            description="Comprehensive coaching solutions tailored to help students excel in competitive exams and academic pursuits"
+          />
 
           <div className="mt-6 sm:mt-8">
             <FeaturedCarousel />
@@ -303,79 +269,58 @@ export function EnhancedHomepage() {
       </section>
 
       {/* Stats Section with Animated Counters */}
-      <motion.section
+      <section
         ref={statsRef}
         className="py-12 sm:py-16 bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-800 dark:to-blue-950 text-white"
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate={statsInView ? "visible" : "hidden"}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8"
-          >
-            <motion.div
-              variants={itemVariants}
-              className="text-center bg-blue-700 dark:bg-blue-900 rounded-lg p-4 sm:p-6 shadow-lg transform hover:scale-105 transition-transform duration-300"
-            >
-              <div className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-1 sm:mb-2 text-white">
-                <CountUp end={10000} suffix="+" duration={1.5} />
-              </div>
-              <p className="text-base sm:text-lg text-blue-100">JEE & NEET Selections</p>
-            </motion.div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+            {statsInView && (
+              <>
+                <div className="text-center bg-blue-700 dark:bg-blue-900 rounded-lg p-4 sm:p-6 shadow-lg transform hover:scale-105 transition-transform duration-300">
+                  <div className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-1 sm:mb-2 text-white">
+                    <CountUp end={10000} suffix="+" duration={1} />
+                  </div>
+                  <p className="text-base sm:text-lg text-blue-100">JEE & NEET Selections</p>
+                </div>
 
-            <motion.div
-              variants={itemVariants}
-              className="text-center bg-blue-700 dark:bg-blue-900 rounded-lg p-4 sm:p-6 shadow-lg transform hover:scale-105 transition-transform duration-300"
-            >
-              <div className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-1 sm:mb-2 text-white">
-                <CountUp end={500} suffix="+" duration={1.5} />
-              </div>
-              <p className="text-base sm:text-lg text-blue-100">Olympiad Medalists</p>
-            </motion.div>
+                <div className="text-center bg-blue-700 dark:bg-blue-900 rounded-lg p-4 sm:p-6 shadow-lg transform hover:scale-105 transition-transform duration-300">
+                  <div className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-1 sm:mb-2 text-white">
+                    <CountUp end={500} suffix="+" duration={1} />
+                  </div>
+                  <p className="text-base sm:text-lg text-blue-100">Olympiad Medalists</p>
+                </div>
 
-            <motion.div
-              variants={itemVariants}
-              className="text-center bg-blue-700 dark:bg-blue-900 rounded-lg p-4 sm:p-6 shadow-lg transform hover:scale-105 transition-transform duration-300"
-            >
-              <div className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-1 sm:mb-2 text-white">
-                <CountUp end={95} suffix="%" duration={1.5} />
-              </div>
-              <p className="text-base sm:text-lg text-blue-100">Success Rate</p>
-            </motion.div>
+                <div className="text-center bg-blue-700 dark:bg-blue-900 rounded-lg p-4 sm:p-6 shadow-lg transform hover:scale-105 transition-transform duration-300">
+                  <div className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-1 sm:mb-2 text-white">
+                    <CountUp end={95} suffix="%" duration={1} />
+                  </div>
+                  <p className="text-base sm:text-lg text-blue-100">Success Rate</p>
+                </div>
 
-            <motion.div
-              variants={itemVariants}
-              className="text-center bg-blue-700 dark:bg-blue-900 rounded-lg p-4 sm:p-6 shadow-lg transform hover:scale-105 transition-transform duration-300"
-            >
-              <div className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-1 sm:mb-2 text-white">
-                <CountUp end={15} suffix="+" duration={1.5} />
-              </div>
-              <p className="text-base sm:text-lg text-blue-100">Years of Excellence</p>
-            </motion.div>
-          </motion.div>
+                <div className="text-center bg-blue-700 dark:bg-blue-900 rounded-lg p-4 sm:p-6 shadow-lg transform hover:scale-105 transition-transform duration-300">
+                  <div className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-1 sm:mb-2 text-white">
+                    <CountUp end={15} suffix="+" duration={1} />
+                  </div>
+                  <p className="text-base sm:text-lg text-blue-100">Years of Excellence</p>
+                </div>
+              </>
+            )}
+          </div>
         </div>
-      </motion.section>
+      </section>
 
       {/* Featured Programs Section with Interactive Cards */}
       <section className="py-12 sm:py-16 bg-white dark:bg-slate-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeIn delay={0.1} duration={0.4}>
-            <SectionHeading
-              title="Our Featured Programs"
-              subtitle="Comprehensive coaching for competitive exams and academic excellence"
-            />
-          </FadeIn>
+          <SectionHeading
+            title="Our Featured Programs"
+            subtitle="Comprehensive coaching for competitive exams and academic excellence"
+          />
 
-          <motion.div
-            ref={featuresRef}
-            variants={containerVariants}
-            initial="hidden"
-            animate={featuresInView ? "visible" : "hidden"}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mt-6 sm:mt-8"
-          >
+          <div ref={featuresRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mt-6 sm:mt-8">
             {featuredPrograms.map((program) => (
-              <motion.div key={program.id} variants={itemVariants}>
+              <div key={program.id}>
                 <Link href={program.href}>
                   <Card className="h-full border-none shadow-md transition-all duration-300 hover:shadow-xl transform hover:-translate-y-2 bg-white dark:bg-slate-800">
                     <CardContent className="p-4 sm:p-6">
@@ -395,32 +340,30 @@ export function EnhancedHomepage() {
                     </CardContent>
                   </Card>
                 </Link>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Why Choose Us Section */}
       <section className="py-12 sm:py-16 bg-gray-50 dark:bg-slate-800 relative">
-        {/* Simplified decorative shapes with fixed dimensions to prevent layout shift */}
+        {/* Fixed position decorative shapes to prevent layout shift */}
         <div
-          className="absolute -bottom-8 -left-8 w-48 h-48 bg-blue-600/90 rounded-lg transform rotate-6 pointer-events-none prevent-scroll-hide"
+          className="absolute -bottom-8 -left-8 w-48 h-48 bg-blue-600/90 rounded-lg transform rotate-6 pointer-events-none"
           style={{
             zIndex: 0,
-            willChange: "transform",
-            transform: "translateZ(0) rotate(6deg)",
-            backfaceVisibility: "hidden",
+            position: "absolute",
+            transform: "rotate(6deg)",
           }}
           aria-hidden="true"
         />
         <div
-          className="absolute -top-8 -right-8 w-32 h-32 bg-yellow-400/90 rounded-lg transform -rotate-6 pointer-events-none prevent-scroll-hide"
+          className="absolute -top-8 -right-8 w-32 h-32 bg-yellow-400/90 rounded-lg transform -rotate-6 pointer-events-none"
           style={{
             zIndex: 0,
-            willChange: "transform",
-            transform: "translateZ(0) rotate(-6deg)",
-            backfaceVisibility: "hidden",
+            position: "absolute",
+            transform: "rotate(-6deg)",
           }}
           aria-hidden="true"
         />
@@ -428,24 +371,17 @@ export function EnhancedHomepage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center">
             <div>
-              <FadeIn delay={0.1} duration={0.4}>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-blue-950 dark:text-white mb-4 sm:mb-6">
-                  Why Students & Parents Choose Ascent Classes
-                </h2>
-                <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 mb-6 sm:mb-8">
-                  Our commitment to academic excellence and personalized approach has made us the preferred choice for
-                  serious aspirants.
-                </p>
-              </FadeIn>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-blue-950 dark:text-white mb-4 sm:mb-6">
+                Why Students & Parents Choose Ascent Classes
+              </h2>
+              <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 mb-6 sm:mb-8">
+                Our commitment to academic excellence and personalized approach has made us the preferred choice for
+                serious aspirants.
+              </p>
 
-              <motion.div
-                variants={containerVariants}
-                initial="hidden"
-                animate={featuresInView ? "visible" : "hidden"}
-                className="space-y-4 sm:space-y-6"
-              >
+              <div className="space-y-4 sm:space-y-6">
                 {features.map((feature, index) => (
-                  <motion.div key={index} variants={itemVariants} className="flex gap-3 sm:gap-4">
+                  <div key={index} className="flex gap-3 sm:gap-4">
                     <div className="flex-shrink-0 mt-1">
                       <div className="h-6 w-6 sm:h-8 sm:w-8">{feature.icon}</div>
                     </div>
@@ -455,22 +391,21 @@ export function EnhancedHomepage() {
                       </h3>
                       <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300">{feature.description}</p>
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
-              </motion.div>
+              </div>
             </div>
 
             <div className="relative" style={{ isolation: "isolate" }}>
               {/* Pre-sized container to prevent layout shift */}
-              <div className="relative rounded-lg overflow-hidden shadow-2xl z-10 aspect-w-3 aspect-h-2 w-full h-auto">
+              <div className="relative rounded-lg overflow-hidden shadow-2xl z-10 w-full aspect-[4/3]">
                 <Image
                   src="/modern-classroom-study.png"
                   alt="Modern classroom at Ascent Classes"
-                  width={600}
-                  height={400}
-                  className="w-full h-full object-cover rounded-lg"
-                  priority={true}
+                  fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
+                  className="object-cover"
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent flex flex-col justify-end p-4 sm:p-6">
                   <p className="text-base sm:text-lg font-medium text-white">
@@ -486,13 +421,11 @@ export function EnhancedHomepage() {
       {/* Testimonials Section with Animation */}
       <section ref={testimonialsRef} className="py-12 sm:py-16 bg-white dark:bg-slate-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeIn delay={0.1} duration={0.4}>
-            <SectionHeading
-              badge="Success Stories"
-              title="What Our Students Say"
-              description="Hear from our students who achieved their academic goals with our guidance"
-            />
-          </FadeIn>
+          <SectionHeading
+            badge="Success Stories"
+            title="What Our Students Say"
+            description="Hear from our students who achieved their academic goals with our guidance"
+          />
 
           <div className="mt-8 sm:mt-12 max-w-4xl mx-auto">
             {/* Fixed height container to prevent layout shift */}
@@ -555,11 +488,8 @@ export function EnhancedHomepage() {
       </section>
 
       {/* CTA Section with Animation */}
-      <motion.section
+      <section
         ref={ctaRef}
-        variants={fadeInUpVariants}
-        initial="hidden"
-        animate={ctaInView ? "visible" : "hidden"}
         className="py-12 sm:py-16 bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-800 dark:to-blue-950"
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -590,7 +520,7 @@ export function EnhancedHomepage() {
             </Link>
           </div>
         </div>
-      </motion.section>
+      </section>
 
       {/* Back to Top Button */}
       <BackToTop />

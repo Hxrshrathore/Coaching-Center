@@ -1,116 +1,72 @@
 /**
- * Utility functions for performance optimization
+ * Performance optimization utilities
  */
 
-import React from "react"
-
 // Image optimization helper
-export const getOptimizedImageUrl = (
-  src: string,
-  width = 800,
-  quality = 80,
-  format: "webp" | "jpeg" | "png" = "webp",
-): string => {
-  // For external images, return as is
-  if (src.startsWith("http")) {
-    return src
+export function getImageSizes(type: "hero" | "card" | "thumbnail" | "full" | "carousel"): string {
+  switch (type) {
+    case "hero":
+      return "(max-width: 640px) 100vw, 100vw"
+    case "card":
+      return "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+    case "thumbnail":
+      return "(max-width: 640px) 150px, 300px"
+    case "carousel":
+      return "(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"
+    case "full":
+    default:
+      return "100vw"
   }
-
-  // For local images, add optimization parameters
-  // This is a placeholder - in a real app, you'd use your image optimization service
-  return `${src}?w=${width}&q=${quality}&fmt=${format}`
 }
 
 // Lazy loading helper
-export const shouldLazyLoad = (priority: boolean, aboveFold: boolean): boolean => {
-  return !priority && !aboveFold
-}
-
-// Resource hint generator
-export const generateResourceHints = (
-  resources: {
-    url: string
-    type: "preconnect" | "prefetch" | "preload"
-    as?: string
-    crossOrigin?: boolean
-  }[],
-): JSX.Element[] => {
-  return resources.map((resource, index) => {
-    if (resource.type === "preconnect") {
-      return (
-        <link
-          key={`${resource.type}-${index}`}
-          rel="preconnect"
-          href={resource.url}
-          crossOrigin={resource.crossOrigin ? "anonymous" : undefined}
-        />
-      )
-    } else if (resource.type === "prefetch") {
-      return <link key={`${resource.type}-${index}`} rel="prefetch" href={resource.url} />
-    } else if (resource.type === "preload") {
-      return (
-        <link
-          key={`${resource.type}-${index}`}
-          rel="preload"
-          href={resource.url}
-          as={resource.as}
-          crossOrigin={resource.crossOrigin ? "anonymous" : undefined}
-        />
-      )
-    }
-    return <React.Fragment key={`${resource.type}-${index}`}></React.Fragment>
-  })
+export function shouldPrioritize(element: "hero" | "above-fold" | "carousel-first" | "below-fold"): boolean {
+  return ["hero", "above-fold", "carousel-first"].includes(element)
 }
 
 // Debounce function for performance-sensitive operations
-export const debounce = <F extends (...args: any[]) => any>(
-  func: F,
-  waitFor: number,
-): ((...args: Parameters<F>) => void) => {
+export function debounce<T extends (...args: any[]) => any>(func: T, wait: number): (...args: Parameters<T>) => void {
   let timeout: ReturnType<typeof setTimeout> | null = null
 
-  return (...args: Parameters<F>): void => {
+  return (...args: Parameters<T>): void => {
+    const later = () => {
+      timeout = null
+      func(...args)
+    }
+
     if (timeout !== null) {
       clearTimeout(timeout)
     }
-    timeout = setTimeout(() => func(...args), waitFor)
+
+    timeout = setTimeout(later, wait)
   }
 }
 
 // Throttle function for scroll events
-export const throttle = <F extends (...args: any[]) => any>(
-  func: F,
-  waitFor: number,
-): ((...args: Parameters<F>) => void) => {
-  let timeout: ReturnType<typeof setTimeout> | null = null
-  let lastFunc = 0
-  let lastRan = 0
+export function throttle<T extends (...args: any[]) => any>(func: T, limit: number): (...args: Parameters<T>) => void {
+  let inThrottle = false
 
-  return (...args: Parameters<F>): void => {
-    const now = Date.now()
-    if (lastRan + waitFor <= now) {
+  return (...args: Parameters<T>): void => {
+    if (!inThrottle) {
       func(...args)
-      lastRan = now
-    } else {
-      clearTimeout(timeout!)
-      timeout = setTimeout(
-        () => {
-          if (lastFunc + waitFor <= Date.now()) {
-            func(...args)
-            lastRan = Date.now()
-          }
-        },
-        waitFor - (now - lastRan),
-      )
+      inThrottle = true
+      setTimeout(() => (inThrottle = false), limit)
     }
-    lastFunc = now
   }
 }
 
-// Add cache headers helper
-export const getCacheHeaders = (maxAge = 3600, sMaxAge = 86400): Record<string, string> => {
-  return {
-    "Cache-Control": `public, max-age=${maxAge}, s-maxage=${sMaxAge}`,
-    "X-Content-Type-Options": "nosniff",
+// Calculate aspect ratio from width and height
+export function calculateAspectRatio(width: number, height: number): number {
+  return width / height
+}
+
+// Generate low-quality image placeholder URL
+export function getLQIP(src: string, width = 20): string {
+  if (src.startsWith("http")) {
+    // For external images, we can't generate LQIP
+    return src
   }
+
+  // For local images, add width parameter to create a tiny version
+  return `${src}?w=${width}&q=10`
 }
