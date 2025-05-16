@@ -1,3 +1,5 @@
+import os from 'os';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -21,7 +23,7 @@ const nextConfig = {
     // Remove serverActions completely for static export
     optimizePackageImports: ['lucide-react', 'framer-motion'], // Optimize large package imports
     staticPageGenerationTimeout: 180, // 3 minutes
-    cpus: Math.max(1, Math.min(8, require('os').cpus().length - 1)), // Use all CPUs except one
+    cpus: Math.max(1, Math.min(8, os.cpus().length - 1)), // Use all CPUs except one
   },
   
   // Configure redirects if needed
