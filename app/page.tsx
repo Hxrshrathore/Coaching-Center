@@ -4,23 +4,26 @@ import { EnhancedHomepage } from "@/components/home/enhanced-homepage"
 
 // SEO Metadata
 export const metadata: Metadata = {
-  title: "Ascent Classes | Top Coaching Institute in Lucknow for JEE, NEET & Olympiads",
+  title: "Ascent Coaching Classes | #1 Coaching Institute in Lucknow for JEE, NEET & Olympiads",
   description:
-    "Ascent Classes in Lucknow offers expert coaching for JEE, NEET, Olympiads and K-12 Science. Join our proven teaching methodology with experienced faculty to achieve academic excellence and secure top ranks.",
-  metadataBase: new URL("https://ascentclasses.com"),
+    "Ascent Coaching Classes in Lucknow offers expert coaching for JEE, NEET, Olympiads and K-12 Science with small batch sizes of just 10 students per batch. Join our proven teaching methodology with experienced faculty to achieve academic excellence and secure top ranks.",
+  metadataBase: new URL("https://ascentcoachingclasses.com"),
   alternates: {
-    canonical: "https://ascentclasses.com/",
+    canonical: "https://ascentcoachingclasses.com/",
   },
   keywords: [
+    "Ascent Coaching Classes",
     "top coaching in Lucknow",
-    "JEE coaching",
-    "NEET preparation",
+    "JEE coaching Lucknow",
+    "NEET preparation Lucknow",
     "Olympiad training",
+    "small batch coaching",
     "K-12 Science coaching",
     "best coaching institute",
     "entrance exam preparation",
     "scholarship test",
     "academic excellence",
+    "10 students per batch",
   ],
 }
 
@@ -28,11 +31,11 @@ export const metadata: Metadata = {
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "EducationalOrganization",
-  name: "Ascent Classes",
-  url: "https://ascentclasses.com",
-  logo: "https://ascentclasses.com/logo.png",
+  name: "Ascent Coaching Classes",
+  url: "https://ascentcoachingclasses.com",
+  logo: "https://ascentcoachingclasses.com/logo.png",
   description:
-    "Ascent Classes in Lucknow offers comprehensive coaching for JEE, NEET, Olympiads, K-12 Science and more.",
+    "Ascent Coaching Classes in Lucknow offers comprehensive coaching for JEE, NEET, Olympiads, K-12 Science with small batch sizes of just 10 students per batch.",
   address: {
     "@type": "PostalAddress",
     streetAddress: "Dayal Residency, A-300B, Vasundhara State, Chinhat",
@@ -44,9 +47,9 @@ const structuredData = {
   telephone: "+919565292454",
   email: "ascentcoachingclasses.lko@gmail.com",
   sameAs: [
-    "https://www.facebook.com/ascentclasses",
-    "https://www.instagram.com/ascentclasses",
-    "https://www.youtube.com/ascentclasses",
+    "https://www.facebook.com/ascentcoachingclasses",
+    "https://www.instagram.com/ascentcoachingclasses",
+    "https://www.youtube.com/ascentcoachingclasses",
   ],
   aggregateRating: {
     "@type": "AggregateRating",
@@ -60,41 +63,61 @@ const structuredData = {
       {
         "@type": "Course",
         name: "JEE Coaching",
-        description: "Comprehensive coaching for JEE Main and Advanced",
+        description: "Comprehensive coaching for JEE Main and Advanced with small batch sizes of just 10 students",
         provider: {
           "@type": "Organization",
-          name: "Ascent Classes",
+          name: "Ascent Coaching Classes",
         },
       },
       {
         "@type": "Course",
         name: "NEET Preparation",
-        description: "Expert coaching for NEET aspirants",
+        description: "Expert coaching for NEET aspirants with small batch sizes of just 10 students",
         provider: {
           "@type": "Organization",
-          name: "Ascent Classes",
+          name: "Ascent Coaching Classes",
         },
       },
       {
         "@type": "Course",
         name: "Olympiad Training",
-        description: "Specialized coaching for Science and Math Olympiads",
+        description: "Specialized coaching for Science and Math Olympiads with small batch sizes of just 10 students",
         provider: {
           "@type": "Organization",
-          name: "Ascent Classes",
+          name: "Ascent Coaching Classes",
         },
       },
       {
         "@type": "Course",
         name: "K-12 Science Coaching",
-        description: "Foundation and advanced courses for PCMB subjects",
+        description: "Foundation and advanced courses for PCMB subjects with small batch sizes of just 10 students",
         provider: {
           "@type": "Organization",
-          name: "Ascent Classes",
+          name: "Ascent Coaching Classes",
         },
       },
     ],
   },
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": "https://ascentcoachingclasses.com",
+  },
+  areaServed: {
+    "@type": "City",
+    name: "Lucknow",
+  },
+  foundingDate: "2015",
+  foundingLocation: {
+    "@type": "Place",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Lucknow",
+      addressRegion: "Uttar Pradesh",
+      addressCountry: "IN",
+    },
+  },
+  knowsAbout: ["JEE Preparation", "NEET Coaching", "Olympiad Training", "K-12 Science Education"],
+  keywords: "Ascent Coaching Classes, JEE coaching, NEET preparation, Olympiad training, small batch coaching",
 }
 
 export default function Home() {

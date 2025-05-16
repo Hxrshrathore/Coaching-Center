@@ -4,6 +4,8 @@ const nextConfig = {
   images: {
     unoptimized: true,
     domains: ['localhost'],
+    formats: ['image/avif', 'image/webp'],
+    minimumCacheTTL: 31536000, // 1 year
   },
   output: 'export',
   eslint: {
@@ -18,6 +20,8 @@ const nextConfig = {
   experimental: {
     // Remove serverActions completely for static export
     optimizePackageImports: ['lucide-react', 'framer-motion'], // Optimize large package imports
+    staticPageGenerationTimeout: 180, // 3 minutes
+    cpus: Math.max(1, Math.min(8, require('os').cpus().length - 1)), // Use all CPUs except one
   },
   
   // Configure redirects if needed
@@ -27,6 +31,47 @@ const nextConfig = {
       {
         source: '/old-page',
         destination: '/new-page',
+        permanent: true,
+      },
+      // SEO redirects
+      {
+        source: '/jee',
+        destination: '/program-path/jee',
+        permanent: true,
+      },
+      {
+        source: '/neet',
+        destination: '/program-path/neet',
+        permanent: true,
+      },
+      {
+        source: '/olympiad',
+        destination: '/olympiad-programs',
+        permanent: true,
+      },
+      {
+        source: '/contact',
+        destination: '/reach-out',
+        permanent: true,
+      },
+      {
+        source: '/about',
+        destination: '/our-vision',
+        permanent: true,
+      },
+      {
+        source: '/programs',
+        destination: '/program-path',
+        permanent: true,
+      },
+      {
+        source: '/scholarship',
+        destination: '/scholarship-test',
+        permanent: true,
+      },
+      {
+        source: '/enroll',
+        destination: '/get-enrolled',
         permanent: true,
       },
     ]
@@ -60,7 +105,7 @@ const nextConfig = {
           },
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data: https:;",
+            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data: https:; frame-src 'self' https://www.youtube.com;",
           },
         ],
       },
@@ -72,9 +117,32 @@ const nextConfig = {
     // Optimize webpack configuration
     config.optimization.minimize = true;
     
+    // Add optimization for static export
+    if (process.env.NODE_ENV === 'production') {
+      // Optimize chunk size
+      config.optimization.splitChunks = {
+        chunks: 'all',
+        maxInitialRequests: Infinity,
+        minSize: 20000,
+        maxSize: 244000,
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name(module) {
+              // get the name. E.g. node_modules/packageName/not/this/part.js
+              // or node_modules/packageName
+              const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+              
+              // npm package names are URL-safe, but some servers don't like @ symbols
+              return `npm.${packageName.replace('@', '')}`;
+            },
+          },
+        },
+      };
+    }
+    
     return config;
   },
-  // Remove any experimental features that might cause issues
 }
 
 export default nextConfig;

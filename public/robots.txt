@@ -1,5 +1,5 @@
 # Ascent Coaching Classes Robots.txt
-# Website: https://ascentclasses.com
+# Website: https://ascentcoachingclasses.com
 
 # Allow all crawlers
 User-agent: *
@@ -10,9 +10,12 @@ Disallow: /api/
 Disallow: /_next/
 Disallow: /admin/
 Disallow: /private/
+Disallow: /theme-test/
+Disallow: /direct-theme-test/
+Disallow: /debug-layout/
 
 # Sitemap location
-Sitemap: https://ascentclasses.com/sitemap.xml
+Sitemap: https://ascentcoachingclasses.com/sitemap.xml
 
 # Crawl delay for specific bots
 User-agent: Googlebot

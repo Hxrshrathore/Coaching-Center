@@ -21,14 +21,14 @@ export function FeatureCard({ icon, title, description, className, href }: Featu
     <CardContent className="p-4 sm:p-6">
       <div
         className={cn(
-          "mb-3 sm:mb-4 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900 transition-transform duration-300",
+          "mb-3 sm:mb-4 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-blue-100 transition-transform duration-300",
           isHovered ? "scale-110" : "",
         )}
       >
         {icon}
       </div>
-      <h3 className="text-lg sm:text-xl font-bold text-blue-600 dark:text-blue-400">{title}</h3>
-      <p className="mt-1 sm:mt-2 text-sm sm:text-base text-slate-600 dark:text-slate-400">{description}</p>
+      <h3 className="text-lg sm:text-xl font-bold text-blue-600">{title}</h3>
+      <p className="mt-1 sm:mt-2 text-sm sm:text-base text-slate-600">{description}</p>
     </CardContent>
   )
 

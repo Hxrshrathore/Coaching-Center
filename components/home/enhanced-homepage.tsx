@@ -62,25 +62,25 @@ const testimonials = [
     id: 1,
     name: "Priya Sharma",
     role: "JEE Advanced AIR 245",
-    image: "/student-testimonial-1.png",
+    image: "/students/student-group-1.jpeg",
     quote:
-      "The structured approach and personal attention from faculty at Ascent Classes helped me secure a top rank in JEE Advanced. Their problem-solving techniques and test series were invaluable.",
+      "The structured approach and personal attention from faculty at Ascent Coaching Classes helped me secure a top rank in JEE Advanced. Their problem-solving techniques and test series were invaluable.",
   },
   {
     id: 2,
     name: "Rahul Verma",
     role: "NEET AIR 189",
-    image: "/student-testimonial-2.png",
+    image: "/students/student-group-2.jpeg",
     quote:
-      "The biology and chemistry faculty at Ascent Classes are exceptional. Their in-depth teaching and regular assessments prepared me thoroughly for NEET, helping me secure admission to a top medical college.",
+      "The biology and chemistry faculty at Ascent Coaching Classes are exceptional. Their in-depth teaching and regular assessments prepared me thoroughly for NEET, helping me secure admission to a top medical college.",
   },
   {
     id: 3,
     name: "Ananya Gupta",
     role: "International Physics Olympiad Silver Medalist",
-    image: "/student-testimonial-3.png",
+    image: "/students/student-group-3.jpeg",
     quote:
-      "The advanced problem-solving techniques and specialized Olympiad training at Ascent Classes gave me the edge to excel at international competitions. The mentors go above and beyond to nurture talent.",
+      "The advanced problem-solving techniques and specialized Olympiad training at Ascent Coaching Classes gave me the edge to excel at international competitions. The mentors go above and beyond to nurture talent.",
   },
 ]
 
@@ -168,7 +168,8 @@ function HeroSection() {
 
       <div className="container relative z-10 px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 lg:py-24 mx-auto text-center">
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-4 sm:mb-6 leading-tight max-w-5xl mx-auto">
-          Unlock Your Academic Potential with <span className="text-yellow-300 inline-block">Ascent Classes</span>
+          Unlock Your Academic Potential with{" "}
+          <span className="text-yellow-300 inline-block">Ascent Coaching Classes</span>
         </h1>
 
         <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-blue-100 mb-6 sm:mb-8 max-w-3xl mx-auto">
@@ -372,7 +373,7 @@ export function EnhancedHomepage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center">
             <div>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-blue-950 dark:text-white mb-4 sm:mb-6">
-                Why Students & Parents Choose Ascent Classes
+                Why Students & Parents Choose Ascent Coaching Classes
               </h2>
               <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 mb-6 sm:mb-8">
                 Our commitment to academic excellence and personalized approach has made us the preferred choice for
@@ -400,8 +401,8 @@ export function EnhancedHomepage() {
               {/* Pre-sized container to prevent layout shift */}
               <div className="relative rounded-lg overflow-hidden shadow-2xl z-10 w-full aspect-[4/3]">
                 <Image
-                  src="/modern-classroom-study.png"
-                  alt="Modern classroom at Ascent Classes"
+                  src="/students/interactive-learning-1.jpeg"
+                  alt="Interactive learning at Ascent Coaching Classes with students engaging with digital content"
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
                   className="object-cover"
@@ -488,36 +489,30 @@ export function EnhancedHomepage() {
       </section>
 
       {/* CTA Section with Animation */}
-      <section
-        ref={ctaRef}
-        className="py-12 sm:py-16 bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-800 dark:to-blue-950"
-      >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
-            Ready to Begin Your Journey to Success?
-          </h2>
-          <p className="text-base sm:text-lg md:text-xl text-blue-100 mb-6 sm:mb-8 max-w-2xl mx-auto">
-            Join Ascent Classes today and take the first step towards achieving your academic goals with our expert
-            guidance.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/get-enrolled">
-              <Button
-                size="lg"
-                className="w-full sm:w-auto bg-yellow-500 hover:bg-yellow-600 text-blue-900 font-bold text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
-              >
-                Enroll Now <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-              </Button>
-            </Link>
-            <Link href="/reach-out">
-              <Button
-                size="lg"
-                variant="outline"
-                className="w-full sm:w-auto bg-transparent border-2 border-white text-white hover:bg-white/10 font-bold text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6 rounded-full"
-              >
-                Contact Us
-              </Button>
-            </Link>
+      <section className="w-full py-12 md:py-24 lg:py-32 bg-blue-600">
+        <div className="container px-4 md:px-6">
+          <div className="flex flex-col items-center justify-center space-y-4 text-center">
+            <div className="space-y-2">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-white">
+                Ready to Begin Your Success Journey?
+              </h2>
+              <p className="max-w-[900px] text-blue-100 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                Take the first step towards academic excellence. Join Ascent Classes today and transform your
+                preparation strategy.
+              </p>
+            </div>
+            <div className="flex flex-col gap-2 min-[400px]:flex-row">
+              <Link href="/get-enrolled">
+                <Button size="lg" variant="white-blue" className="gap-1">
+                  Enroll Now <ArrowRight className="h-4 w-4" />
+                </Button>
+              </Link>
+              <Link href="/reach-out">
+                <Button size="lg" variant="outline-white">
+                  Contact Us
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </section>

@@ -49,15 +49,15 @@ export function TestimonialCard({ name, role, testimonial, imageSrc, className }
               </div>
             )}
             <div>
-              <h3 className="font-bold text-blue-950 dark:text-white">{name}</h3>
-              <p className="text-sm text-slate-500 dark:text-slate-400">{role}</p>
+              <h3 className="font-bold text-blue-950">{name}</h3>
+              <p className="text-sm text-slate-500">{role}</p>
             </div>
           </div>
           <Quote
             className={cn("h-6 w-6 text-blue-300 transition-transform duration-300", isHovered ? "rotate-12" : "")}
           />
         </div>
-        <p className="text-slate-600 dark:text-slate-400 italic">{testimonial}</p>
+        <p className="text-slate-600 italic">{testimonial}</p>
       </CardContent>
     </Card>
   )

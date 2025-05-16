@@ -33,14 +33,14 @@ export function FeaturedCarousel() {
       title: "Olympiad Training",
       description:
         "Expert coaching for Science, Math and other Olympiads to excel in national and international competitions.",
-      image: "/placeholder.svg?key=gas6p",
+      image: "/students/interactive-learning-1.jpeg",
       link: "/olympiad-programs",
     },
     {
       id: 4,
       title: "Class 4-12 Science Coaching",
       description: "Foundation and advanced courses for PCMB subjects for students from Class 4 to 12.",
-      image: "/placeholder.svg?key=hhbhd",
+      image: "/students/interactive-learning-1.jpeg",
       link: "/k12-science-coaching",
     },
   ]

@@ -18,7 +18,7 @@ export function OptimizedImage({
   alt,
   width,
   height,
-  fallbackSrc = "/placeholder.svg",
+  fallbackSrc = "/students/student-group-1.jpeg",
   aspectRatio,
   previewSrc,
   className,

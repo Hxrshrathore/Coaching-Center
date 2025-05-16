@@ -13,7 +13,7 @@ export function generateMetadata({
   title,
   description,
   path,
-  baseUrl = "https://ascentclasses.com",
+  baseUrl = "https://ascentcoachingclasses.com",
   ogImage = "/og-image.png",
   keywords = [],
 }: GenerateMetadataProps): Metadata {
@@ -36,7 +36,7 @@ export function generateMetadata({
       title,
       description,
       url: canonicalUrl,
-      siteName: "Ascent Classes",
+      siteName: "Ascent Coaching Classes",
       locale: "en_US",
       type: "website",
       images: [

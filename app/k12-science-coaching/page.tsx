@@ -12,13 +12,15 @@ import {
   GraduationCap,
   Microscope,
   Star,
-  Users,
+  Award,
+  Medal,
 } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
+import { Breadcrumbs } from "@/components/ui/breadcrumbs"
 
 export const metadata: Metadata = generatePageMetadata({
-  title: "K-12 Science Coaching | Ascent Classes",
+  title: "K-12 Science Coaching | Toppers Maker",
   description: "Foundation and advanced courses for PCMB subjects for students from Class 4 to 12.",
   keywords: [
     "k12 science coaching",
@@ -58,7 +60,7 @@ export default function K12ScienceCoaching() {
     {
       title: "Experienced Faculty",
       description: "Learn from subject matter experts with years of teaching experience",
-      icon: <Users className="h-6 w-6 text-blue-600" />,
+      icon: <Medal className="h-6 w-6 text-blue-600" />,
     },
     {
       title: "Comprehensive Study Material",
@@ -68,17 +70,17 @@ export default function K12ScienceCoaching() {
     {
       title: "Regular Assessments",
       description: "Periodic tests and detailed performance analysis",
-      icon: <CheckCircle className="h-6 w-6 text-blue-600" />,
+      icon: <Clock className="h-6 w-6 text-blue-600" />,
     },
     {
       title: "Doubt Clearing Sessions",
       description: "Dedicated sessions to resolve doubts and ensure concept clarity",
-      icon: <Clock className="h-6 w-6 text-blue-600" />,
+      icon: <CheckCircle className="h-6 w-6 text-blue-600" />,
     },
     {
       title: "Small Batch Sizes",
       description: "Limited students per batch ensuring personalized attention",
-      icon: <Users className="h-6 w-6 text-blue-600" />,
+      icon: <Award className="h-6 w-6 text-blue-600" />,
     },
     {
       title: "Flexible Schedule",
@@ -89,6 +91,15 @@ export default function K12ScienceCoaching() {
 
   return (
     <main className="pt-24">
+      <div className="container mx-auto px-4 py-4">
+        <Breadcrumbs
+          items={[
+            { name: "Home", href: "/" },
+            { name: "Programs", href: "/program-path" },
+            { name: "K-12 Science Coaching", href: "/k12-science-coaching" },
+          ]}
+        />
+      </div>
       {/* Hero Section */}
       <section className="w-full py-12 md:py-24 lg:py-32 bg-gradient-to-b from-blue-50 to-white dark:from-slate-900 dark:to-slate-800">
         <div className="container px-4 md:px-6">
@@ -200,7 +211,7 @@ export default function K12ScienceCoaching() {
             </div>
             <div className="flex flex-col gap-2 min-[400px]:flex-row">
               <Link href="/get-enrolled">
-                <Button size="lg" className="gap-1 bg-white text-blue-600 hover:bg-blue-50">
+                <Button size="lg" className="gap-1 bg-white text-blue-600 hover:bg-blue-50 hover:text-blue-700">
                   Enroll Now <ArrowRight className="h-4 w-4" />
                 </Button>
               </Link>
@@ -208,7 +219,7 @@ export default function K12ScienceCoaching() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-blue-200 text-blue-50 hover:bg-blue-700 hover:text-white"
+                  className="border-blue-200 text-white hover:bg-blue-700 hover:text-white"
                 >
                   Contact Us
                 </Button>

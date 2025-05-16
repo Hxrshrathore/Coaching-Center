@@ -6,9 +6,10 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight, Award, BookOpen, Calendar, CheckCircle, Clock, Medal, Star, Trophy } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
+import { Breadcrumbs } from "@/components/ui/breadcrumbs"
 
 export const metadata: Metadata = generatePageMetadata({
-  title: "Olympiad Programs | Ascent Classes",
+  title: "Olympiad Programs | Toppers Maker",
   description:
     "Specialized coaching for Science, Math and other Olympiads to excel in national and international competitions.",
   keywords: ["olympiad coaching", "math olympiad", "science olympiad", "olympiad preparation", "competitive exams"],
@@ -74,6 +75,15 @@ export default function OlympiadPrograms() {
 
   return (
     <main className="pt-24">
+      <div className="container mx-auto px-4 py-4">
+        <Breadcrumbs
+          items={[
+            { name: "Home", href: "/" },
+            { name: "Programs", href: "/program-path" },
+            { name: "Olympiad Programs", href: "/olympiad-programs" },
+          ]}
+        />
+      </div>
       {/* Hero Section */}
       <section className="w-full py-12 md:py-24 lg:py-32 bg-gradient-to-b from-blue-50 to-white dark:from-slate-900 dark:to-slate-800">
         <div className="container px-4 md:px-6">
@@ -185,7 +195,7 @@ export default function OlympiadPrograms() {
             </div>
             <div className="flex flex-col gap-2 min-[400px]:flex-row">
               <Link href="/get-enrolled">
-                <Button size="lg" className="gap-1 bg-white text-blue-600 hover:bg-blue-50">
+                <Button size="lg" className="gap-1 bg-white text-blue-600 hover:bg-blue-50 hover:text-blue-700">
                   Enroll Now <ArrowRight className="h-4 w-4" />
                 </Button>
               </Link>
@@ -193,7 +203,7 @@ export default function OlympiadPrograms() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-blue-200 text-blue-50 hover:bg-blue-700 hover:text-white"
+                  className="border-blue-200 text-white hover:bg-blue-700 hover:text-white"
                 >
                   Contact Us
                 </Button>

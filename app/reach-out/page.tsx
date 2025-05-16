@@ -705,11 +705,11 @@ export default function ReachOutPage() {
           </section>
 
           {/* CTA Section */}
-          <section className="w-full py-12 md:py-24 lg:py-32 bg-blue-600 text-white">
+          <section className="w-full py-12 md:py-24 lg:py-32 bg-blue-600">
             <div className="container px-4 md:px-6">
               <div className="flex flex-col items-center justify-center space-y-4 text-center">
                 <div className="space-y-2">
-                  <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+                  <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-white">
                     Ready to Begin Your Success Journey?
                   </h2>
                   <p className="max-w-[900px] text-blue-100 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
@@ -719,7 +719,7 @@ export default function ReachOutPage() {
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
                   <Link href="/get-enrolled">
-                    <Button size="lg" className="gap-1 bg-white text-blue-600 hover:bg-blue-50">
+                    <Button size="lg" className="gap-1 bg-white text-blue-600 hover:bg-blue-50 hover:text-blue-700">
                       Enroll Now <ArrowRight className="h-4 w-4" />
                     </Button>
                   </Link>
@@ -727,7 +727,7 @@ export default function ReachOutPage() {
                     <Button
                       size="lg"
                       variant="outline"
-                      className="border-blue-200 text-blue-400 hover:bg-blue-700 hover:text-white"
+                      className="border-blue-200 text-white hover:bg-blue-700 hover:text-white"
                     >
                       Contact Us
                     </Button>

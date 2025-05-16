@@ -1,10 +1,10 @@
 "use client"
 
 import { useEffect } from "react"
-import ScholarshipTest from "@/components/scholarship/scholarship-test"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { AlertTriangle, Award, CheckCircle, Clock, FileText, Star, Users } from "lucide-react"
 import Link from "next/link"
+import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import Image from "next/image"
@@ -17,13 +17,13 @@ export function ScholarshipTestPage() {
   }, [])
 
   return (
-    <main className="container mx-auto px-4 py-8 pt-24">
+    <main className="container mx-auto px-4 py-8">
       {/* Hero Section */}
       <section className="max-w-6xl mx-auto mb-12">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div>
             <h1 className="text-4xl md:text-5xl font-bold mb-4 text-primary">Scholarship Cum Aptitude Test</h1>
-            <p className="text-xl mb-6 text-gray-700 dark:text-gray-300">
+            <p className="text-xl mb-6 text-gray-700">
               Take our comprehensive aptitude test to qualify for scholarships up to 100% on our premium courses for
               JEE, NEET, Olympiads, and K12 subjects.
             </p>
@@ -48,6 +48,11 @@ export function ScholarshipTestPage() {
                 and may affect your test validity.
               </AlertDescription>
             </Alert>
+            <Link href="/scholarship-test/form">
+              <Button size="lg" className="bg-primary hover:bg-primary/90 text-white">
+                Start Scholarship Test
+              </Button>
+            </Link>
           </div>
           <div className="relative h-64 md:h-80 rounded-lg overflow-hidden shadow-xl">
             <Image
@@ -107,7 +112,7 @@ export function ScholarshipTestPage() {
       </section>
 
       {/* Scholarship Tiers */}
-      <section className="max-w-6xl mx-auto mb-12 bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+      <section className="max-w-6xl mx-auto mb-12 bg-gray-50 p-6 rounded-lg">
         <h2 className="text-3xl font-bold mb-6 text-center">Scholarship Tiers</h2>
         <div className="overflow-x-auto">
           <table className="w-full border-collapse">
@@ -119,22 +124,22 @@ export function ScholarshipTestPage() {
               </tr>
             </thead>
             <tbody>
-              <tr className="border-b border-gray-200 dark:border-gray-700">
+              <tr className="border-b border-gray-200">
                 <td className="p-3">90% and above</td>
                 <td className="p-3 font-semibold">100% scholarship</td>
                 <td className="p-3">All courses</td>
               </tr>
-              <tr className="border-b border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-700">
+              <tr className="border-b border-gray-200 bg-gray-100">
                 <td className="p-3">80% - 89%</td>
                 <td className="p-3 font-semibold">75% scholarship</td>
                 <td className="p-3">All courses</td>
               </tr>
-              <tr className="border-b border-gray-200 dark:border-gray-700">
+              <tr className="border-b border-gray-200">
                 <td className="p-3">70% - 79%</td>
                 <td className="p-3 font-semibold">50% scholarship</td>
                 <td className="p-3">All courses</td>
               </tr>
-              <tr className="border-b border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-700">
+              <tr className="border-b border-gray-200 bg-gray-100">
                 <td className="p-3">60% - 69%</td>
                 <td className="p-3 font-semibold">25% scholarship</td>
                 <td className="p-3">Selected courses</td>
@@ -227,7 +232,7 @@ export function ScholarshipTestPage() {
                   <Image src="/student-testimonial-1.png" alt="Rahul Sharma" fill className="object-cover" />
                 </div>
                 <h3 className="text-xl font-semibold mb-1">Rahul Sharma</h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">90% Scholarship Winner</p>
+                <p className="text-sm text-gray-500 mb-3">90% Scholarship Winner</p>
                 <p className="italic">
                   "The scholarship test helped me secure a 90% scholarship for JEE coaching. The questions were
                   challenging but fair, and I'm grateful for this opportunity."
@@ -242,7 +247,7 @@ export function ScholarshipTestPage() {
                   <Image src="/student-testimonial-2.png" alt="Priya Patel" fill className="object-cover" />
                 </div>
                 <h3 className="text-xl font-semibold mb-1">Priya Patel</h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">75% Scholarship Winner</p>
+                <p className="text-sm text-gray-500 mb-3">75% Scholarship Winner</p>
                 <p className="italic">
                   "I was nervous about taking the test, but the interface was user-friendly. I secured a 75% scholarship
                   for NEET coaching, which has been life-changing."
@@ -257,7 +262,7 @@ export function ScholarshipTestPage() {
                   <Image src="/student-testimonial-3.png" alt="Arjun Kumar" fill className="object-cover" />
                 </div>
                 <h3 className="text-xl font-semibold mb-1">Arjun Kumar</h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">100% Scholarship Winner</p>
+                <p className="text-sm text-gray-500 mb-3">100% Scholarship Winner</p>
                 <p className="italic">
                   "I couldn't believe I scored 100% scholarship! The test was comprehensive and really tested my
                   knowledge. Now I'm pursuing my dream of becoming a doctor."
@@ -328,25 +333,18 @@ export function ScholarshipTestPage() {
             to quality education at reduced costs.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link
-              href="#scholarship-test-form"
-              className="bg-primary text-white px-6 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors"
-            >
-              Take the Test Now
+            <Link href="/scholarship-test/form">
+              <Button size="lg" className="bg-primary hover:bg-primary/90 text-white">
+                Take the Test Now
+              </Button>
             </Link>
-            <Link
-              href="/contact"
-              className="bg-white text-primary border border-primary px-6 py-3 rounded-md font-medium hover:bg-gray-50 transition-colors"
-            >
-              Contact for Queries
+            <Link href="/contact">
+              <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10">
+                Contact for Queries
+              </Button>
             </Link>
           </div>
         </div>
-      </section>
-
-      {/* Test Form Section */}
-      <section id="scholarship-test-form" className="max-w-4xl mx-auto">
-        <ScholarshipTest />
       </section>
 
       {/* Schema.org structured data for SEO */}

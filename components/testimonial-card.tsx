@@ -33,7 +33,7 @@ export default function TestimonialCard({ name, role, testimonial, imageSrc, cla
             {imageSrc ? (
               <div className="overflow-hidden rounded-full">
                 <Image
-                  src={imageSrc || "/placeholder.svg"}
+                  src={imageSrc || "/students/student-group-1.jpeg"}
                   alt={name}
                   width={48}
                   height={48}

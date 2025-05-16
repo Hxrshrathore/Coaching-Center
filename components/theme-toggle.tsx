@@ -1,43 +1,31 @@
 "use client"
 
-import * as React from "react"
+import { useState, useEffect } from "react"
 import { useTheme } from "next-themes"
-import { Moon, Sun } from "lucide-react"
+import { Sun, Moon } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 export function ThemeToggle() {
-  const [mounted, setMounted] = React.useState(false)
-  const { resolvedTheme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+  const { theme, setTheme } = useTheme()
 
-  // Only show the toggle after mounting to prevent hydration mismatch
-  React.useEffect(() => {
+  useEffect(() => {
     setMounted(true)
-    console.log("Theme toggle mounted, resolved theme:", resolvedTheme)
-  }, [resolvedTheme])
+  }, [])
 
-  // Simple direct toggle function
-  const toggleTheme = React.useCallback(() => {
-    const newTheme = resolvedTheme === "dark" ? "light" : "dark"
-    console.log(`Toggling theme from ${resolvedTheme} to ${newTheme}`)
-    setTheme(newTheme)
-  }, [resolvedTheme, setTheme])
-
-  // Don't render anything until mounted
   if (!mounted) {
-    return <div className="w-10 h-10"></div>
+    return null
   }
 
   return (
-    <button
-      onClick={toggleTheme}
-      className="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center transition-colors duration-200 border border-gray-300 dark:border-gray-600 hover:bg-gray-300 dark:hover:bg-gray-600 shadow-md"
-      aria-label={resolvedTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-      type="button"
+    <Button
+      variant="outline"
+      size="icon"
+      onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+      className="bg-transparent hover:bg-secondary text-secondary-foreground"
     >
-      {resolvedTheme === "dark" ? (
-        <Sun className="h-5 w-5 text-yellow-400" />
-      ) : (
-        <Moon className="h-5 w-5 text-gray-700" />
-      )}
-    </button>
+      {theme === "light" ? <Moon className="h-[1.2rem] w-[1.2rem]" /> : <Sun className="h-[1.2rem] w-[1.2rem]" />}
+      <span className="sr-only">Toggle theme</span>
+    </Button>
   )
 }

@@ -5,7 +5,6 @@ import Link from "next/link"
 import Image from "next/image"
 import { Menu, X, ChevronDown, ChevronUp } from "lucide-react"
 import { useMobile } from "@/hooks/use-mobile"
-import { VanillaThemeToggle } from "@/components/vanilla-theme-toggle"
 import { cn } from "@/lib/utils"
 
 export function Navbar() {
@@ -101,6 +100,11 @@ export function Navbar() {
       name: "Scholarship Test",
       href: "/scholarship-test",
     },
+    {
+      name: "Student Life",
+      href: "/student-life",
+    },
+    { name: "Brand Kit", href: "/brand-kit" },
   ]
 
   return (
@@ -108,35 +112,34 @@ export function Navbar() {
       ref={headerRef}
       className={cn(
         "fixed w-full z-50 transition-all duration-300",
-        scrolled
-          ? "bg-white/95 dark:bg-slate-900/95 shadow-lg py-2"
-          : "bg-white/80 dark:bg-slate-900/80 backdrop-blur-md py-4",
+        scrolled ? "bg-white/95 shadow-lg py-2" : "bg-white/80 backdrop-blur-md py-4",
       )}
     >
       {/* Scroll Progress Bar */}
       <div
-        className="absolute top-0 left-0 h-1 bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-500 dark:to-indigo-500 transition-all duration-300"
+        className="absolute top-0 left-0 h-1 bg-gradient-to-r from-blue-600 to-indigo-600 transition-all duration-300"
         style={{ width: `${scrollProgress}%` }}
         aria-hidden="true"
       />
 
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 py-1.5">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <Link href="/" className="flex items-center group relative overflow-hidden" aria-label="Ascent Classes Home">
+          <Link
+            href="/"
+            className="flex items-center group relative overflow-hidden p-1.5"
+            aria-label="Ascent Coaching Classes Home"
+          >
             <div className="relative z-10 flex items-center">
               <Image
                 src="/headlogo.png"
-                alt="Ascent Classes Logo"
-                width={50}
-                height={50}
+                alt="Ascent Coaching Classes Logo"
+                width={90}
+                height={90}
                 className="transition-transform duration-300 group-hover:scale-110"
               />
-              <span className="ml-2 font-bold text-lg text-gray-800 dark:text-white hidden sm:block">
-                Ascent Classes
-              </span>
             </div>
-            <div className="absolute inset-0 bg-blue-100 dark:bg-blue-900/30 rounded-full scale-0 group-hover:scale-100 transition-transform duration-300 -z-10"></div>
+            <div className="absolute inset-0 bg-blue-100 rounded-full scale-0 group-hover:scale-100 transition-transform duration-300 -z-10"></div>
           </Link>
 
           {/* Desktop Navigation */}
@@ -146,20 +149,20 @@ export function Navbar() {
                 return (
                   <div key={link.name} className="relative group">
                     <button
-                      className="px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 rounded-md flex items-center space-x-1 group relative"
+                      className="px-3 py-2 text-gray-700 hover:text-indigo-600 rounded-md flex items-center space-x-1 group relative"
                       aria-expanded={activeSubmenu === link.name}
                       aria-haspopup="true"
                     >
                       <span>{link.name}</span>
                       <ChevronDown className="h-4 w-4 transition-transform group-hover:rotate-180" />
-                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-600 dark:bg-indigo-400 group-hover:w-full transition-all duration-300"></span>
+                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-600 group-hover:w-full transition-all duration-300"></span>
                     </button>
-                    <div className="absolute left-0 mt-1 w-56 bg-white dark:bg-slate-800 rounded-md shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 border border-gray-100 dark:border-gray-700 overflow-hidden">
+                    <div className="absolute left-0 mt-1 w-56 bg-white rounded-md shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 border border-gray-100 overflow-hidden">
                       {link.submenu.map((sublink) => (
                         <Link
                           key={sublink.name}
                           href={sublink.href}
-                          className="block px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-150"
+                          className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors duration-150"
                         >
                           {sublink.name}
                         </Link>
@@ -172,18 +175,17 @@ export function Navbar() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 rounded-md relative group"
+                  className="px-3 py-2 text-gray-700 hover:text-indigo-600 rounded-md relative group"
                 >
                   <span>{link.name}</span>
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-600 dark:bg-indigo-400 group-hover:w-full transition-all duration-300"></span>
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-600 group-hover:w-full transition-all duration-300"></span>
                 </Link>
               )
             })}
           </div>
 
-          {/* Desktop CTA and Theme Toggle */}
+          {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-4">
-            <VanillaThemeToggle />
             <Link
               href="/get-enrolled"
               className="bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white px-5 py-2 rounded-md transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
@@ -193,13 +195,9 @@ export function Navbar() {
           </div>
 
           {/* Mobile Navigation Toggle */}
-          <div className="md:hidden flex items-center gap-3">
-            <VanillaThemeToggle />
+          <div className="md:hidden flex items-center gap-4">
             <button
-              className={cn(
-                "text-gray-700 dark:text-gray-200 p-1.5 rounded-md transition-colors",
-                isOpen ? "bg-gray-100 dark:bg-slate-800" : "",
-              )}
+              className={cn("text-gray-700 p-1.5 rounded-md transition-colors", isOpen ? "bg-gray-100" : "")}
               onClick={toggleMenu}
               aria-expanded={isOpen}
               aria-label={isOpen ? "Close menu" : "Open menu"}
@@ -212,7 +210,7 @@ export function Navbar() {
         {/* Mobile Navigation Menu */}
         {isOpen && isMobile && (
           <div className="md:hidden mt-4 pb-4 animate-in slide-in-from-top duration-300">
-            <div className="flex flex-col space-y-1 bg-gray-50 dark:bg-slate-800/50 rounded-lg p-2">
+            <div className="flex flex-col space-y-1 bg-gray-50 rounded-lg p-2">
               {navLinks.map((link) => {
                 if (link.submenu) {
                   const isActive = activeSubmenu === link.name
@@ -221,20 +219,20 @@ export function Navbar() {
                       <button
                         onClick={() => toggleSubmenu(link.name)}
                         className={cn(
-                          "w-full px-3 py-2.5 text-left text-gray-700 dark:text-gray-200 font-medium rounded-md flex justify-between items-center",
-                          isActive ? "bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400" : "",
+                          "w-full px-3 py-2.5 text-left text-gray-700 font-medium rounded-md flex justify-between items-center",
+                          isActive ? "bg-indigo-50 text-indigo-600" : "",
                         )}
                       >
                         <span>{link.name}</span>
                         {isActive ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
                       </button>
                       {isActive && (
-                        <div className="pl-4 space-y-1 border-l-2 border-indigo-200 dark:border-indigo-800 ml-3">
+                        <div className="pl-4 space-y-1 border-l-2 border-indigo-200 ml-3">
                           {link.submenu.map((sublink) => (
                             <Link
                               key={sublink.name}
                               href={sublink.href}
-                              className="block px-3 py-2 text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 rounded-md text-sm"
+                              className="block px-3 py-2 text-gray-600 hover:text-indigo-600 rounded-md text-sm"
                               onClick={toggleMenu}
                             >
                               {sublink.name}
@@ -249,7 +247,7 @@ export function Navbar() {
                   <Link
                     key={link.name}
                     href={link.href}
-                    className="px-3 py-2.5 text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-md"
+                    className="px-3 py-2.5 text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 rounded-md"
                     onClick={toggleMenu}
                   >
                     {link.name}

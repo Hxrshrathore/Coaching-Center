@@ -1,7 +1,8 @@
 import type { Metadata } from "next"
-import ScholarshipTest from "@/components/scholarship/scholarship-test"
 import { ScholarshipPageContent } from "./scholarship-page-content"
 import { Toaster } from "@/components/ui/toaster"
+import { Breadcrumbs } from "@/components/ui/breadcrumbs"
+import { ScholarshipTestPage as ScholarshipTestClientPage } from "./scholarship-test-client"
 
 export const metadata: Metadata = {
   title: "Scholarship Cum Aptitude Test | Win Up to 100% Scholarship | Ascent Classes",
@@ -20,8 +21,15 @@ export const metadata: Metadata = {
 
 export default function ScholarshipTestPage() {
   return (
-    <main className="container mx-auto px-4 py-12">
-      <ScholarshipTest />
+    <main className="container mx-auto px-4 py-12 pt-28">
+      <Breadcrumbs
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Scholarship Test", href: "/scholarship-test" },
+        ]}
+        className="mb-6"
+      />
+      <ScholarshipTestClientPage />
       <ScholarshipPageContent />
       <Toaster />
     </main>

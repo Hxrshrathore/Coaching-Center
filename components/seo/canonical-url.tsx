@@ -8,7 +8,7 @@ interface CanonicalURLProps {
   path?: string
 }
 
-export function CanonicalURL({ baseUrl = "https://ascentclasses.com", path }: CanonicalURLProps) {
+export function CanonicalURL({ baseUrl = "https://ascentcoachingclasses.com", path }: CanonicalURLProps) {
   const pathname = usePathname()
   const [mounted, setMounted] = useState(false)
 

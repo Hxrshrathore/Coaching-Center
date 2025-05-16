@@ -3,6 +3,7 @@ import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { FadeIn } from "@/components/animations/fade-in"
+import { Breadcrumbs } from "@/components/ui/breadcrumbs"
 
 export const metadata: Metadata = {
   title: "Terms of Service | Ascent Coaching Classes",
@@ -20,6 +21,14 @@ export const metadata: Metadata = {
 export default function TermsOfService() {
   return (
     <main className="min-h-screen bg-white">
+      <div className="container mx-auto px-4 py-4 pt-28">
+        <Breadcrumbs
+          items={[
+            { name: "Home", href: "/" },
+            { name: "Terms of Service", href: "/terms-of-service" },
+          ]}
+        />
+      </div>
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-blue-50 via-white to-blue-50 py-12 md:py-16">
         <div className="container mx-auto px-4">
@@ -141,7 +150,7 @@ export default function TermsOfService() {
               <h2>12. Contact Information</h2>
               <p>If you have any questions about these Terms, please contact us at:</p>
               <p>
-                Email: legal@ascentclasses.com
+                Email: legal@ascentcoachingclasses.com
                 <br />
                 Phone: +91 98765 43210
                 <br />

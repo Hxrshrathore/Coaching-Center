@@ -28,7 +28,7 @@ export default function JEEPrograms() {
       title: "Study Material",
       description: "Comprehensive books and online resources",
     },
-    { icon: <Users className="h-5 w-5" />, title: "Batch Size", description: "Limited to 30 students per batch" },
+    { icon: <Users className="h-5 w-5" />, title: "Batch Size", description: "Limited to 10 students per batch" },
   ]
 
   // Course modules
@@ -327,12 +327,16 @@ export default function JEEPrograms() {
                 </h2>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link href="/get-enrolled?program=jee">
-                    <Button size="lg" className="gap-1 bg-white text-blue-600 hover:bg-blue-50">
+                    <Button size="lg" className="gap-1 bg-white text-blue-600 hover:bg-blue-50 hover:text-blue-700">
                       Enroll Now <ArrowRight className="h-4 w-4" />
                     </Button>
                   </Link>
                   <Link href="/reach-out">
-                    <Button size="lg" variant="outline" className="border-blue-200 text-white hover:bg-blue-700">
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      className="border-blue-200 text-white hover:bg-blue-700 hover:text-white"
+                    >
                       Contact Us
                     </Button>
                   </Link>
